@@ -4,7 +4,7 @@ Please check that the target branch %{target_branch} is correct and adjust accor
 what are you changing and why. (Issue reference works too)
 
 - [ ] I have written automated tests for this change
-- [ ] I have updated documentation as needed
+- [ ] I have updated documentation as needed (can be found in /docs folder)
 - [ ] I have let someone review my code and solved all the threads
 
 <!-- 
