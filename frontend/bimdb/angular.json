@@ -107,13 +107,45 @@
               "src/**/*.html"
             ]
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "bimdb:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "bimdb:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "bimdb:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "bimdb:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
     "schematicCollections": [
-      "@angular-eslint/schematics"
+      "@angular-eslint/schematics",
+      "@schematics/angular"
     ]
   }
 }
