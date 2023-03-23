@@ -1,0 +1,162 @@
+stages:
+  - build
+  - lint
+  - test
+  - reporting
+  - package
+  - deploy
+
+variables:
+  # == SAST Variables ==
+  # SCAN_KUBERNETES_MANIFESTS: "true"
+  SEARCH_MAX_DEPTH: 10
+  SAST_SEMGREP_METRICS: "false"
+  # == Secret Detection Variables ==
+  SECRET_DETECTION_EXCLUDED_PATHS: ${SAST_EXCLUDED_PATHS}
+
+  # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
+  # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
+  # For further reference see: https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Maven.gitlab-ci.yml
+  MAVEN_OPTS: >-
+    -Dhttps.protocols=TLSv1.2
+    -Dmaven.repo.local=.m2/repository
+    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN
+    -Dorg.slf4j.simpleLogger.showDateTime=true
+    -Djava.awt.headless=true
+  MAVEN_CLI_OPTS: >-
+    --batch-mode
+    --errors
+    --fail-at-end
+    --show-version
+    -DinstallAtEnd=true
+    -DdeployAtEnd=true
+
+default:
+  tags:
+    - pm4-runner-1
+
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .m2/repository
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
+secret_detection:
+  artifacts:
+    paths:
+      - gl-secret-detection-report.json
+    when: always
+
+secret_report:
+  stage: reporting
+  image:
+    name: angrymeir/secscanner2junit:latest
+    entrypoint: [""]
+  dependencies:
+    - secret_detection
+  needs:
+    - secret_detection
+  script:
+    - ss2ju secrets gl-secret-detection-report.json gl-secret-detection-report.xml
+  artifacts:
+    reports:
+      junit: gl-secret-detection-report.xml
+
+semgrep-sast:
+  after_script:
+    - cp gl-sast-report.json gl-sast-semgrep-report.json
+  artifacts:
+    paths:
+      - gl-sast-semgrep-report.json
+    when: always
+
+semgrep_sast_report:
+  stage: reporting
+  image:
+    name: angrymeir/secscanner2junit:latest
+    entrypoint: [""]
+  dependencies:
+    - semgrep-sast
+  needs:
+    - semgrep-sast
+  script:
+    - ss2ju sast gl-sast-semgrep-report.json gl-sast-semgrep-report.xml
+  artifacts:
+    reports:
+      junit: gl-sast-semgrep-report.xml
+
+backend-build:
+  image: maven:3.8-openjdk-17
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS compile -f "backend/bimdb/pom.xml"
+
+backend-test:
+  image: maven:3.8-openjdk-17
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS test -f "backend/bimdb/pom.xml"
+  artifacts:
+    reports:
+      junit:
+        - "backend/bimdb/**/target/*-reports/TEST-*.xml"
+
+backend-package:
+  image: maven:3.8-openjdk-17
+  stage: package
+  script:
+    - mvn $MAVEN_CLI_OPTS verify -f "backend/bimdb/pom.xml"
+  artifacts:
+    name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+    paths:
+      - "backend/bimdb/**/target"
+  only:
+    - tags
+  except:
+    - branches
+
+frontend-lint:
+  image: timbru31/node-chrome:hydrogen-alpine
+  before_script:
+    - cd frontend/bimdb/
+    - npm ci --cache .npm --prefer-offline
+  stage: lint
+  script:
+    - npm run lint
+
+frontend-test:
+  image: timbru31/node-chrome:hydrogen-alpine
+  before_script:
+    - export CHROME_BIN=/usr/bin/chromium-browser
+    - cd frontend/bimdb/
+    - npm ci --cache .npm --prefer-offline
+  stage: test
+  script:
+    # Run Headless Chrome needs a node-chrome image and passing of parameters
+    - npm run test:ci
+  # Once Karma JUnit Reports are available:
+  # artifacts:
+  #   reports:
+  #     junit: "frontend/bimdb/**/report.xml"
+
+pages:
+  stage: deploy
+  image:
+    name: squidfunk/mkdocs-material
+    entrypoint: [""]
+  script:
+    - mkdocs build --verbose --config-file mkdocs.yml --site-dir public
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: Wiki
+    url: "https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/"
+  only:
+    - main
+    - development
