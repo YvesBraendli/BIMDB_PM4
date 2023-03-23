@@ -1,0 +1,16 @@
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - toc
+  - attr_list
+  - footnotes
+site_name: BIMDB Dokumentation
+theme:
+  name: material
+  features:
+      - navigation.instant
+  palette:
+      primary: teal
+      accent: deep blue
+repo_url: https://gitlab.com/gabrielbenabou/bimdb/
+copyright: Copyright &copy; 2023 - DebugDemons @ ZHAW SoE
