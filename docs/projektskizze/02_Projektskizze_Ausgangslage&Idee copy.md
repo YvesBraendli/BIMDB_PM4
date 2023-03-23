@@ -1,4 +1,4 @@
-#Ausgangslage und Idee
+# 2. Ausgangslage und Idee
 
 Filme und Serien zu schauen war noch nie so einfach wie heute. Plattformen wie Netflix überschwemmen uns mit ständig neuen Produktionen, die bequem über eine App online gestreamt werden können. Dabei fällt jedoch auf, dass bei einer solchen Vielfalt von Filmen und Serien man leicht den Überblick verlieren kann. Sicherlich kennen viele auch das Bedürfnis, ihren Freunden auf Social Media von einem neu entdeckten Film oder einer Serie zu berichten, die sie gerade gesehen haben. Vielleicht möchte man sich auch bestimmte Notizen zum Film machen, wie zum Beispiel was einem besonders gefallen hat oder an welcher Stelle man aufgehört hat zu schauen.
 
