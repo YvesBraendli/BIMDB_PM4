@@ -1,4 +1,4 @@
-# 5. Kontextszenario (Hauptablauf)
+# Kontextszenario (Hauptablauf)
 
 Peter Lustig, 39 Jahre alt, ist Architekt und ein grosser Filmenthusiast. Nach einem anstrengenden Tag in der Arbeit freut er sich darauf, den Abend mit einem spannenden Film oder einer fesselnden Serie zu verbringen. Um sich über die neuesten Filme und Serien auf dem Laufenden zu halten, verwendet Peter die App BIMDb.
 

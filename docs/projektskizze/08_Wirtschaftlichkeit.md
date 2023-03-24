@@ -1,4 +1,4 @@
-# 8. Wirtschaftlichkeit
+# Wirtschaftlichkeit
 
 Die BIMDb-App bietet ein nachhaltiges und wirtschaftliches Geschäftsmodell, das auf der aktiven Community-Pflege und der Erschliessung mehrerer Einnahmequellen basiert. Hier ist ein Business Case, der die verschiedenen Aspekte der Wirtschaftlichkeit des Projekts hervorhebt:
 

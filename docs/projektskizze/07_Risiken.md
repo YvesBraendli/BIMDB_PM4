@@ -1,4 +1,4 @@
-# 7. Risiken
+# Risiken
 
 Krankheit oder Ausfall von Teammitgliedern:
 Um das Risiko von Arbeitsausfällen aufgrund von Krankheiten oder anderen unvorhergesehenen Umständen zu minimieren, wird darauf geachtet, dass die Aufgaben und Zuständigkeiten innerhalb des Teams gut dokumentiert sind. Zudem wird die Zusammenarbeit und der Wissensaustausch zwischen den Teammitgliedern gefördert, um die Abhängigkeit von einzelnen Personen zu verringern.
