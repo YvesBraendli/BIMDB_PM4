@@ -1,4 +1,4 @@
-# 3. Stand der Technik und Konkurrenzanalyse
+# Stand der Technik und Konkurrenzanalyse
 
 Die oben beschriebene App ist zwar keine revolutionäre Neuentwicklung, dennoch hebt sie sich durch ihre individuellen Anpassungsmöglichkeiten und die Anbindung an bestehende Systeme und Social-Media-Plattformen von der Konkurrenz ab. Zudem basiert unsere App auf der API einer etablierten Filmdatenbank, was für eine solide Grundlage und stets aktuelle Informationen sorgt.
 
