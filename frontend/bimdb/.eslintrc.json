@@ -38,12 +38,27 @@
           }
         ],
         "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-member-accessibility": "error",
         "quotes": [
           "error",
-          "single"
+          "single",
+          {
+            "allowTemplateLiterals": true
+          }
         ],
         "eol-last": "error",
-        "eqeqeq": "error"
+        "eqeqeq": "error",
+        "no-trailing-spaces": "error",
+        "no-unused-expressions": "error",
+        "no-var": "error",
+        "no-debugger": "error",
+        "arrow-spacing": "error",
+        "indent": [
+          "error",
+          "tab"
+        ],
+        "brace-style": "error",
+				"semi": "error"
       }
     },
     {

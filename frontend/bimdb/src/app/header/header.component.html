@@ -1,0 +1,20 @@
+<header>
+	<a [routerLink]="['/']">
+		<h1>BIMDB</h1>
+	</a>
+
+	<a [routerLink]="['/movies']">{{'movies' | translate}}</a>
+	<a [routerLink]="['/tv-shows']">{{'tvShows' | translate}}</a>
+
+	<app-header-search></app-header-search>
+
+	<div id="lang-wrapper">
+		<span class="material-icons">language</span>
+		<select id="language-select" [value]="language" (change)="changeLanguage($event)">
+			<option value="en">{{'language.english' | translate}}</option>
+			<option value="de">{{'language.german' | translate}}</option>
+		</select>
+	</div>
+
+	<a>{{'login' | translate}} </a>
+</header>

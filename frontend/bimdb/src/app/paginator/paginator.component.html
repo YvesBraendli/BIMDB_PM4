@@ -1,0 +1,23 @@
+<div id="paginator-wrapper">
+	<button [disabled]="firstPage" type="button" (click)="goToFirstPage()">
+		<span class="material-icons">first_page</span>
+	</button>
+	<button [disabled]="firstPage" type="button" (click)="goToPreviousPage()">
+		<span class="material-icons">navigate_before</span>
+	</button>
+	<div>
+		{{'paginator.page' | translate}}
+		<input type="number"
+			   [min]="1"
+			   [max]="totalPages"
+			   [value]="page"
+			   (input)="goToPage($event)"/>
+		{{'paginator.of' | translate: {totalPages} }}
+	</div>
+	<button [disabled]="lastPage" type="button" (click)="goToNextPage()">
+		<span class="material-icons">navigate_next</span>
+	</button>
+	<button [disabled]="lastPage" type="button" (click)="goToLastPage()">
+		<span class="material-icons">last_page</span>
+	</button>
+</div>

@@ -1,0 +1,18 @@
+{
+	"language": {
+		"english": "Englisch",
+		"german": "Deutsch"
+	},
+	"login": "Anmelden",
+	"movies": "Filme",
+	"tvShows": "Serien",
+	"paginator": {
+		"of": "von {{totalPages}}",
+		"page": "Seite"
+	},
+	"search": "Suchen",
+	"notFound": {
+		"title": "404 nicht gefunden",
+		"desc": "Die angeforderte Seite wurde nicht gefunden."
+	}
+}
