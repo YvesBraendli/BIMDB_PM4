@@ -139,10 +139,9 @@ frontend-test:
   script:
     # Run Headless Chrome needs a node-chrome image and passing of parameters
     - npm run test:ci
-  # Once Karma JUnit Reports are available:
-  # artifacts:
-  #   reports:
-  #     junit: "frontend/bimdb/**/report.xml"
+  artifacts:
+    reports:
+      junit: "frontend/bimdb/junit/report.xml"
 
 pages:
   stage: deploy

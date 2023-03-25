@@ -1,0 +1,73 @@
+header {
+    align-items: center;
+    background: linear-gradient(to right, #3f51b5, #009688);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    padding: 0 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    h1 {
+        margin: 0;
+    }
+
+    a {
+        box-shadow: inset 0 0 white;
+		color: inherit;
+		cursor: pointer;
+        display: block;
+        font-size: 1.25rem;
+        line-height: 4.5rem;
+        padding: 0 1rem;
+		text-decoration: none;
+        transition: box-shadow 250ms;
+
+        &:hover {
+            box-shadow: inset 0 -4px white;
+        }
+    }
+
+    #lang-wrapper {
+        position: relative;
+
+        span:first-child {
+            line-height: 3rem;
+            position: absolute;
+            right: 1.5rem;
+            top: 0;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            color: white;
+            display: block;
+            font-family: inherit;
+            font-size: 1rem;
+            height: 3rem;
+            outline: none;
+            margin-right: 1rem;
+            padding: 0 2.5rem 0 1rem;
+            transition: border-color 250ms, box-shadow 250ms;
+
+            option {
+                color: black;
+            }
+
+            &:hover,
+            &:focus {
+                border-color: white;
+                box-shadow: 0 0 2px white;
+            }
+        }
+    }
+
+    app-header-search {
+        margin-left: auto;
+    }
+}
