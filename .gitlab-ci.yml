@@ -142,6 +142,9 @@ frontend-test:
   artifacts:
     reports:
       junit: "frontend/bimdb/junit/report.xml"
+      coverage_report:
+        coverage_format: cobertura
+        path: "frontend/bimdb/coverage/bimdb/cobertura-coverage.xml"
 
 pages:
   stage: deploy
