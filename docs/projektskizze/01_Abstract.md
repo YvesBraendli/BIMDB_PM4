@@ -2,4 +2,6 @@
 
 ![Banner](../assets/img/BIMDB_Icon.png) 
 
-Die Better Internet Movie Datenbank (kurz: BIMDb) stellt eine umfassende **Filmdatenbank** bereit, die auf der bekannten IMDb-Website basiert und deren Inhalte über eine Schnittstelle bezieht. Mithilfe **benutzerfreundlicher Such- und Filterfunktionen** lassen sich Filme schnell und einfach finden oder Neues entdecken. Die App bietet unter anderem **personalisierte Empfehlungen**, eine **Watchlist** und eine **Bewertungsfunktion**. Nutzer haben zudem die Möglichkeit, ihre Lieblingsfilme auf Social-Media-Plattformen zu teilen.
+Die Better Internet Movie Datenbank (kurz: BIMDb) ist eine **Filmdatenbank**, die über einen Internetbrowser aufgerufen werden kann. Sämtliche Informationen zu den Filmen werden über eine Schnittstelle der bekannten IMDb-Website bezogen [^1]. Mithilfe von **benutzerfreundlichen Such- und Filterfunktionen** können bekannte aber auch unbekannte Filme schnell und einfach entdeckt werden. BIMDb bietet darüber hinaus **personalisierte Empfehlungen**, eine **Watchlist**, eine **Bewertungsfunktion** und **Social-Media-Anbindung**. Mit diesen und weiteren Funktionen, welche den Filmgenuss unterstützen, definiert BIMDb das Filmvergnügen neu.
+
+[^1] Internet Movie Database [Online] https://www.imdb.com/
