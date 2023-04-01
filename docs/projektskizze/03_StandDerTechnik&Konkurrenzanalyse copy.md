@@ -1,9 +1,15 @@
 # Stand der Technik und Konkurrenzanalyse
 
-Die oben beschriebene App ist zwar keine revolutionäre Neuentwicklung, dennoch hebt sie sich durch ihre individuellen Anpassungsmöglichkeiten und die Anbindung an bestehende Systeme und Social-Media-Plattformen von der Konkurrenz ab. Zudem basiert unsere App auf der API einer etablierten Filmdatenbank, was für eine solide Grundlage und stets aktuelle Informationen sorgt.
+Am Markt bestehen bereits zahlreiche Bewertungsportal wie beispielsweise Rotten Tomatoes, IMDB oder Metacritic. Die Portale sind gut organisiert und bieten einen raschen Überblick über Filme und Serien und der Konsumentenbewertung. Die Bewertungen, teilweise in Punkten, teilweise in Prozent, sind einfach zu interpretieren und können miteiander verglichen werden [^1].
 
-Zugeschnitten auf das Angebot der Unterhaltungsindustrie gibt es bereits zahlreiche Apps und Plattformen, die sich auf die Bewertung von beispielsweise Filmen und Serien konzentrieren. Einige der bekanntesten Anbieter sind IMDb, Letterboxd und Trakt.tv. Diese Plattformen bieten Funktionen wie Bewertungen, Rezensionen, personalisierte Empfehlungen und das Verfolgen des eigenen Film- und Serienkonsums an.
+Probleme gibt es dort wo Bewertungen breit gestreut sind. Die Durchschnittsbewertung neigt dazu, das Wahrnehmungsbild zu verfälschen. Komplexe Kritiken einzelner Konsumenten gehen unter [^1].
 
-Trotz der vorhandenen Konkurrenz unterscheidet sich unsere App durch ihre Fokussierung auf Individualisierung und die Integration mit Social-Media-Plattformen. Während andere Anbieter hauptsächlich auf allgemeine Informationen und Funktionen setzen, ermöglicht BIMDb den Nutzern, ihre persönlichen Erfahrungen und Eindrücke direkt in der App festzuhalten und mit ihrem sozialen Netzwerk zu teilen. Die enge Verknüpfung mit Social-Media-Plattformen fördert zudem den Austausch unter Filmfans und trägt dazu bei, das Filmerlebnis noch persönlicher und interaktiver zu gestalten.
+Zudem kämpfen die Portale mit dem weithin bekannten Problem der Voreingenommenheit ausgelöst durch Ungleichverteilung. Bewertungen werden beispielweise bei IMDB fünf mal mehr von männlichen Anwendern abgegeben [^1]
 
-Insgesamt bietet BIMDb durch seine einzigartigen Individualisierungsfeatures und die Anbindung an bestehende Services einen Mehrwert gegenüber der Konkurrenz. So können wir uns trotz des bestehenden Wettbewerbs am Markt positionieren und Filmfans ein neuartiges, interaktives Filmerlebnis bieten.
+Die BIMDB App ist zwar keine revolutionäre Neuentwicklung, dennoch hebt sie sich durch ihre individuellen Anpassungsmöglichkeiten und die Anbindung an bestehende Systeme und Social-Media-Plattformen von der Konkurrenz ab. Damit will BIMDB den den Herausforderungen von komplexen Kritiken und Voreingenommenheit entgegentreten. Mit dem Ziel die "Utility" für alle Besucher zu verbessern.
+
+Während andere Anbieter hauptsächlich auf allgemeine Informationen und Funktionen setzen, ermöglicht BIMDb den Nutzern, ihre persönlichen Erfahrungen und Eindrücke direkt in der App festzuhalten. Durch das Teilen in sozialen Netzwerk wird der Zugang zu persönlichen Beurteiulng vereinfacht. Sie erlauben den Anwendern nicht nur eine Durchschnittsbewertung sondern auch eine individuelle Kritik einfach abzurufen.
+
+Insgesamt bietet BIMDb durch seine einzigartigen Individualisierungsfeatures und die Anbindung an bestehende Services einen Mehrwert gegenüber der Konkurrenz. So kann BIMDB trotz des bestehenden Wettbewerbs am Markt positioniert werden.Filmfans wird ein neuartiges, verfeinertes Beurteilungskonzept geboten.
+
+[^1]: Spiegel (2019) Welches Portal für Filmbewertungen wirklich weiterhilft [Online]. URL: https://www.spiegel.de/netzwelt/web/imdb-metacritic-rotten-tomatoes-wie-filmbewertungsportale-funktionieren-a-1301967.html (Stand 01.04.2023)

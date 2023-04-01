@@ -8,11 +8,12 @@ Um noch mehr Filme zu entdecken, scrollt Peter nach unten, um alle anderen Filme
 
 Ein Filmcover zieht Peters Aufmerksamkeit auf sich. Er klickt darauf, um zur Detailseite des Films zu gelangen.
 
-Auf der Detailseite erhält Peter alle wichtigen Informationen über den Film: Bewertungen, Inhaltsangabe, Schauspieler und vieles mehr.
+Auf der Detailseite erhält Peter alle wichtigen Informationen über den Film: Bewertungen, Inhaltsangabe, Schauspieler und vieles mehr. 
 
-Peter ist begeistert von dem Film und möchte seine Erfahrungen mit seinen Freunden teilen. Mit der Social-Media-Anbindung der App kann er seine Meinung und Empfehlung direkt auf seinen bevorzugten Plattformen posten.
+Peter's Freundin Anna ist vom Film nicht komplett überzeugt. Sie regt an, dass das Filmcover wahrscheindlich mehr männliche Bewertungen angezogen hat und deshalb verfälscht ist. Mit der Funktion "Check bias" kann Peter die Bewertung nach den Attributen der Nutzer aufschlüsseln und Anna zeigen, dass der Film von eben so vielen Frauen wie Männern beurteilt worden ist.
 
-Während des Films bemerkt Peter eine Szene, die er später noch einmal anschauen möchte. Er nutzt das Notizfeature der App, um sich die Stelle und seine Gedanken dazu zu notieren.
+Anna und Peter schauen den Film und sind begeistert. Über eine integrierte Schnittstelle auf BIMDB bewertet Peter den Film und teilt einen Beitrag mit der Bewertung auf seinem Social Media Profil. Der Beitrag wird von Anna "gereposted". Anna verweist in Ihrem "Repost" noch auf die eine Stelle welche Ihr so gut gefallen hat. 
 
-Peter ist von der Vielfalt der angebotenen Filme beeindruckt und freut sich, dass er so einfach und schnell interessante Filme entdecken kann. Mit BIMDb hat er die Möglichkeit, die Filme nach seinen persönlichen Vorlieben zu organisieren und Notizen zu machen, um später darauf zurückzugreifen. Zudem kann er seinen Freunden auf Social Media von seinen Entdeckungen berichten und so gemeinsam das Filmerlebnis teilen und diskutieren. Dank BIMDb wird das Film- und Serienschauen für Peter zu einem interaktiven und gut organisierten Erlebnis.
+Fabian ein Freund von Anna und Peter der Ihnen auf den Social Media Kanälen folgt, sieht die beiden Posts. Zusammen mit seiner Partnerin Stefanie entscheien sie den Film heute ebenfalls zu schauen.
 
+Peter, Anna, Fabian und Stefanie kommen in den Genuss eines tollen Filmabends der für Alle etwas dabei hat und ohne grossen Aufwand hat geplant werden können. Dies dank BIMDB.
