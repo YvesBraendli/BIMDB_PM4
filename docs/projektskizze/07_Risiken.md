@@ -1,6 +1,6 @@
 # Risikomanagement
 
-Bei jedem Projekt gibt es verschiedene Quellen von Risiken, welche soweit wie möglich einkalkuliert werden sollten. Insbesondere ist es entscheidend, dass man auf eine mögliche Realisierung eines Risikos vorbereitet reagieren kann [^1]. Entsprechend ist ein solides Risikomanagement für den Erfolg eines Projektes unabdingbar. Nachfolgend wird auf verschiedene Risiken im Zusammenhang mit BIMDb eingegangen und erläutertn, wie man diese vorbeugen will.
+Bei jedem Projekt gibt es verschiedene Risikoquellen, welche soweit wie möglich einkalkuliert werden sollten. Insbesondere ist es entscheidend, dass man auf eine mögliche Realisierung eines Risikos vorbereitet reagieren kann [^1]. Entsprechend ist ein solides Risikomanagement für den Erfolg eines Projektes unabdingbar. Nachfolgend wird auf verschiedene Risiken im Zusammenhang mit BIMDb eingegangen und erläutertn, wie man diese vorbeugen will.
 
 **Krankheit oder Ausfall von Teammitgliedern**
 
@@ -28,4 +28,4 @@ Die Implementierung eines strukturierten Test- und Qualitätsmanagementprozesses
 
 ![Riskmap](../assets/img/Riskmap.png)
 
-[^1] Risikomanagement in Software-Projekten [Online] https://www.elektronikpraxis.de/risikomanagement-in-software-projekten-a-290447/?p=2 [Stand 31.03.2023]
+[^1]: Elektronik Praxis (2012) Risikomanagement in Software-Projekten [Online] URL: https://www.elektronikpraxis.de/risikomanagement-in-software-projekten-a-290447/?p=2 [Stand 31.03.2023]

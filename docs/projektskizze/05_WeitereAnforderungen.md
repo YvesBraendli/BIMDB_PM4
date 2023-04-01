@@ -4,7 +4,7 @@ Die Hauptfunktionen von BIMDb werden im Abschnitt "Kontextszenario (Hauptablauf)
 
 **Personalisierte Empfehlungen**
 
-BIMDb soll mithilfe von Algorithmen und maschinellem Lernen personalisierte Film- und Serienempfehlungen für die Benutzer erstellen. Diese Empfehlungen könnten zum Beispiel auf den bisherigen Bewertungen und bereits angesehenen Filmen basieren. Natürlich kann man die KOmplexität solcher Funktionen stetig verbessern und die effektive Umsetzung müsste im Detail genauer beurteilt werden.
+BIMDb soll mithilfe von Algorithmen und maschinellem Lernen personalisierte Filmempfehlungen für die Benutzer generieren. Diese Empfehlungen könnten zum Beispiel auf den bisherigen Bewertungen und bereits angesehenen Filmen basieren. Natürlich kann man die Komplexität solcher Funktionen stetig verbessern und die effektive Umsetzung müsste im Detail genauer beurteilt werden.
 
 **Gruppen**
 
