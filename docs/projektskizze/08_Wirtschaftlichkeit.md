@@ -1,6 +1,6 @@
 # Wirtschaftlichkeit
 
-Die BIMDb wird als open-source Projekt entwickelt. Entsprechend liegt der Fokus nicht auf Gewinnmaximierung. Vielmehr wird ein kostendeckendes Geschäftsmodell angestrebt, das einer aktiven Community-Pflege und der Erschliessung von Spendengeldern für zusätzliche Funktionen basiert. 
+Die BIMDb Applikation wird als open-source Projekt entwickelt. Entsprechend liegt der Fokus nicht auf Gewinnmaximierung. Vielmehr wird ein kostendeckendes Geschäftsmodell angestrebt, das einer aktiven Community-Pflege und der Erschliessung von Spendengeldern für zusätzliche Funktionen basiert. 
 
 **Community-Engagement**
 
@@ -8,7 +8,7 @@ Als open-source Projekt legt BIMDb grossen Wert auf die Pflege der Community. Du
 
 **Freiwillige Beiträge und Spenden**
 
-Die App soll von der Community und den Nutzern unterstützt werden, d.h. durch freiwillige Beiträge zum Code und/oder finanzielle Spenden sollen die Funktionen und Serverstrukturen stetig verbessert werden. Dieser Ansatz ermöglicht es, die laufenden Kosten für die Entwicklung und Wartung zu decken, ohne auf herkömmliche Finanzierungsmodelle angewiesen zu sein.
+Die Applikation soll von der Community und den Anwendern unterstützt werden, d.h. durch freiwillige Beiträge zum Code und/oder finanzielle Spenden sollen die Funktionen und Serverstrukturen stetig verbessert werden. Dieser Ansatz ermöglicht es, die laufenden Kosten für die Entwicklung und Wartung zu decken, ohne auf herkömmliche Finanzierungsmodelle angewiesen zu sein.
 
 **Transparenz bei Hardware-Anforderungen**
 
