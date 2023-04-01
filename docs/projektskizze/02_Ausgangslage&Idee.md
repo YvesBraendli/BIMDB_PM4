@@ -9,6 +9,6 @@ Aus diesen und weiteren Gründen entstand die Idee von BIMDb. BIMDb soll das Fil
 
 [^1]: Finanztip Verbraucherinformation GmbH (2023) Streaming: Finde den Anbieter, der zu Dir passt [Online]. URL: https://www.finanztip.de/streaming/ (Stand 30.03.2023)
 
-[^2]:Verlag Werben & Verkaufen GmbH [W&V] (2023) Wie Netflix und Co. auf Social Media punkten [Online]. URL: https://www.wuv.de/Archiv/Wie-Netflix-und-Co.-auf-Social-Media-punkten (Stand 31.03.2023)
+[^2]: Verlag Werben & Verkaufen GmbH [W&V] (2023) Wie Netflix und Co. auf Social Media punkten [Online]. URL: https://www.wuv.de/Archiv/Wie-Netflix-und-Co.-auf-Social-Media-punkten (Stand 31.03.2023)
 
 [^3]: IONOS (2023) Bewertungen auf Websites: So wichtig sind Ratings und Kommentar-Boxen [Online]. URL: https://www.ionos.de/digitalguide/websites/webseiten-erstellen/bewertungen-auf-websites-warum-sind-sie-so-wichtig/ (Stand 28.03.2023)

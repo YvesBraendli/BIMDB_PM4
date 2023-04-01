@@ -1,18 +1,21 @@
 # Wirtschaftlichkeit
 
-Die BIMDb-App bietet ein nachhaltiges und wirtschaftliches Geschäftsmodell, das auf der aktiven Community-Pflege und der Erschliessung mehrerer Einnahmequellen basiert. Hier ist ein Business Case, der die verschiedenen Aspekte der Wirtschaftlichkeit des Projekts hervorhebt:
+Die BIMDb wird als open-source Projekt entwickelt. Entsprechend liegt der Fokus nicht auf Gewinnmaximierung. Vielmehr wird ein kostendeckendes Geschäftsmodell angestrebt, das einer aktiven Community-Pflege und der Erschliessung von Spendengeldern für zusätzliche Funktionen basiert. 
 
-Community-Engagement: Als Open-Source-Projekt legt die BIMDb-App grossen Wert auf die Pflege und das Engagement ihrer Entwickler-Community. Durch die Organisation von Veranstaltungen, Hackathons und Workshops wird die Beteiligung der Entwickler gefördert, wodurch neue Ideen und Funktionen in die App integriert werden können.
+**Community-Engagement**
 
-Freiwillige Beiträge und Spenden: Die App wird von der Community und den Nutzern unterstützt, die durch freiwillige Beiträge zum Code und finanzielle Spenden zur Verbesserung der Funktionen und Serverstrukturen beitragen. Dieser Ansatz ermöglicht es, die laufenden Kosten für die App-Entwicklung und -Wartung zu decken, ohne auf herkömmliche Finanzierungsmodelle angewiesen zu sein.
+Als open-source Projekt legt BIMDb grossen Wert auf die Pflege der Community. Durch die Organisation von Veranstaltungen (z.B. Hackathons, Filmeabende, exklusive Filmpremieren, etc.) wird die Beteiligung der Benutzer und Entwickler gefördert und gleichzeitig ein positives Klima für neue Ideen geschaffen.
 
-Transparenz bei Hardware-Anforderungen: Die App zeigt den Hardware-Bedarf transparent an und kommuniziert den Nutzern, wie viel Geld benötigt wird, um die Infrastruktur zu verbessern. Dieses transparente Modell motiviert die Nutzer, finanziell beizutragen und die Entwicklung der App zu unterstützen.
+**Freiwillige Beiträge und Spenden**
 
-In-App-Werbung: Eine zusätzliche Einnahmequelle wird durch In-App-Werbung generiert. Hierbei setzen wir auf statische Werbebanner, die nach einer gewissen Zeit automatisch verschwinden. Diese Art von Werbung ist weniger aufdringlich und verbessert das Benutzererlebnis, während gleichzeitig die für den Betrieb der App erforderlichen Einnahmen generiert werden.
+Die App soll von der Community und den Nutzern unterstützt werden, d.h. durch freiwillige Beiträge zum Code und/oder finanzielle Spenden sollen die Funktionen und Serverstrukturen stetig verbessert werden. Dieser Ansatz ermöglicht es, die laufenden Kosten für die Entwicklung und Wartung zu decken, ohne auf herkömmliche Finanzierungsmodelle angewiesen zu sein.
 
-Kostendeckung statt Gewinnmaximierung: Das Hauptziel der BIMDb-App besteht darin, ein nachhaltiges Geschäftsmodell zu schaffen, das alle erforderlichen Kosten deckt und gleichzeitig die Interessen der Nutzer und der Entwickler-Community in den Vordergrund stellt. Dieser Ansatz stellt sicher, dass die App weiterhin auf dem Markt bestehen und wachsen kann, ohne die Qualität des Benutzererlebnisses zu beeinträchtigen.
+**Transparenz bei Hardware-Anforderungen**
 
-Zusammenfassend lässt sich sagen, dass die BIMDb-App ein wirtschaftlich nachhaltiges Geschäftsmodell bietet, das auf der Unterstützung der Community, freiwilligen Beiträgen und moderaten Einnahmen aus In-App-Werbung basiert. Diese Kombination aus Faktoren ermöglicht es, die App langfristig am Leben zu erhalten und kontinuierlich zu verbessern, ohne die Nutzererfahrung zu beeinträchtigen. Investoren und Sponsoren können sich darauf verlassen, dass ihr Engagement zur Stärkung der Community und zur langfristigen Wirtschaftlichkeit der App beiträgt.
+Das BIMDb soll den Hardwarebedarf transparent kommunizieren. Dadurch soll Vertrauen geschaffen und die Benutzer motiviert werden, das Projekt finanziell zu unterstützen.
 
+**In-App-Werbung**
+
+Eine zusätzliche Einnahmequelle soll durch In-App-Werbung generiert werden. Dabei soll diese Einnahmequelle eher sekundär ausgeschöpft werden, da zu viel Werbung die Benutzer schnell vertreiben kann.
 
 
