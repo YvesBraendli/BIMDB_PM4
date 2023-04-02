@@ -1,6 +1,6 @@
 # Grobplanung
 
-Für die Entwicklung einer ersten Version wird ein Aufwand von 960h (120h/Teammitglied) veranschlagt. Die Applikation soll in einem Zeitraum von 14 Wochen kontinuierlich entwickelt werden. Zusammenfassend wurden 880 Stunden (300+20+540+20) Stunden in der untenstehenden Grobplanung alloziert, d.h. ein bewusster Zeitpuffer von 80 eingeplant, welcher je nach Bedarf auf die Projektdauer aufgeteilt werden kann.
+Für die Entwicklung einer ersten Version wird ein Aufwand von 960 Stunden (120 Stunden pro Teammitglied) veranschlagt. Die Applikation soll in einem Zeitraum von 14 Wochen kontinuierlich entwickelt werden. Zusammenfassend wurden 880 (=300+20+540+20) Stunden in der untenstehenden Grobplanung alloziert, d.h. ein bewusster Zeitpuffer von 80 Stunden eingeplant, welcher je nach Bedarf auf die Projektdauer aufgeteilt werden kann.
 
 ## Bis Woche 5
 
@@ -8,18 +8,18 @@ In den ersten fünf Wochen soll das Fundament für das Projekt erstellt werden. 
 
 **Zeitaufwand**: 300 Stunden
 
-- Remoterepository angelegt
+- Remote-Repository angelegt
 - Projektidee vereinbart
 - Projektskizze finalisiert
 - Projektplanung finalisiert
-- Erster Entwurf einer funktionsfähgien Applikation
-  - Backendkomponenten definiert und funktionsfähig
-  - Frontendkomponenten definiert und funktionsfähig
-  - Deployment/Pipelines definiert und funktionsfähig
+- Erster Entwurf einer funktionsfähigen Applikation
+  - Backend-Komponenten definiert und funktionsfähig
+  - Frontend-Komponenten definiert und funktionsfähig
+  - Bereitstellung/Pipelines definiert und funktionsfähig
 
 ## Meilenstein Abgabe Projektskizze (Woche 6)
 
-In der sechsten Woche sind keine weiteren Ziele geplant. Hier soll die bisherigen Leistungen mit Blick auf den Abschluss des Projekts reflektiert werden.
+In der sechsten Woche sind keine weiteren Ziele geplant. Hier sollen die bisherigen Leistungen mit Blick auf den Abschluss des Projekts reflektiert werden.
 
 **Zeitaufwand**: 20 Stunden
 

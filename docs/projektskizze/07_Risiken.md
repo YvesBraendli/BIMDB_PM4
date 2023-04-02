@@ -1,6 +1,6 @@
 # Risikomanagement
 
-Bei jedem Projekt gibt es verschiedene Risikoquellen, welche soweit wie möglich einkalkuliert werden sollten. Insbesondere ist es entscheidend, dass man auf eine mögliche Realisierung eines Risikos vorbereitet reagieren kann [^1]. Entsprechend ist ein solides Risikomanagement für den Erfolg eines Projektes unabdingbar. Nachfolgend wird auf verschiedene Risiken im Zusammenhang mit BIMDb eingegangen und erläutertn, wie man diese vorbeugen will.
+Bei jedem Projekt gibt es verschiedene Risikoquellen, welche so weit wie möglich einkalkuliert werden sollten. Insbesondere ist es entscheidend, dass man auf eine mögliche Realisierung eines Risikos vorbereitet reagieren kann [^1]. Entsprechend ist ein solides Risikomanagement für den Erfolg eines Projektes unabdingbar. Nachfolgend wird auf verschiedene Risiken im Zusammenhang mit BIMDb eingegangen und erläutert, wie man diese vorbeugen will.
 
 **Krankheit oder Ausfall von Teammitgliedern**
 
@@ -8,7 +8,7 @@ Um das Risiko von Arbeitsausfällen aufgrund von Krankheiten oder anderen unvorh
 
 **Technische Probleme oder Systemausfälle**
 
-Regelmässige Backups der Projektdaten und des Codes sowie die Nutzung von Versionskontrollsystemen (z.B. Git) stellen sicher, dass keine Arbeit verloren geht. Ein Monitoring-System hilft dabei, potenzielle Probleme frühzeitig zu erkennen und schnell zu beheben. In diesem Zusammenhang ist insbesondere darauf zu achten, dass die Teammitglieder die erwähnten System regelmässig verwenden und den Inhalt pflegen.
+Regelmässige Backups der Projektdaten und des Codes sowie die Nutzung von Versionskontrollsystemen (z.B. GitHub) stellen sicher, dass keine Arbeit verloren geht. Ein Monitoring-System hilft dabei, potenzielle Probleme frühzeitig zu erkennen und schnell zu beheben. In diesem Zusammenhang ist insbesondere darauf zu achten, dass die Teammitglieder das erwähnte System regelmässig verwenden und den Inhalt pflegen.
 
 **Änderungen in den Anforderungen oder im Projektumfang**
 
