@@ -8,7 +8,7 @@ Zudem kämpfen die Portale mit dem weithin bekannten Problem der Voreingenommenh
 
 BIMDb ist zwar keine revolutionäre Neuentwicklung, dennoch hebt sie sich durch ihre individuellen Anpassungsmöglichkeiten und die Anbindung an bestehende Systeme und Social-Media-Plattformen von der Konkurrenz ab. Damit will BIMDb den Herausforderungen von komplexen Kritiken und Voreingenommenheit entgegentreten. Mit dem Ziel die "Utility" für alle Benutzer zu verbessern.
 
-Während andere Anbieter hauptsächlich auf allgemeine Informationen und Funktionen setzen, ermöglicht BIMDb den Nutzern, ihre persönlichen Erfahrungen und Eindrücke direkt in der App festzuhalten. Durch das Teilen auf Social Media wird der Zugang zu persönlichen Beurteilungen vereinfacht. Sie erlauben den Anwendern nicht nur eine Durchschnittsbewertung, sondern auch eine individuelle Kritik einfach abrufen zu können.
+Während andere Anbieter hauptsächlich auf allgemeine Informationen und Funktionen setzen, ermöglicht BIMDb den Nutzern, ihre persönlichen Erfahrungen und Eindrücke direkt in der Applikation festzuhalten. Durch das Teilen auf Social Media wird der Zugang zu persönlichen Beurteilungen vereinfacht. Sie erlauben den Anwendern nicht nur eine Durchschnittsbewertung, sondern auch eine individuelle Kritik einfach abrufen zu können.
 
 Insgesamt bietet BIMDb durch seine einzigartigen Individualisierungsfeatures und die Anbindung an bestehende Services einen Mehrwert gegenüber der Konkurrenz. So kann BIMDb trotz des bestehenden Wettbewerbs am Markt positioniert werden. Filmfans wird ein neuartiges, verfeinertes Beurteilungskonzept geboten.
 
