@@ -1,0 +1,43 @@
+secret_detection:
+  artifacts:
+    paths:
+      - gl-secret-detection-report.json
+    when: always
+
+secret_report:
+  stage: reporting
+  image:
+    name: angrymeir/secscanner2junit:latest
+    entrypoint: [""]
+  dependencies:
+    - secret_detection
+  needs:
+    - secret_detection
+  script:
+    - ss2ju secrets gl-secret-detection-report.json gl-secret-detection-report.xml
+  artifacts:
+    reports:
+      junit: gl-secret-detection-report.xml
+
+semgrep-sast:
+  after_script:
+    - cp gl-sast-report.json gl-sast-semgrep-report.json
+  artifacts:
+    paths:
+      - gl-sast-semgrep-report.json
+    when: always
+
+semgrep_sast_report:
+  stage: reporting
+  image:
+    name: angrymeir/secscanner2junit:latest
+    entrypoint: [""]
+  dependencies:
+    - semgrep-sast
+  needs:
+    - semgrep-sast
+  script:
+    - ss2ju sast gl-sast-semgrep-report.json gl-sast-semgrep-report.xml
+  artifacts:
+    reports:
+      junit: gl-sast-semgrep-report.xml

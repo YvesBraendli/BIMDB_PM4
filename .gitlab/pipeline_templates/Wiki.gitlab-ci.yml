@@ -1,0 +1,16 @@
+pages:
+  stage: deploy
+  image:
+    name: squidfunk/mkdocs-material
+    entrypoint: [""]
+  script:
+    - mkdocs build --verbose --config-file mkdocs.yml --site-dir public
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: Wiki
+    url: "https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/"
+  only:
+    - main
+    - development
