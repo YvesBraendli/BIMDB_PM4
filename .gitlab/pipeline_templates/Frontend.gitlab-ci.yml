@@ -1,0 +1,25 @@
+frontend-lint:
+  image: timbru31/node-chrome:hydrogen-alpine
+  before_script:
+    - cd frontend/bimdb/
+    - npm ci --cache .npm --prefer-offline
+  stage: lint
+  script:
+    - npm run lint
+
+frontend-test:
+  image: timbru31/node-chrome:hydrogen-alpine
+  before_script:
+    - export CHROME_BIN=/usr/bin/chromium-browser
+    - cd frontend/bimdb/
+    - npm ci --cache .npm --prefer-offline
+  stage: test
+  script:
+    # Run Headless Chrome needs a node-chrome image and passing of parameters
+    - npm run test:ci
+  artifacts:
+    reports:
+      junit: "frontend/bimdb/junit/report.xml"
+      coverage_report:
+        coverage_format: cobertura
+        path: "frontend/bimdb/coverage/bimdb/cobertura-coverage.xml"

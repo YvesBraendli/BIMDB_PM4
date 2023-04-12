@@ -1,0 +1,29 @@
+backend-build:
+  image: maven:3.8-openjdk-17
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS compile -f "backend/bimdb/pom.xml"
+
+backend-test:
+  image: maven:3.8-openjdk-17
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS test -f "backend/bimdb/pom.xml"
+  artifacts:
+    reports:
+      junit:
+        - "backend/bimdb/**/target/*-reports/TEST-*.xml"
+
+backend-package:
+  image: maven:3.8-openjdk-17
+  stage: package
+  script:
+    - mvn $MAVEN_CLI_OPTS verify -f "backend/bimdb/pom.xml"
+  artifacts:
+    name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+    paths:
+      - "backend/bimdb/**/target"
+  only:
+    - tags
+  except:
+    - branches
