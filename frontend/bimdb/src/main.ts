@@ -12,6 +12,7 @@ import { HeaderInterceptor } from './app/shared/interceptors/header.interceptor'
 import { LocalStorageKeys } from './app/shared/models/storage-keys';
 
 import { environment } from './environments/environment.prod';
+import { MovieDetailComponent, PARAM_MOVIE_ID } from './app/movie-detail/movie-detail.component';
 
 if (environment.production) {
 	enableProdMode();
@@ -19,6 +20,7 @@ if (environment.production) {
 const routes: Routes = [
 	{ path: '', redirectTo: 'discover', pathMatch: 'full' },
 	{ path: 'discover', component: DiscoverComponent },
+	{ path: `movie/:${PARAM_MOVIE_ID}`, component: MovieDetailComponent },
 	{ path: '**', component: NotFoundComponent }
 ];
 

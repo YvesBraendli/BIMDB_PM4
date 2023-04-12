@@ -1,7 +1,7 @@
 <app-paginator [totalPages]="totalPages" [page]="page" (pageChange)="onPageChange($event)"/>
 <div id="movieList">
     <div *ngFor="let movie of movies" class="movie">
-        <img src="{{ movie.imgUrl }}" title="{{ movie.name }}" alt="{{ movie.name }} Poster" />
+        <img src="{{ movie.imgUrl }}" title="{{ movie.name }}" alt="{{ movie.name }} Poster" [routerLink]="'/movie/' + movie.id" />
         <span class="name">{{ movie.name }}</span>
         <span class="date">{{ movie.date | date:'dd.MM.YYYY' }}</span>
     </div>
