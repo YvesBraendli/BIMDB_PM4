@@ -14,5 +14,18 @@
 	"notFound": {
 		"title": "404 nicht gefunden",
 		"desc": "Die angeforderte Seite wurde nicht gefunden."
+	},
+	"movieDetail": {
+		"genres": "Genres",
+		"runtime": "Laufzeit",
+		"status": "Status",
+		"releaseDate": "Veröffentlichungsdatum",
+		"originalLanguage": "Originale Sprache",
+		"originalTitle": "Originaler Titel",
+		"budget": "Budget",
+		"revenue": "Erlös",
+		"cast": "Cast",
+		"recommendations": "Vorschläge",
+		"similarMovies": "Ähnliche Filme"
 	}
 }

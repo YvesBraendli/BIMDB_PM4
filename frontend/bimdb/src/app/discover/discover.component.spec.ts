@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 
 import { DiscoverComponent } from './discover.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DiscoverComponent', () => {
 	let component: DiscoverComponent;
@@ -9,7 +10,10 @@ describe('DiscoverComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ DiscoverComponent, TranslateTestingModule.withTranslations({}) ]
+			imports: [
+				DiscoverComponent,
+				TranslateTestingModule.withTranslations({}),
+				RouterTestingModule]
 		})
 			.compileComponents();
 
