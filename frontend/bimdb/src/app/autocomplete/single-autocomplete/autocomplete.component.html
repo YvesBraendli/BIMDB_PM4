@@ -1,0 +1,11 @@
+<div class="autocomplete-wrapper" [ngClass]="{'light-theme': theme === 'light'}">
+		<input type="search" placeholder="{{placeholder | translate }}&hellip;" [formControl]="autocompleteControl"
+			[matAutocomplete]="auto" #trigger="matAutocompleteTrigger">
+		<span class="search-input-icon material-icons">search</span>
+	<mat-autocomplete autoActiveFirstOption [hideSingleSelectionIndicator]="true" #auto="matAutocomplete"
+		(optionSelected)="selectOption($event)" [displayWith]="displayWith">
+		<mat-option *ngFor="let option of filteredOptions" [value]="option">
+			{{option.displayValue}}
+		</mat-option>
+	</mat-autocomplete>
+</div>

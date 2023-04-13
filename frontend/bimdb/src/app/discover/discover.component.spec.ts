@@ -1,8 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 
-import { DiscoverComponent } from './discover.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DiscoverComponent } from './discover.component';
 
 describe('DiscoverComponent', () => {
 	let component: DiscoverComponent;
@@ -13,7 +14,8 @@ describe('DiscoverComponent', () => {
 			imports: [
 				DiscoverComponent,
 				TranslateTestingModule.withTranslations({}),
-				RouterTestingModule]
+				RouterTestingModule],
+			providers: [ DatePipe ]
 		})
 			.compileComponents();
 
