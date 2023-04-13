@@ -9,17 +9,18 @@ frontend-lint:
 
 frontend-test:
   image: timbru31/node-chrome:hydrogen-alpine
+  stage: test
+  coverage: /(\d*.?\d+)%/
   before_script:
     - export CHROME_BIN=/usr/bin/chromium-browser
     - cd frontend/bimdb/
     - npm ci --cache .npm --prefer-offline
-  stage: test
   script:
     # Run Headless Chrome needs a node-chrome image and passing of parameters
     - npm run test:ci
   artifacts:
     reports:
-      junit: "frontend/bimdb/junit/report.xml"
+      junit: "frontend/bimdb/reports/ng-test.xunit.xml"
       coverage_report:
         coverage_format: cobertura
-        path: "frontend/bimdb/coverage/bimdb/cobertura-coverage.xml"
+        path: "frontend/bimdb/reports/ng-coverage.cobertura.xml"
