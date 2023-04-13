@@ -5,7 +5,7 @@ backend-build:
     - mvn $MAVEN_CLI_OPTS compile -f "backend/bimdb/pom.xml"
   artifacts:
     paths:
-      - "backend/bimdb/target/**/*.jar"
+      - "backend/bimdb/target/"
     
 backend-test:
   image: maven:3.8-openjdk-17
