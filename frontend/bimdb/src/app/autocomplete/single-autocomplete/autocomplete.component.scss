@@ -1,0 +1,23 @@
+@use '../base-autocomplete.component.scss' as base-autocomplete;
+.autocomplete-wrapper {
+	margin: 0.5rem 1rem;
+
+	input[type="search"] {
+		&:hover,
+		&:focus {
+			border-color: black;
+			box-shadow: 0 0 2px black;
+		}
+	}
+}
+
+.light-theme {
+	input[type="search"] {
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		&:hover,
+		&:focus {
+			border-color: white;
+			box-shadow: 0 0 2px white;
+		}
+	}
+}

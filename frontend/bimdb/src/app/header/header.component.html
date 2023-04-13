@@ -6,7 +6,7 @@
 	<a [routerLink]="['/movies']">{{'movies' | translate}}</a>
 	<a [routerLink]="['/tv-shows']">{{'tvShows' | translate}}</a>
 
-	<app-header-search></app-header-search>
+	<app-autocomplete [theme]="'light'" [fetchRemote]="search"></app-autocomplete>
 
 	<div id="lang-wrapper">
 		<span class="material-icons">language</span>

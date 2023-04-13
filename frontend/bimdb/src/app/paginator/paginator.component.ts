@@ -18,7 +18,8 @@ export class PaginatorComponent {
 	public pageChange = new EventEmitter<number>();
 
 	public goToFirstPage(): void {
-		this.pageChange.emit(this.page = 1);
+		this.page = 1;
+		this.pageChange.emit(this.page);
 	}
 
 	public goToLastPage(): void {
@@ -41,7 +42,8 @@ export class PaginatorComponent {
 	public goToPage(event: Event): void {
 		const page =  +(event.target as HTMLInputElement).value;
 		if (page >= 1 && page <= this.totalPages) {
-			this.pageChange.emit(this.page = page);
+			this.page = page;
+			this.pageChange.emit(this.page);
 		}
 	}
 

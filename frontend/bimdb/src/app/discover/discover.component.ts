@@ -1,20 +1,21 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { PaginatorComponent } from '../paginator/paginator.component';
+import { Media } from '../media-list/media';
+import { MediaListComponent } from '../media-list/media-list.component';
 import { DiscoverService } from './discover.service';
-import { RouterModule } from '@angular/router';
 
 @Component({
 	standalone: true,
-	imports: [CommonModule, PaginatorComponent, RouterModule],
 	selector: 'app-discover',
 	templateUrl: './discover.component.html',
-	styleUrls: ['./discover.component.scss']
+	styleUrls: ['./discover.component.scss'],
+	imports: [CommonModule, MediaListComponent],
+	providers: [DatePipe]
 })
 export class DiscoverComponent {
 	public page = 1;
 	public totalPages = 10;
-	public movies: Movie[] = [];
+	public movies: Media[] = [];
 
 	public constructor(private discoverService: DiscoverService) {
 		this.discover();
@@ -23,7 +24,7 @@ export class DiscoverComponent {
 	public discover(): void {
 		this.discoverService.discover(this.page).subscribe({
 			next: result => {
-				this.movies = result.movies;
+				this.movies = result.movies as Media[];
 				this.totalPages = result.totalPages;
 			}
 		});

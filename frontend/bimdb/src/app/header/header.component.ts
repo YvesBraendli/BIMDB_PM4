@@ -1,22 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { HeaderSearchComponent } from '../header-search/header-search.component';
-import { LocalStorageKeys } from '../shared/models/storage-keys';
-import { WindowService } from '../shared/services/window.service';
 import { RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AutocompleteComponent } from '../autocomplete/single-autocomplete/autocomplete.component';
+import { LocalStorageKeys } from '../shared/models/storage-keys';
+import { SearchService } from '../shared/services/search.service';
+import { WindowService } from '../shared/services/window.service';
 
 @Component({
 	standalone: true,
-	imports: [CommonModule, HeaderSearchComponent, TranslateModule, RouterModule],
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss']
+	styleUrls: ['./header.component.scss'],
+	imports: [CommonModule, TranslateModule, RouterModule, AutocompleteComponent]
 })
 export class HeaderComponent {
 	public language = 'en';
+	public search = this.searchService.suggestions;
 
-	public constructor(private windowService: WindowService, private translateService: TranslateService) {
+	public constructor(private windowService: WindowService, private translateService: TranslateService, private searchService: SearchService) {
 		this.language = this.translateService.currentLang ?? this.translateService.defaultLang;
 	}
 

@@ -1,0 +1,49 @@
+.media-list {
+	display: grid;
+	grid-column-gap: 2rem;
+	grid-row-gap: 2rem;
+	grid-template-columns: repeat(auto-fill, minmax(12rem, auto));
+	margin: 2rem;
+
+	.medium {
+		display: flex;
+		flex-direction: column;
+		transition: transform 250ms;
+
+		&:hover,
+		&:focus {
+			transform: scale(1.05);
+		}
+
+		&:active {
+			transform: scale(0.95);
+		}
+
+		img {
+			aspect-ratio: 2/3;
+			background: rgba(153, 153, 153, 0.2)
+				url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48' viewBox='0 96 960 960' width='48'%3E%3Cpath d='m140 256 74 152h130l-74-152h89l74 152h130l-74-152h89l74 152h130l-74-152h112q24 0 42 18t18 42v520q0 24-18 42t-42 18H140q-24 0-42-18t-18-42V316q0-24 18-42t42-18Zm0 212v368h680V468H140Zm0 0v368-368Z'/%3E%3C/svg%3E")
+				no-repeat center;
+			border-radius: 4px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+			overflow: hidden;
+			width: 100%;
+		}
+
+		span {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.name {
+			font-size: 1.25rem;
+			margin: 0.5rem 0.5rem 0.25rem 0.5rem;
+		}
+
+		.date {
+			font-size: 0.875rem;
+			margin: 0 0.5rem;
+		}
+	}
+}
