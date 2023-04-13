@@ -41,3 +41,16 @@ semgrep_sast_report:
   artifacts:
     reports:
       junit: gl-sast-semgrep-report.xml
+
+sonarcloud-check:
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  needs: 
+    - backend-build
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - sonar-scanner
