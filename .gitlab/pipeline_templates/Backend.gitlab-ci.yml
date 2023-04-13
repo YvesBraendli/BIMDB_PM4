@@ -3,16 +3,39 @@ backend-build:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile -f "backend/bimdb/pom.xml"
-
+  artifacts:
+    paths:
+      - "backend/bimdb/target/**/*.jar"
+    
 backend-test:
   image: maven:3.8-openjdk-17
   stage: test
   script:
-    - mvn $MAVEN_CLI_OPTS test -f "backend/bimdb/pom.xml"
+    - mvn $MAVEN_CLI_OPTS clean org.jacoco:jacoco-maven-plugin:prepare-agent test org.jacoco:jacoco-maven-plugin:report -f "backend/bimdb/pom.xml"
   artifacts:
+    paths:
+      - "backend/bimdb/target/site/jacoco/jacoco.xml"
+      - "backend/bimdb/target/*-reports/TEST-*.xml"
     reports:
       junit:
-        - "backend/bimdb/**/target/*-reports/TEST-*.xml"
+        - "backend/bimdb/target/*-reports/TEST-*.xml"
+
+backend-coverage:
+  stage: reporting
+  image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
+  coverage: '/<coverage .* line-rate=(.*) branch-rate.*><sources>/'
+  script:
+    # convert report from jacoco to cobertura, using relative project path
+    - python /opt/cover2cover.py backend/bimdb/target/site/jacoco/jacoco.xml backend/bimdb/src/main/java/ > backend/bimdb/target/site/cobertura.xml
+    - cat backend/bimdb/target/site/cobertura.xml | grep line-rate=
+  needs: ["backend-test"]
+  artifacts:
+    paths:
+      - backend/bimdb/target/site/cobertura.xml
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: backend/bimdb/target/site/cobertura.xml
 
 backend-package:
   image: maven:3.8-openjdk-17

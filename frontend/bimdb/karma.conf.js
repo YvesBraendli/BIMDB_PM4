@@ -44,10 +44,22 @@ module.exports = function (config) {
 		},
 		reporters: ['progress', 'kjhtml', 'junit'],
 		junitReporter: {
-			outputDir: './junit',
-			outputFile: 'report.xml',
+			outputDir: 'reports',
+			outputFile: 'ng-test.xunit.xml',
 			useBrowserName: false
 		},
+		coverageReporter: {
+			dir: 'reports',
+			subdir: '.',
+			reporters: [
+			  // 'text-summary' to let GitLab grab coverage from stdout
+			  {type: "text-summary"},
+			  // 'cobertura' to enable GitLab test coverage visualization
+			  {type: 'cobertura', file: 'ng-coverage.cobertura.xml'},
+			  // 'lcovonly' to enable SonarQube test coverage reporting
+    		  //{type: 'lcovonly', file: 'ng-coverage.lcov.info'}
+			],
+		  },
 		port: 9876,
 		colors: true,
 		logLevel: config.LOG_INFO,

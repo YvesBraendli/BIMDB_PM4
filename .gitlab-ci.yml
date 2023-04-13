@@ -47,4 +47,4 @@ cache:
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
-  - local: .gitlab/pipeline_templates/*
+  - local: .gitlab/pipeline_templates/*.yml
