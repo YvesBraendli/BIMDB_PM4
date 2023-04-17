@@ -24,3 +24,51 @@ frontend-test:
       coverage_report:
         coverage_format: cobertura
         path: "frontend/bimdb/reports/ng-coverage.cobertura.xml"
+
+frontend-package:
+  stage: package
+  before_script:
+    - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    # https://blog.callr.tech/building-docker-images-with-gitlab-ci-best-practices/
+    # fetches the latest image (not failing if image is not found)
+    - docker pull $CI_REGISTRY_IMAGE:frontend-latest || true
+    # builds the project using OCI labels
+    # notice the cache-from, which is going to use the image we just pulled locally
+    # the built image is tagged locally with the commit SHA, and then pushed to 
+    # the GitLab registry
+    - >
+      cd frontend && docker build
+      --pull
+      --cache-from $CI_REGISTRY_IMAGE:frontend-latest
+      --label "org.opencontainers.image.title=BIMDB Frontend"
+      --label "org.opencontainers.image.url=$CI_PROJECT_URL"
+      --label "org.opencontainers.image.created=$CI_JOB_STARTED_AT"
+      --label "org.opencontainers.image.revision=$CI_COMMIT_SHA"
+      --label "org.opencontainers.image.version=$CI_COMMIT_REF_NAME"
+      --tag $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
+      .
+    - docker push $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
+  only:
+    - main
+    - development
+
+# Here, the goal is to tag the "master" branch as "latest"
+frontend-tag-latest:
+  variables:
+    # We are just playing with Docker here. 
+    # We do not need GitLab to clone the source code.
+    GIT_STRATEGY: none
+  stage: push
+  before_script:
+    - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    # Because we have no guarantee that this job will be picked up by the same runner 
+    # that built the image in the previous step, we pull it again locally
+    - docker pull $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
+    # Then we tag it "latest"
+    - docker tag $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:frontend-latest
+    # And we push it.
+    - docker push $CI_REGISTRY_IMAGE:frontend-latest
+  only:
+    - main
