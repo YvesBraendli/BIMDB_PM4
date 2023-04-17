@@ -1,9 +1,11 @@
 stages:
-  - build
+  - compile
   - lint
   - test
   - reporting
+  - build
   - package
+  - push
   - deploy
 
 variables:
@@ -32,9 +34,13 @@ variables:
     --show-version
     -DinstallAtEnd=true
     -DdeployAtEnd=true
+  DOCKER_TLS_CERTDIR: "/certs"
 
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
   GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+
+services:
+  - docker:20.10.24-dind
 
 default:
   tags:
@@ -50,4 +56,8 @@ cache:
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
-  - local: .gitlab/pipeline_templates/*.yml
+  - local: .gitlab/pipeline_templates/Backend.gitlab-ci.yml
+  - local: .gitlab/pipeline_templates/Frontend.gitlab-ci.yml
+  - local: .gitlab/pipeline_templates/Security.gitlab-ci.yml
+  - local: .gitlab/pipeline_templates/Wiki.gitlab-ci.yml
+  - local: .gitlab/pipeline_templates/K8s.gitlab-ci.yml

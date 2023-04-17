@@ -1,6 +1,6 @@
-backend-build:
+backend-compile:
   image: maven:3.8-openjdk-17
-  stage: build
+  stage: compile
   script:
     - mvn $MAVEN_CLI_OPTS compile -f "backend/bimdb/pom.xml"
   artifacts:
@@ -37,16 +37,64 @@ backend-coverage:
         coverage_format: cobertura
         path: backend/bimdb/target/site/cobertura.xml
 
-backend-package:
+backend-build:
   image: maven:3.8-openjdk-17
-  stage: package
+  stage: build
   script:
-    - mvn $MAVEN_CLI_OPTS verify -f "backend/bimdb/pom.xml"
+    - mvn $MAVEN_CLI_OPTS verify -Dmaven.test.skip=true -f "backend/bimdb/pom.xml"
+  needs: ["backend-test"]
   artifacts:
     name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
     paths:
-      - "backend/bimdb/**/target"
+      - "backend/bimdb/target/*.jar"
   only:
-    - tags
-  except:
-    - branches
+    - main
+    - development
+
+backend-package:
+  stage: package
+  before_script:
+    - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    # https://blog.callr.tech/building-docker-images-with-gitlab-ci-best-practices/
+    # fetches the latest image (not failing if image is not found)
+    - docker pull $CI_REGISTRY_IMAGE:backend-latest || true
+    # builds the project using OCI labels
+    # notice the cache-from, which is going to use the image we just pulled locally
+    # the built image is tagged locally with the commit SHA, and then pushed to 
+    # the GitLab registry
+    - >
+      cd backend && docker build
+      --pull
+      --cache-from $CI_REGISTRY_IMAGE:backend-latest
+      --label "org.opencontainers.image.title=BIMDB Backend"
+      --label "org.opencontainers.image.url=$CI_PROJECT_URL"
+      --label "org.opencontainers.image.created=$CI_JOB_STARTED_AT"
+      --label "org.opencontainers.image.revision=$CI_COMMIT_SHA"
+      --label "org.opencontainers.image.version=$CI_COMMIT_REF_NAME"
+      --tag $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA
+      .
+    - docker push $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA
+  only:
+    - main
+    - development
+
+# Here, the goal is to tag the "master" branch as "latest"
+backend-tag-latest:
+  variables:
+    # We are just playing with Docker here. 
+    # We do not need GitLab to clone the source code.
+    GIT_STRATEGY: none
+  stage: push
+  before_script:
+    - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    # Because we have no guarantee that this job will be picked up by the same runner 
+    # that built the image in the previous step, we pull it again locally
+    - docker pull $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA
+    # Then we tag it "latest"
+    - docker tag $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:backend-latest
+    # And we push it.
+    - docker push $CI_REGISTRY_IMAGE:backend-latest
+  only:
+    - main
