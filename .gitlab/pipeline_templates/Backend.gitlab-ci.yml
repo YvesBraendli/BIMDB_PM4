@@ -79,7 +79,7 @@ backend-package:
     - main
     - development
 
-# Here, the goal is to tag the "master" branch as "latest"
+# Here, the goal is to tag the "main" branch as "latest"
 backend-tag-latest:
   variables:
     # We are just playing with Docker here. 
