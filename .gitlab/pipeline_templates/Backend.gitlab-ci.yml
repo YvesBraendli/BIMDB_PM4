@@ -53,6 +53,8 @@ backend-build:
 
 backend-package:
   stage: package
+  services:
+    - docker:20.10.24-dind
   before_script:
     - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
@@ -86,6 +88,8 @@ backend-tag-latest:
     # We do not need GitLab to clone the source code.
     GIT_STRATEGY: none
   stage: push
+  services:
+    - docker:20.10.24-dind
   before_script:
     - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:

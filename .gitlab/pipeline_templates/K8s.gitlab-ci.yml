@@ -1,15 +1,41 @@
 .kube-context:
   before_script:
-  - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
+    - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
 
-kubernetes-connectivity-test:
+deploy-staging:
   stage: deploy
   extends: [.kube-context]
   image:
-    name: bitnami/kubectl:latest
-    entrypoint: ['']
+    name: dtzar/helm-kubectl:3.9.3
+    entrypoint: [""]
   script:
-    - kubectl config get-contexts
-    - kubectl get pods -n gitlab
-    - kubectl get pods -n betterimdb-stage
-  when: manual
+    - helm upgrade --install
+      --namespace=betterimdb-stage
+      -f ./K8s/values.yaml -f ./K8s/values-stage.yaml
+      --set backend.imageTag=backend-$CI_COMMIT_SHA
+      --set frontend.imageTag=frontend-$CI_COMMIT_SHA
+      bimdb-staging ./K8s
+  environment:
+    name: staging
+    url: https://bimdb-stage.pm4.init-lab.ch
+  only:
+    - development
+
+deploy-production:
+  stage: deploy
+  extends: [.kube-context]
+  image:
+    name: dtzar/helm-kubectl:3.9.3
+    entrypoint: [""]
+  script:
+    - helm upgrade --install
+      --namespace=betterimdb-prod
+      -f ./K8s/values.yaml -f ./K8s/values-prod.yaml
+      --set backend.imageTag=backend-latest
+      --set frontend.imageTag=frontend-latest
+      bimdb-prod ./K8s
+  environment:
+    name: production
+    url: https://bimdb-prod.pm4.init-lab.ch
+  only:
+    - main
