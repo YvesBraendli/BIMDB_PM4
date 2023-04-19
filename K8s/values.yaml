@@ -1,0 +1,17 @@
+namespace: ""
+
+environment: ""
+
+backend:
+  appName: bimdb-backend
+  replicas: 1
+  imageTag: ""
+  containerPort: 8080
+  exposedPort: 80
+
+frontend:
+  appName: bimdb-frontend
+  replicas: 1
+  imageTag: ""
+  containerPort: 80
+  exposedPort: 80

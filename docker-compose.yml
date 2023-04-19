@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  bimdb-frontend:
+    image: registry.gitlab.com/gabrielbenabou/bimdb:frontend-latest
+    restart: always
+    depends_on:
+      - bimdb-backend
+    ports:
+      - 4200:80
+    environment:
+      - SAMPLE_ENV_VAR="Var in Frontend"
+    labels:
+      kompose.service.expose: "bimdb-stage.pm4.init-lab.ch,bimdb-frontend-stage.pm4.init-lab.ch"
+      kompose.service.type: "clusterip"
+
+  bimdb-backend:
+    image: registry.gitlab.com/gabrielbenabou/bimdb:backend-latest
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - bimdb-db
+    environment:
+      - SAMPLE_ENV_VAR="Var in Backend"
+    labels:
+      kompose.service.expose: "bimdb-backend-stage.pm4.init-lab.ch"
+      kompose.service.type: "clusterip"
+
+  bimdb-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER="postgres"
+      - POSTGRES_PASSWORD="postgres"
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    labels:
+      kompose.service.type: "clusterip"
+
+volumes:
+  db:
+    driver: local

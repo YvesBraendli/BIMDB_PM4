@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "{{ .Values.frontend.appName }}-ingress"
+  namespace: "{{ .Values.namespace }}"
+spec:
+  rules:
+    - host: "bimdb-{{ .Values.environment }}.pm4.init-lab.ch"
+      http:
+        paths:
+          - backend:
+              service:
+                name: "{{ .Values.frontend.appName }}-service"
+                port:
+                  number: {{.Values.frontend.exposedPort}}
+            path: /
+            pathType: Prefix
+    - host: "{{ .Values.frontend.appName }}-{{ .Values.environment}}.pm4.init-lab.ch"
+      http:
+        paths:
+          - backend:
+              service:
+                name: "{{ .Values.frontend.appName }}-service"
+                port:
+                  number: {{.Values.frontend.exposedPort}}
+            path: /
+            pathType: Prefix

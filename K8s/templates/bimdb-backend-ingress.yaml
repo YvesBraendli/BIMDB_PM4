@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "{{ .Values.backend.appName }}-ingress"
+  namespace: "{{ .Values.namespace }}"
+spec:
+  rules:
+    - host: "{{ .Values.backend.appName }}-{{ .Values.environment}}.pm4.init-lab.ch"
+      http:
+        paths:
+          - backend:
+              service:
+                name: "{{ .Values.backend.appName }}-service"
+                port:
+                  number: {{.Values.backend.exposedPort}}
+            path: /
+            pathType: Prefix

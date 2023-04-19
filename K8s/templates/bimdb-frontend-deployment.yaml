@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.frontend.appName }}-deployment"
+  namespace: "{{ .Values.namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Values.frontend.appName }}-deployment"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Values.frontend.appName }}-deployment"
+    spec:
+      containers:
+        - name: "{{ .Values.frontend.appName }}-deployment"
+          image: "registry.gitlab.com/gabrielbenabou/bimdb:{{ .Values.frontend.imageTag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: {{.Values.frontend.containerPort}}
+          env:
+            - name: SAMPLE_ENV_VAR
+              value: "Var in Frontend"
