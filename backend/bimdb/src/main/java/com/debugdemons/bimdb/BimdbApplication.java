@@ -19,6 +19,6 @@ public class BimdbApplication implements LoggerProvider {
 	@ResponseBody
 	String home() {
 		getLogger().debug("Hello World");
-		return "Hello World ";
+		return "Hello, World";
 	}
 }
