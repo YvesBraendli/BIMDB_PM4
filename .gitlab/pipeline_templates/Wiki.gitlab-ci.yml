@@ -13,5 +13,5 @@ pages:
     url: "https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/"
   rules:
     - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
-    - changes:
+      changes:
         - docs/**/*
