@@ -7,7 +7,7 @@ frontend-lint:
   script:
     - npm run lint
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
 
@@ -29,7 +29,7 @@ frontend-test:
         coverage_format: cobertura
         path: "frontend/bimdb/reports/ng-coverage.cobertura.xml"
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
 
@@ -60,7 +60,7 @@ frontend-package:
       .
     - docker push $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
+    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
 
 # Here, the goal is to tag the "main" branch as "latest"
 frontend-tag-latest:
@@ -82,4 +82,4 @@ frontend-tag-latest:
     # And we push it.
     - docker push $CI_REGISTRY_IMAGE:frontend-latest
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_REF_NAME == "main"

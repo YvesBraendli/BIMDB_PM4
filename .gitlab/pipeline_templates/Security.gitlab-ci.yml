@@ -3,6 +3,8 @@ secret_detection:
     paths:
       - gl-secret-detection-report.json
     when: always
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 secret_report:
   stage: reporting
@@ -18,6 +20,8 @@ secret_report:
   artifacts:
     reports:
       junit: gl-secret-detection-report.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 semgrep-sast:
   after_script:
@@ -27,14 +31,14 @@ semgrep-sast:
       - gl-sast-semgrep-report.json
     when: always
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
         - backend/**/*
 
 nodejs-scan-sast:
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
         - backend/**/*
@@ -54,7 +58,7 @@ semgrep_sast_report:
     reports:
       junit: gl-sast-semgrep-report.xml
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
         - backend/**/*
