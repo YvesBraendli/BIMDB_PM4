@@ -23,17 +23,15 @@ backend-test:
         - "backend/bimdb/target/*-reports/TEST-*.xml"
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
-      changes:
-        - backend/**/*
 
 backend-coverage:
   stage: reporting
   image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
-  coverage: /(\d*.?\d+)/
+  coverage: '/Coverage of \d+\.\d+/'
   script:
     # convert report from jacoco to cobertura, using relative project path
     - python /opt/cover2cover.py backend/bimdb/target/site/jacoco/jacoco.xml backend/bimdb/src/main/java/ > backend/bimdb/target/site/cobertura.xml
-    - cat backend/bimdb/target/site/cobertura.xml | cut -d '=' -f3 | cut -d ' ' -f1 | tr -d '"' | grep -v '^$' | awk '{ printf "%.2f\n", $1 * 100 }'
+    - cat backend/bimdb/target/site/cobertura.xml | cut -d '=' -f3 | cut -d ' ' -f1 | tr -d '"' | grep -v '^$' | awk '{ printf "Coverage of %.2f%", $1 * 100 }'
   needs: ["backend-test"]
   artifacts:
     paths:
@@ -44,8 +42,6 @@ backend-coverage:
         path: backend/bimdb/target/site/cobertura.xml
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
-      changes:
-        - backend/**/*
 
 backend-build:
   image: maven:3.8-openjdk-17
