@@ -6,6 +6,8 @@ backend-compile:
   artifacts:
     paths:
       - "backend/bimdb/target/"
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 backend-test:
   image: maven:3.8-openjdk-17
@@ -57,11 +59,10 @@ backend-build:
       - "backend/bimdb/target/*.jar"
   rules:
     - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
-      changes:
-        - backend/**/*
 
 backend-package:
   stage: package
+  needs: [backend-build]
   services:
     - docker:20.10.24-dind
   before_script:
