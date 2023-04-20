@@ -47,7 +47,7 @@ frontend-package:
     # the built image is tagged locally with the commit SHA, and then pushed to
     # the GitLab registry
     - >
-      cd frontend && docker build
+      cd frontend && DOCKER_BUILDKIT=1 docker build
       --pull
       --cache-from $CI_REGISTRY_IMAGE:frontend-latest
       --label "org.opencontainers.image.title=BIMDB Frontend"

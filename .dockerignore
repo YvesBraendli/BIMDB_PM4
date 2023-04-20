@@ -1,0 +1,7 @@
+.git
+/.gitlab/*
+.editorconfig
+/.vscode/*
+/docs
+.gitignore
+*.zip
