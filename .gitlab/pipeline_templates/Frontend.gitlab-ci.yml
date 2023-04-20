@@ -1,10 +1,4 @@
-.frontend-file-change-occured:
-  rules:
-    - changes:
-        - frontend/**/*
-
 frontend-lint:
-  extends: [.frontend-file-change-occured]
   image: timbru31/node-chrome:hydrogen-alpine
   before_script:
     - cd frontend/bimdb/
@@ -12,9 +6,11 @@ frontend-lint:
   stage: lint
   script:
     - npm run lint
+  rules:
+    - changes:
+        - frontend/**/*
 
 frontend-test:
-  extends: [.frontend-file-change-occured]
   image: timbru31/node-chrome:hydrogen-alpine
   stage: test
   coverage: /(\d*.?\d+)%/
@@ -31,6 +27,9 @@ frontend-test:
       coverage_report:
         coverage_format: cobertura
         path: "frontend/bimdb/reports/ng-coverage.cobertura.xml"
+  rules:
+    - changes:
+        - frontend/**/*
 
 frontend-package:
   stage: package
@@ -58,9 +57,8 @@ frontend-package:
       --tag $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
       .
     - docker push $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
-  only:
-    - main
-    - development
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
 
 # Here, the goal is to tag the "main" branch as "latest"
 frontend-tag-latest:
@@ -81,5 +79,5 @@ frontend-tag-latest:
     - docker tag $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:frontend-latest
     # And we push it.
     - docker push $CI_REGISTRY_IMAGE:frontend-latest
-  only:
-    - main
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
