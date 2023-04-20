@@ -19,8 +19,8 @@ deploy-staging:
   environment:
     name: staging
     url: https://bimdb-stage.pm4.init-lab.ch
-  rules:
-    - if: $CI_COMMIT_BRANCH == "development"
+  only:
+    - development
 
 deploy-production:
   stage: deploy
@@ -39,5 +39,5 @@ deploy-production:
   environment:
     name: production
     url: https://bimdb-prod.pm4.init-lab.ch
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+  only:
+    - main
