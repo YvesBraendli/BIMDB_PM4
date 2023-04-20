@@ -15,3 +15,13 @@ frontend:
   imageTag: ""
   containerPort: 80
   exposedPort: 80
+
+db:
+  appName: bimdb-database
+  replicas: 1
+  imageTag: 15
+  containerPort: 5432
+  storageSize: 10Gi
+  userName: postgres
+  userPassword: ""
+  databaseName: bimdb
