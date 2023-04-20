@@ -14,6 +14,7 @@ deploy-staging:
       -f ./K8s/values.yaml -f ./K8s/values-stage.yaml
       --set backend.imageTag=backend-$CI_COMMIT_SHA
       --set frontend.imageTag=frontend-$CI_COMMIT_SHA
+      --set db.userPassword=$DEPLOYMENT_SECRET_DATABASE
       bimdb-staging ./K8s
   environment:
     name: staging
@@ -33,6 +34,7 @@ deploy-production:
       -f ./K8s/values.yaml -f ./K8s/values-prod.yaml
       --set backend.imageTag=backend-latest
       --set frontend.imageTag=frontend-latest
+      --set db.userPassword=$DEPLOYMENT_SECRET_DATABASE
       bimdb-prod ./K8s
   environment:
     name: production
