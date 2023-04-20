@@ -22,18 +22,18 @@ backend-test:
       junit:
         - "backend/bimdb/target/*-reports/TEST-*.xml"
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - backend/**/*
 
 backend-coverage:
   stage: reporting
   image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
-  coverage: "/<coverage .* line-rate=(.*) branch-rate.*><sources>/"
+  coverage: /(\d*.?\d+)/
   script:
     # convert report from jacoco to cobertura, using relative project path
     - python /opt/cover2cover.py backend/bimdb/target/site/jacoco/jacoco.xml backend/bimdb/src/main/java/ > backend/bimdb/target/site/cobertura.xml
-    - cat backend/bimdb/target/site/cobertura.xml | grep line-rate=
+    - cat backend/bimdb/target/site/cobertura.xml | cut -d '=' -f3 | cut -d ' ' -f1 | tr -d '"' | grep -v '^$' | awk '{ printf "%.2f\n", $1 * 100 }'
   needs: ["backend-test"]
   artifacts:
     paths:
@@ -43,7 +43,7 @@ backend-coverage:
         coverage_format: cobertura
         path: backend/bimdb/target/site/cobertura.xml
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - backend/**/*
 
@@ -58,7 +58,7 @@ backend-build:
     paths:
       - "backend/bimdb/target/*.jar"
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
+    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
 
 backend-package:
   stage: package
@@ -88,7 +88,7 @@ backend-package:
       .
     - docker push $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
+    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
 
 # Here, the goal is to tag the "main" branch as "latest"
 backend-tag-latest:
@@ -110,4 +110,4 @@ backend-tag-latest:
     # And we push it.
     - docker push $CI_REGISTRY_IMAGE:backend-latest
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_REF_NAME == "main"

@@ -20,7 +20,7 @@ deploy-staging:
     name: staging
     url: https://bimdb-stage.pm4.init-lab.ch
   rules:
-    - if: $CI_COMMIT_BRANCH == "development"
+    - if: $CI_COMMIT_REF_NAME == "development"
 
 deploy-production:
   stage: deploy
@@ -40,4 +40,4 @@ deploy-production:
     name: production
     url: https://bimdb-prod.pm4.init-lab.ch
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_REF_NAME == "main"

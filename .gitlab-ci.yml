@@ -49,12 +49,6 @@ cache:
     - frontend/bimdb/node_modules/
     - .m2/repository
 
-workflow:
-  rules:
-    # Skip Pipeline on empty Branches (new MRs)
-    - if: $CI_COMMIT_BEFORE_SHA == '0000000000000000000000000000000000000000' && $CI_COMMIT_BRANCH
-      when: never
-
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml

@@ -12,6 +12,6 @@ pages:
     name: Wiki
     url: "https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/"
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
+    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
       changes:
         - docs/**/*
