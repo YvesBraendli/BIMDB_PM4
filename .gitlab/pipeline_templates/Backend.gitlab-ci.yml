@@ -1,4 +1,10 @@
+.backend-file-change-occured:
+  rules:
+    - changes:
+        - backend/**/*
+
 backend-compile:
+  extends: [.backend-file-change-occured]
   image: maven:3.8-openjdk-17
   stage: compile
   script:
@@ -6,8 +12,9 @@ backend-compile:
   artifacts:
     paths:
       - "backend/bimdb/target/"
-    
+
 backend-test:
+  extends: [.backend-file-change-occured]
   image: maven:3.8-openjdk-17
   stage: test
   script:
@@ -21,9 +28,10 @@ backend-test:
         - "backend/bimdb/target/*-reports/TEST-*.xml"
 
 backend-coverage:
+  extends: [.backend-file-change-occured]
   stage: reporting
   image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
-  coverage: '/<coverage .* line-rate=(.*) branch-rate.*><sources>/'
+  coverage: "/<coverage .* line-rate=(.*) branch-rate.*><sources>/"
   script:
     # convert report from jacoco to cobertura, using relative project path
     - python /opt/cover2cover.py backend/bimdb/target/site/jacoco/jacoco.xml backend/bimdb/src/main/java/ > backend/bimdb/target/site/cobertura.xml
@@ -38,6 +46,7 @@ backend-coverage:
         path: backend/bimdb/target/site/cobertura.xml
 
 backend-build:
+  extends: [.backend-file-change-occured]
   image: maven:3.8-openjdk-17
   stage: build
   script:
@@ -47,9 +56,8 @@ backend-build:
     name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
     paths:
       - "backend/bimdb/target/*.jar"
-  only:
-    - main
-    - development
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
 
 backend-package:
   stage: package
@@ -63,7 +71,7 @@ backend-package:
     - docker pull $CI_REGISTRY_IMAGE:backend-latest || true
     # builds the project using OCI labels
     # notice the cache-from, which is going to use the image we just pulled locally
-    # the built image is tagged locally with the commit SHA, and then pushed to 
+    # the built image is tagged locally with the commit SHA, and then pushed to
     # the GitLab registry
     - >
       cd backend && docker build
@@ -84,7 +92,7 @@ backend-package:
 # Here, the goal is to tag the "main" branch as "latest"
 backend-tag-latest:
   variables:
-    # We are just playing with Docker here. 
+    # We are just playing with Docker here.
     # We do not need GitLab to clone the source code.
     GIT_STRATEGY: none
   stage: push
@@ -93,7 +101,7 @@ backend-tag-latest:
   before_script:
     - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
-    # Because we have no guarantee that this job will be picked up by the same runner 
+    # Because we have no guarantee that this job will be picked up by the same runner
     # that built the image in the previous step, we pull it again locally
     - docker pull $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA
     # Then we tag it "latest"

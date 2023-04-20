@@ -11,6 +11,7 @@ pages:
   environment:
     name: Wiki
     url: "https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/"
-  only:
-    - main
-    - development
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "development"
+    - changes:
+        - docs/**/*

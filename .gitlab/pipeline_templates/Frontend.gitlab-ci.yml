@@ -1,4 +1,10 @@
+.frontend-file-change-occured:
+  rules:
+    - changes:
+        - frontend/**/*
+
 frontend-lint:
+  extends: [.frontend-file-change-occured]
   image: timbru31/node-chrome:hydrogen-alpine
   before_script:
     - cd frontend/bimdb/
@@ -8,6 +14,7 @@ frontend-lint:
     - npm run lint
 
 frontend-test:
+  extends: [.frontend-file-change-occured]
   image: timbru31/node-chrome:hydrogen-alpine
   stage: test
   coverage: /(\d*.?\d+)%/
@@ -37,7 +44,7 @@ frontend-package:
     - docker pull $CI_REGISTRY_IMAGE:frontend-latest || true
     # builds the project using OCI labels
     # notice the cache-from, which is going to use the image we just pulled locally
-    # the built image is tagged locally with the commit SHA, and then pushed to 
+    # the built image is tagged locally with the commit SHA, and then pushed to
     # the GitLab registry
     - >
       cd frontend && docker build
@@ -58,7 +65,7 @@ frontend-package:
 # Here, the goal is to tag the "main" branch as "latest"
 frontend-tag-latest:
   variables:
-    # We are just playing with Docker here. 
+    # We are just playing with Docker here.
     # We do not need GitLab to clone the source code.
     GIT_STRATEGY: none
   stage: push
@@ -67,7 +74,7 @@ frontend-tag-latest:
   before_script:
     - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
-    # Because we have no guarantee that this job will be picked up by the same runner 
+    # Because we have no guarantee that this job will be picked up by the same runner
     # that built the image in the previous step, we pull it again locally
     - docker pull $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
     # Then we tag it "latest"

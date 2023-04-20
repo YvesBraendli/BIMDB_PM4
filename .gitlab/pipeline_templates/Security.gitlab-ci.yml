@@ -1,3 +1,10 @@
+.code-change-occured:
+  rules:
+    - changes:
+        - frontend/**/*
+        - backend/**/*
+        - K8s/**/*
+
 secret_detection:
   artifacts:
     paths:
@@ -26,8 +33,19 @@ semgrep-sast:
     paths:
       - gl-sast-semgrep-report.json
     when: always
+  rules:
+    - changes:
+        - frontend/**/*
+        - backend/**/*
+
+nodejs-scan-sast:
+  rules:
+    - changes:
+        - frontend/**/*
+        - backend/**/*
 
 semgrep_sast_report:
+  extends: [.code-change-occured]
   stage: reporting
   image:
     name: angrymeir/secscanner2junit:latest
@@ -43,10 +61,11 @@ semgrep_sast_report:
       junit: gl-sast-semgrep-report.xml
 
 sonarcloud-check:
+  extends: [.code-change-occured]
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
-  needs: 
+  needs:
     - backend-compile
   cache:
     key: "${CI_JOB_NAME}"
