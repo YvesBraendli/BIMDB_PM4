@@ -8,6 +8,8 @@ backend:
   imageTag: ""
   containerPort: 8080
   exposedPort: 80
+  env:
+    TMDB_API_KEY: ""
 
 frontend:
   appName: bimdb-frontend
