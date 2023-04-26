@@ -999,6 +999,10 @@ export class ConfigService {
 				'english_name': 'South Sudan'
 			}]);
 	}
+
+	public getImageBaseUrl(): Observable<string> {
+		return of('https://www.themoviedb.org/t/p/w600_and_h900_bestv2/');
+	}
 }
 
 export interface Country {

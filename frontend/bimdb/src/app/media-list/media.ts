@@ -1,6 +1,6 @@
 export interface Media {
 	id: number;
-	name: string;
-	date: Date;
-	imgUrl: string;
+	title: string;
+	release_date: Date;
+	poster_path: string;
 }

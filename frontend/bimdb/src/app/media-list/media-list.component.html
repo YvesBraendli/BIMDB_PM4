@@ -1,8 +1,8 @@
 <app-paginator [totalPages]="totalPages" [page]="page" (pageChange)="onPageChange($event)"/>
 <div class="media-list">
     <div *ngFor="let medium of media" class="medium">
-        <img src="{{ medium.imgUrl }}" title="{{ medium.name }}" alt="{{ medium.name }} Poster" [routerLink]="'/movie/' + medium.id"/>
-        <span class="name">{{ medium.name }}</span>
-        <span class="date">{{ medium.date | localeDate }}</span>
+        <img src="{{ posterBaseUrl + medium.poster_path }}" title="{{ medium.title }}" alt="{{ medium.title }} Poster" [routerLink]="'/movie/' + medium.id"/>
+        <span class="name">{{ medium.title }}</span>
+        <span class="date">{{ medium.release_date | localeDate }}</span>
     </div>
 </div>

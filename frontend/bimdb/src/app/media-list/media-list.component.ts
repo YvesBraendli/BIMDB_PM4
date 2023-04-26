@@ -4,6 +4,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule } from '@angular/router';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { LocaleDatePipe } from '../shared/pipes/locale-date.pipe';
+import { ConfigService } from '../shared/services/config.service';
 import { Media } from './media';
 
 
@@ -20,6 +21,11 @@ export class MediaListComponent {
 	@Input() public totalPages = 10;
 	@Input() public media: Media[] = [];
 	@Output() public pageChange = new EventEmitter<number>();
+	public posterBaseUrl?: string;
+
+	public constructor(private configService: ConfigService) {
+		this.configService.getImageBaseUrl().subscribe(baseUrl => this.posterBaseUrl = baseUrl);
+	}
 
 
 	public onPageChange(page: number): void {

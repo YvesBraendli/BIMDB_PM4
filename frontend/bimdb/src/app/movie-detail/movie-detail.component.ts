@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CastListComponent } from '../cast-list/cast-list.component';
-import { MovieDetail, MovieDetailService } from './movie-detail.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { CastListComponent } from '../cast-list/cast-list.component';
+import { MovieDetails } from '../generated/contract';
+import { ConfigService } from '../shared/services/config.service';
+import { MovieDetailService } from './movie-detail.service';
 
 export const PARAM_MOVIE_ID = 'movie-id';
 
@@ -16,9 +18,12 @@ export const PARAM_MOVIE_ID = 'movie-id';
 })
 export class MovieDetailComponent implements OnInit {
 	public id?: number;
-	public movie?: MovieDetail;
+	public movie?: MovieDetails;
+	public genreNames?: string;
+	public posterBaseUrl?: string;
 
-	public constructor(private route: ActivatedRoute, private movieDetailService: MovieDetailService) {
+	public constructor(private route: ActivatedRoute, private movieDetailService: MovieDetailService, private configService: ConfigService) {
+		this.configService.getImageBaseUrl().subscribe(baseUrl => this.posterBaseUrl = baseUrl);
 	}
 
 	public ngOnInit(): void {
@@ -27,6 +32,7 @@ export class MovieDetailComponent implements OnInit {
 			this.movieDetailService.getMovie(this.id).subscribe({
 				next: result => {
 					this.movie = result;
+					this.genreNames = this.movie.genres.map(genre => genre.name).join(', ');
 				}
 			});
 		}

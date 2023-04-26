@@ -1,12 +1,18 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { MovieDetail, MovieDetailService } from './movie-detail.service';
 import { Observable } from 'rxjs';
+import { MovieDetails } from '../generated/contract';
+import { MovieDetailService } from './movie-detail.service';
 
 describe('MovieDetailService', () => {
 	let service: MovieDetailService;
 
 	beforeEach(() => {
-		TestBed.configureTestingModule({});
+		TestBed.configureTestingModule({
+			imports: [
+				HttpClientTestingModule
+			]
+		});
 		service = TestBed.inject(MovieDetailService);
 	});
 
@@ -15,7 +21,7 @@ describe('MovieDetailService', () => {
 	});
 
 	describe('when getMovie is called', () => {
-		let result: Observable<MovieDetail>;
+		let result: Observable<MovieDetails>;
 
 		beforeEach(() => {
 			result = service.getMovie(100);
