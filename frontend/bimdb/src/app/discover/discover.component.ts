@@ -24,8 +24,8 @@ export class DiscoverComponent {
 	public discover(): void {
 		this.discoverService.discover(this.page).subscribe({
 			next: result => {
-				this.movies = result.movies as Media[];
-				this.totalPages = result.totalPages;
+				this.movies = result.results as Media[];
+				this.totalPages = result.total_pages;
 			}
 		});
 	}

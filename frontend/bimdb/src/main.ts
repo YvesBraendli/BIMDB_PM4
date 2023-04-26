@@ -1,7 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { Routes, provideRouter } from '@angular/router';
+import { Routes, provideRouter, withHashLocation } from '@angular/router';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Observable } from 'rxjs';
@@ -45,7 +45,7 @@ function initializeApp(translateService: TranslateService) {
 
 bootstrapApplication(AppComponent, {
 	providers: [
-		provideRouter(routes),
+		provideRouter(routes, withHashLocation()),
 		importProvidersFrom(HttpClientModule, BrowserAnimationsModule, TranslateModule.forRoot({
 			defaultLanguage: 'en',
 			loader: {

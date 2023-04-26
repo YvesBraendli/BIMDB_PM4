@@ -21,9 +21,10 @@ export class MovieListComponent {
 
 	public constructor(private configService: ConfigService) {
 		this.movies = Array.from({ length: 120 }, (_, i) => ({
-			name: `Barbie ${i + 1}`,
-			date: new Date(2023, 6, 21),
-			imgUrl: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xMVsBwvvw1iKhC97rtI5mB91C0O.jpg'
+			id: i,
+			title: `Barbie ${i + 1}`,
+			release_date: new Date(2023, 6, 21),
+			poster_path: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xMVsBwvvw1iKhC97rtI5mB91C0O.jpg'
 		} as Media));
 		this.configService.getCountries().subscribe(countries => this.countries = countries.map(country => ({ value: country.english_name, displayValue: country.english_name })));
 	}

@@ -1,6 +1,6 @@
 <div *ngIf="movie" id="main">
 	<div id="details">
-		<img [src]="movie.posterPath" [title]="movie.title" [alt]="movie.title + ' Poster'"/>
+		<img src="{{ posterBaseUrl + movie.poster_path }}" [title]="movie.title" [alt]="movie.title + ' Poster'" />
 		<div id="details-right">
 			<h2>{{movie.title}}</h2>
 			<p>{{movie.tagline}}</p>
@@ -8,7 +8,7 @@
 			<ul id="detail-list">
 				<li>
 					<h3>{{ 'movieDetail.genres' | translate }}</h3>
-					<span>{{movie.genres?.join(', ')}}</span>
+					<span>{{genreNames}}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.runtime' | translate }}</h3>
@@ -20,15 +20,15 @@
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.releaseDate' | translate }}</h3>
-					<span>{{movie.releaseDate | date:'dd.MM.YYYY'}}</span>
+					<span>{{movie.release_date | date:'dd.MM.YYYY'}}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalLanguage' | translate }}</h3>
-					<span>{{movie.originalLanguage}}</span>
+					<span>{{movie.original_language}}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalTitle' | translate }}</h3>
-					<span>{{movie.originalTitle}}</span>
+					<span>{{movie.original_title}}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.budget' | translate }}</h3>
@@ -46,7 +46,7 @@
 
 	<h2>{{ 'movieDetail.cast' | translate }}</h2>
 	<div id="cast">
-		<app-cast-list [cast]="movie.cast"></app-cast-list>
+		<app-cast-list></app-cast-list>
 	</div>
 
 	<h2>{{ 'movieDetail.recommendations' | translate }}</h2>
