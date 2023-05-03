@@ -8,7 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.debugdemons.bimdb.domain.DiscoverMovie;
+import com.debugdemons.bimdb.domain.DiscoverTv;
 import com.debugdemons.bimdb.service.MovieService;
+import com.debugdemons.bimdb.service.TvService;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,25 @@ class DiscoverControllerTest {
 
     @MockBean
     private MovieService movieService;
+    @MockBean
+    private TvService tvService;
+
 
     @Test
     void discoverMovie() throws Exception {
         DiscoverMovie discoverMovie = new DiscoverMovie();
         discoverMovie.setTotalPages(20);
-        when(movieService.getMovies()).thenReturn(discoverMovie);
-        this.mockMvc.perform(get("/api/discover/movie")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("{\"page\":0,\"results\":null,\"total_pages\":20,\"total_results\":0}")));
+        when(movieService.getMovies(null)).thenReturn(discoverMovie);
+        this.mockMvc.perform(get("/api/discover/movies")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("{\"page\":0,\"total_pages\":20,\"total_results\":0,\"results\":null}")));
+    }
+
+    @Test
+    void discoverTv() throws Exception {
+        DiscoverTv discoverTv = new DiscoverTv();
+        discoverTv.setTotalPages(20);
+        when(tvService.getTv(null)).thenReturn(discoverTv);
+        this.mockMvc.perform(get("/api/discover/tv")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("{\"page\":0,\"total_pages\":20,\"total_results\":0,\"results\":null}")));
     }
 }

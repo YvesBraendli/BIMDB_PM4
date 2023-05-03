@@ -24,7 +24,15 @@ class MovieServiceTest {
         DiscoverMovie discoverMovie = new DiscoverMovie();
         discoverMovie.setTotalPages(20);
         when(restTemplate.getForObject("https://api.themoviedb.org/3/discover/movie?api_key=api_key", DiscoverMovie.class)).thenReturn(discoverMovie);
-        assertEquals(movieService.getMovies(), discoverMovie);
+        assertEquals(movieService.getMovies(null), discoverMovie);
+    }
+
+    @Test
+    void discoverMoviePage() {
+        DiscoverMovie discoverMovie = new DiscoverMovie();
+        discoverMovie.setTotalPages(20);
+        when(restTemplate.getForObject("https://api.themoviedb.org/3/discover/movie?page=15&api_key=api_key", DiscoverMovie.class)).thenReturn(discoverMovie);
+        assertEquals(movieService.getMovies(15), discoverMovie);
     }
 
     @Test

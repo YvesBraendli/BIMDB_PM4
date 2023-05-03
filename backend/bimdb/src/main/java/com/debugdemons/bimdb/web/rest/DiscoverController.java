@@ -1,14 +1,14 @@
 package com.debugdemons.bimdb.web.rest;
 
 import com.debugdemons.bimdb.domain.DiscoverMovie;
+import com.debugdemons.bimdb.domain.DiscoverTv;
 import com.debugdemons.bimdb.service.MovieService;
+import com.debugdemons.bimdb.service.TvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/discover")
@@ -17,12 +17,21 @@ public class DiscoverController {
     @Autowired
     private final MovieService movieService;
 
-    public DiscoverController(MovieService movieService) {
+    @Autowired
+    private final TvService tvService;
+
+    public DiscoverController(MovieService movieService, TvService tvService) {
         this.movieService = movieService;
+        this.tvService = tvService;
     }
 
-    @GetMapping("/movie")
-    public DiscoverMovie discoverMovies(@RequestParam Map<String, String> params) {
-        return movieService.getMovies();
+    @GetMapping("/movies")
+    public DiscoverMovie discoverMovies(@RequestParam(name = "page", required = false) Integer page) {
+        return movieService.getMovies(page);
+    }
+
+    @GetMapping("/tv")
+    public DiscoverTv discoverTv(@RequestParam(name = "page", required = false) Integer page) {
+        return tvService.getTv(page);
     }
 }

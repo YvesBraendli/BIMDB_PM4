@@ -4,13 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class DiscoverMovie extends Discover {
-
+public class DiscoverTv extends Discover {
     @JsonProperty("results")
-    private List<Movie> results;
+    private List<TvShow> results;
 
-    public List<Movie> getResults() {
+    public List<TvShow> getResults() {
         return results;
     }
-
 }
