@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { HttpService } from '../core/services/http.service';
 import { DiscoverMovie } from '../generated/contract';
 
 @Injectable({
@@ -9,10 +9,10 @@ import { DiscoverMovie } from '../generated/contract';
 })
 export class DiscoverService {
 
-	public constructor(private httpClient: HttpClient) { }
+	public constructor(private httpService: HttpService) { }
 
-	public discover(page: number): Observable<DiscoverMovie> {
-		return this.httpClient.get<DiscoverMovie>(`${environment.apiBaseUrl}/discover/movie?page=${page}`);
+	public discover(page: number, hasCustomErrorHandler = false): Observable<DiscoverMovie> {
+		return this.httpService.get<DiscoverMovie>(`${environment.apiBaseUrl}/discover/movies?page=${page}`, hasCustomErrorHandler);
 	}
 
 }

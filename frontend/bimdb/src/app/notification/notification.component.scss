@@ -1,0 +1,39 @@
+.notification {
+    display: flex;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+
+    span {
+        flex: 1;
+        padding: 3px 0 0 5px;
+    }
+
+    i {
+        user-select: none;
+    }
+
+    button {
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.success {
+    background-color: #51A351;
+}
+
+.warning {
+    background-color: #F89406;
+}
+
+.info {
+    background-color: #2F96b4;
+}
+
+.error {
+    background-color: #BD362F;
+}

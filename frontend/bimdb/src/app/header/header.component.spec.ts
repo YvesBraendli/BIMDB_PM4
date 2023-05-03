@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateTestingModule } from 'ngx-translate-testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { WindowService } from '../shared/services/window.service';
+import { TranslateTestingModule } from 'ngx-translate-testing';
+import { WindowService } from '../core/services/window.service';
 
 import { HeaderComponent } from './header.component';
 

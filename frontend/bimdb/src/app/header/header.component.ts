@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AutocompleteComponent } from '../autocomplete/single-autocomplete/autocomplete.component';
-import { LocalStorageKeys } from '../shared/models/storage-keys';
-import { SearchService } from '../shared/services/search.service';
-import { WindowService } from '../shared/services/window.service';
+import { StorageKeys } from '../core/constants/storage-keys';
+import { SearchService } from '../core/services/search.service';
+import { WindowService } from '../core/services/window.service';
 
 @Component({
 	standalone: true,
@@ -25,7 +25,7 @@ export class HeaderComponent {
 	public changeLanguage(event: Event): void {
 		const select = event.target as HTMLSelectElement;
 		this.language = select.value;
-		localStorage.setItem(LocalStorageKeys.Language, this.language);
+		localStorage.setItem(StorageKeys.Language, this.language);
 		this.windowService.reload();
 	}
 }

@@ -34,7 +34,7 @@ describe('DiscoverService', () => {
 			expect(res.page).toBe(1);
 		});
 
-		const discoverRequest = httpTestingController.expectOne('/api/discover/movie?page=1');
+		const discoverRequest = httpTestingController.expectOne('/api/discover/movies?page=1');
 		expect(discoverRequest.request.method).toEqual('GET');
 		discoverRequest.flush(mockResponse);
 
