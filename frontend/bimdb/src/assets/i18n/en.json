@@ -27,5 +27,11 @@
 		"cast": "Cast",
 		"recommendations": "Recommendations",
 		"similarMovies": "Similar Movies"
+	},
+	"error": {
+		"unknown": "Something went wrong",
+		"http": {
+			"401": "Unauthorized"
+		}
 	}
 }

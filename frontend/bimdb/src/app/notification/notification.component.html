@@ -1,0 +1,5 @@
+<div *ngFor="let notification of notifications; let i = index" class="notification" [ngClass]="notification.type">
+    <i class="material-icons">{{notification.icon}}</i>
+    <span>{{notification.message | translate}}</span>
+    <button class="material-icons clear" (click)="clearNotification(i)">close</button>
+</div>

@@ -25,23 +25,6 @@ module.exports = function (config) {
 		jasmineHtmlReporter: {
 			suppressAll: true // removes the duplicated traces
 		},
-		coverageReporter: {
-			dir: require('path').join(__dirname, './coverage/bimdb'),
-			subdir: '.',
-			reporters: [
-				{ type: 'html' },
-				{ type: 'text-summary' },
-				{ type: 'cobertura' }
-			],
-      check: {
-        global: {
-          statements: 80,
-          branches: 80,
-          functions: 80,
-          lines: 80
-        }
-      }
-		},
 		reporters: ['progress', 'kjhtml', 'junit'],
 		junitReporter: {
 			outputDir: 'reports',
@@ -52,14 +35,23 @@ module.exports = function (config) {
 			dir: 'reports',
 			subdir: '.',
 			reporters: [
-			  // 'text-summary' to let GitLab grab coverage from stdout
-			  {type: "text-summary"},
-			  // 'cobertura' to enable GitLab test coverage visualization
-			  {type: 'cobertura', file: 'ng-coverage.cobertura.xml'},
-			  // 'lcovonly' to enable SonarQube test coverage reporting
-    		  //{type: 'lcovonly', file: 'ng-coverage.lcov.info'}
+				{ type: 'html' },
+				// 'text-summary' to let GitLab grab coverage from stdout
+				{ type: "text-summary" },
+				// 'cobertura' to enable GitLab test coverage visualization
+				{ type: 'cobertura', file: 'ng-coverage.cobertura.xml' },
+				// 'lcovonly' to enable SonarQube test coverage reporting
+				//{type: 'lcovonly', file: 'ng-coverage.lcov.info'}
 			],
-		  },
+			check: {
+				global: {
+					statements: 80,
+					branches: 80,
+					functions: 80,
+					lines: 80
+				}
+			}
+		},
 		port: 9876,
 		colors: true,
 		logLevel: config.LOG_INFO,

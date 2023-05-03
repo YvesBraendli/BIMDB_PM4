@@ -27,5 +27,11 @@
 		"cast": "Cast",
 		"recommendations": "Vorschläge",
 		"similarMovies": "Ähnliche Filme"
+	},
+	"error": {
+		"unknown": "Etwas ist schief gelaufen",
+		"http": {
+			"401": "Kein Zugriff"
+		}
 	}
 }

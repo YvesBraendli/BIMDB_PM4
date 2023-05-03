@@ -2,9 +2,9 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule } from '@angular/router';
+import { LocaleDatePipe } from '../core/pipes/locale-date.pipe';
+import { ConfigService } from '../core/services/config.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
-import { LocaleDatePipe } from '../shared/pipes/locale-date.pipe';
-import { ConfigService } from '../shared/services/config.service';
 import { Media } from './media';
 
 

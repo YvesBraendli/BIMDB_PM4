@@ -1,12 +1,19 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-04-21 12:27:25.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-03 07:18:03.
 
-export interface DiscoverMovie {
+export interface Discover {
     page: number;
-    results: Movie[];
     total_pages: number;
     total_results: number;
+}
+
+export interface DiscoverMovie extends Discover {
+    results: Movie[];
+}
+
+export interface DiscoverTv extends Discover {
+    results: TvShow[];
 }
 
 export interface Genre {
@@ -14,21 +21,24 @@ export interface Genre {
     name: string;
 }
 
-export interface Movie {
-    adult: boolean;
+export interface Media {
     backdrop_path: string;
     genre_ids: number[];
     id: number;
     original_language: string;
-    original_title: string;
     overview: string;
     popularity: number;
     poster_path: string;
+    vote_average: number;
+    vote_count: number;
+}
+
+export interface Movie extends Media {
+    adult: boolean;
+    original_title: string;
     release_date: Date;
     title: string;
     video: boolean;
-    vote_average: number;
-    vote_count: number;
 }
 
 export interface MovieDetails extends Movie {
@@ -40,4 +50,44 @@ export interface MovieDetails extends Movie {
     runtime: number;
     status: string;
     tagline: string;
+}
+
+export interface Network {
+    id: number;
+    name: string;
+    origin_country: string;
+    logo_path: string;
+}
+
+export interface Season {
+    id: number;
+    air_date: string;
+    episode_count: number;
+    name: string;
+    overview: string;
+    poster_path: string;
+    season_number: number;
+}
+
+export interface TvShow extends Media {
+    first_air_date: string;
+    origin_country: string[];
+    name: string;
+    original_name: string;
+}
+
+export interface TvShowDetails extends TvShow {
+    episode_run_time: number[];
+    genres: Genre[];
+    homepage: string;
+    in_production: boolean;
+    languages: string[];
+    last_air_date: string;
+    networks: Network[];
+    number_of_episodes: number;
+    number_of_seasons: number;
+    seasons: Season[];
+    status: string;
+    tagline: string;
+    type: string;
 }

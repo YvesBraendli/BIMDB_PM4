@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CastListComponent } from '../cast-list/cast-list.component';
+import { ConfigService } from '../core/services/config.service';
 import { MovieDetails } from '../generated/contract';
-import { ConfigService } from '../shared/services/config.service';
 import { MovieDetailService } from './movie-detail.service';
 
 export const PARAM_MOVIE_ID = 'movie-id';
