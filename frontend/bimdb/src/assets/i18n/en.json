@@ -33,5 +33,17 @@
 		"http": {
 			"401": "Unauthorized"
 		}
+	},
+	"tvShowDetail": {
+		"status": "Status",
+		"firstAirDate": "First aired",
+		"originalLanguage": "Original Language",
+		"originalTitle": "Original Title",
+		"cast": "Cast",
+		"recommendations": "Recommendations",
+		"seasons": "Seasons",
+		"season": "Season",
+		"episode": "Episode",
+		"minutes": "Minutes"
 	}
 }

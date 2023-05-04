@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MultiAutocompleteComponent } from '../autocomplete/multi-autocomplete/multi-autocomplete.component';
 import { AutocompleteComponent } from '../autocomplete/single-autocomplete/autocomplete.component';
-import { Media } from '../media-list/media';
+import { Media, MediaType } from '../media-list/media';
 import { MediaListComponent } from '../media-list/media-list.component';
 
 @Component({
@@ -22,7 +22,8 @@ export class MovieListComponent {
 			id: i,
 			title: `Barbie ${i + 1}`,
 			release_date: new Date(2023, 6, 21),
-			poster_path: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xMVsBwvvw1iKhC97rtI5mB91C0O.jpg'
+			poster_path: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xMVsBwvvw1iKhC97rtI5mB91C0O.jpg',
+			mediaType: MediaType.Movie
 		} as Media));
 	}
 

@@ -33,5 +33,17 @@
 		"http": {
 			"401": "Kein Zugriff"
 		}
+	},
+	"tvShowDetail": {
+		"status": "Status",
+		"firstAirDate": "Erstausstrahlung",
+		"originalLanguage": "Originale Sprache",
+		"originalTitle": "Originaler Titel",
+		"cast": "Cast",
+		"recommendations": "Vorschläge",
+		"seasons": "Staffeln",
+		"season": "Staffel",
+		"episode": "Folge",
+		"minutes": "Minuten"
 	}
 }

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 
 import { MediaListComponent } from './media-list.component';
+import { Media, MediaType } from './media';
 
 describe('MediaListComponent', () => {
 	let component: MediaListComponent;
@@ -9,7 +10,7 @@ describe('MediaListComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ MediaListComponent, TranslateTestingModule.withTranslations({}) ]
+			imports: [MediaListComponent, TranslateTestingModule.withTranslations({})]
 		})
 			.compileComponents();
 
@@ -28,4 +29,29 @@ describe('MediaListComponent', () => {
 		expect(spy).toHaveBeenCalledWith(1);
 	});
 
+	it('should return the correct link when getMediaLink is called with a movie', () => {
+		const media = {
+			id: 1,
+			mediaType: MediaType.Movie
+		} as Media;
+		const link = component.getMediaLink(media);
+		expect(link).toEqual('/movie/1');
+	});
+
+	it('should return the correct link when getMediaLink is called with a tv-show', () => {
+		const media = {
+			id: 1,
+			mediaType: MediaType.TvShow
+		} as Media;
+		const link = component.getMediaLink(media);
+		expect(link).toEqual('/tv-show/1');
+	});
+
+	it('should return an empty link when getMediaLink is called with an unknown media type', () => {
+		const media = {
+			id: 1
+		} as Media;
+		const link = component.getMediaLink(media);
+		expect(link).toEqual('');
+	});
 });
