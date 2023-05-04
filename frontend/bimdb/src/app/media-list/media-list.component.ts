@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { LocaleDatePipe } from '../core/pipes/locale-date.pipe';
 import { ConfigService } from '../core/services/config.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
-import { Media } from './media';
+import { Media, MediaType } from './media';
 
 
 @Component({
@@ -27,8 +27,18 @@ export class MediaListComponent {
 		this.configService.getImageBaseUrl().subscribe(baseUrl => this.posterBaseUrl = baseUrl);
 	}
 
-
 	public onPageChange(page: number): void {
 		this.pageChange.emit(page);
+	}
+
+	public getMediaLink(media: Media): string {
+		switch (media.mediaType) {
+			case MediaType.Movie:
+				return `/movie/${media.id}`;
+			case MediaType.TvShow:
+				return `/tv-show/${media.id}`;
+			default:
+				return '';
+		}
 	}
 }

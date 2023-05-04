@@ -1,6 +1,7 @@
 package com.debugdemons.bimdb.web.rest;
 
 import com.debugdemons.bimdb.domain.TvShowDetails;
+import com.debugdemons.bimdb.domain.TvShowSeasonDetails;
 import com.debugdemons.bimdb.service.TvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class TvController {
 
     @Autowired
-    private final TvService movieService;
+    private final TvService tvService;
 
-    public TvController(TvService movieService) {
-        this.movieService = movieService;
+    public TvController(TvService tvService) {
+        this.tvService = tvService;
     }
 
     @GetMapping("/{id}")
-    public TvShowDetails getMovieDetails(@PathVariable Long id) {
-        return movieService.getTvShowById(id);
+    public TvShowDetails getTvShowDetails(@PathVariable Long id) {
+        return tvService.getTvShowById(id);
+    }
+
+    @GetMapping("/{id}/{seasonNumber}")
+    public TvShowSeasonDetails getTvShowSeasonDetails(@PathVariable Long id, @PathVariable Long seasonNumber) {
+        return tvService.getTvShowSeasonDetails(id, seasonNumber);
     }
 }
 

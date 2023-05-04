@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-03 07:18:03.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-04 16:35:37.
 
 export interface Discover {
     page: number;
@@ -9,22 +9,37 @@ export interface Discover {
 }
 
 export interface DiscoverMovie extends Discover {
-    results: Movie[];
+	results: Movie[];
 }
 
 export interface DiscoverTv extends Discover {
-    results: TvShow[];
+	results: TvShow[];
+}
+
+export interface Episode {
+	id: number;
+	air_date: Date;
+	episode_number: number;
+	name: string;
+	overview: string;
+	production_code: string;
+	runtime: number;
+	season_number: number;
+	show_id: number;
+	still_path: string;
+	vote_average: number;
+	vote_count: number;
 }
 
 export interface Genre {
-    id: number;
-    name: string;
+	id: number;
+	name: string;
 }
 
 export interface Media {
-    backdrop_path: string;
-    genre_ids: number[];
-    id: number;
+	backdrop_path: string;
+	genre_ids: number[];
+	id: number;
     original_language: string;
     overview: string;
     popularity: number;
@@ -82,12 +97,22 @@ export interface TvShowDetails extends TvShow {
     homepage: string;
     in_production: boolean;
     languages: string[];
-    last_air_date: string;
-    networks: Network[];
-    number_of_episodes: number;
-    number_of_seasons: number;
-    seasons: Season[];
-    status: string;
-    tagline: string;
-    type: string;
+	last_air_date: string;
+	networks: Network[];
+	number_of_episodes: number;
+	number_of_seasons: number;
+	seasons: Season[];
+	status: string;
+	tagline: string;
+	type: string;
+}
+
+export interface TvShowSeasonDetails {
+	id: number;
+	air_date: string;
+	episodes: Episode[];
+	name: string;
+	overview: string;
+	poster_path: string;
+	season_number: number;
 }
