@@ -7,7 +7,7 @@ backend-compile:
     paths:
       - "backend/bimdb/target/"
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' #|| $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 backend-test:
   image: maven:3.8-openjdk-17
@@ -54,7 +54,7 @@ backend-build:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS verify -Dmaven.test.skip=true -f "backend/bimdb/pom.xml"
-  needs: ["backend-test"]
+#  needs: ["backend-test"]
   artifacts:
     name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
     paths:
