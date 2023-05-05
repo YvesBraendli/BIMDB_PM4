@@ -12,7 +12,11 @@ export class LocaleDatePipe implements PipeTransform {
 	public constructor(private datePipe: DatePipe, private translateService: TranslateService) { }
 
 	public transform(value: string | number | Date | undefined): string | null {
-		return this.datePipe.transform(value, this.getDateFormat());
+		try {
+			return this.datePipe.transform(value, this.getDateFormat());
+		} catch {
+			return '';
+		}
 	}
 
 	private getDateFormat(): string {

@@ -1,7 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, enableProdMode, ErrorHandler, importProvidersFrom } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, Routes, withHashLocation } from '@angular/router';
+import { Routes, provideRouter, withHashLocation } from '@angular/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Observable } from 'rxjs';
@@ -17,10 +17,9 @@ import { BimdbMissingTranslationHandler } from './app/core/handlers/missing-tran
 import { ErrorInterceptor } from './app/core/interceptors/error.interceptor';
 import { NotificationService } from './app/core/services/notification.service';
 import { MovieDetailComponent, PARAM_MOVIE_ID } from './app/movie-detail/movie-detail.component';
-import { MovieListComponent } from './app/movie-list/movie-list.component';
-import { environment } from './environments/environment';
 import { PARAM_TV_SHOW_ID, TvShowDetailComponent } from './app/tv-show-detail/tv-show-detail.component';
 import { TvShowListComponent } from './app/tv-show-list/tv-show-list.component';
+import { environment } from './environments/environment';
 
 if (environment.production) {
 	enableProdMode();
@@ -28,7 +27,8 @@ if (environment.production) {
 const routes: Routes = [
 	{ path: '', redirectTo: 'discover', pathMatch: 'full' },
 	{ path: 'discover', component: DiscoverComponent },
-	{ path: 'movies', component: MovieListComponent },
+	// TODO add movies entrypoint in backend and navigate to MovieListComponent
+	{ path: 'movies', component: DiscoverComponent },
 	{ path: `movie/:${PARAM_MOVIE_ID}`, component: MovieDetailComponent },
 	{ path: 'tv-shows', component: TvShowListComponent },
 	{ path: `tv-show/:${PARAM_TV_SHOW_ID}`, component: TvShowDetailComponent },

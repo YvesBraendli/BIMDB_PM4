@@ -14,7 +14,12 @@ describe('DiscoverComponent', () => {
 	let fixture: ComponentFixture<DiscoverComponent>;
 	let discoverService: DiscoverService;
 	let discoverSpy: jasmine.Spy;
-	const discoverMovie: DiscoverMovie = { page: 1, total_pages: 10, total_results: 200, results: [] };
+	const discoverMovie: DiscoverMovie = {
+		page: 1,
+		total_pages: 10,
+		total_results: 200,
+		results: [{ id: 0, title: 'Title', release_date: new Date('01.01.2023'), poster_path: '' }]
+	} as DiscoverMovie;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
