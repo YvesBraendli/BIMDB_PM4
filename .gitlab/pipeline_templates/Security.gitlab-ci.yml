@@ -31,14 +31,14 @@ semgrep-sast:
       - gl-sast-semgrep-report.json
     when: always
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' #|| $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
         - backend/**/*
 
 nodejs-scan-sast:
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' #|| $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
         - backend/**/*
@@ -58,7 +58,7 @@ semgrep_sast_report:
     reports:
       junit: gl-sast-semgrep-report.xml
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' #|| $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
         - backend/**/*
@@ -76,4 +76,4 @@ sonarcloud-check:
   script:
     - sonar-scanner
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' #|| $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.iam.appName }}-service"
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    name: "{{ .Values.iam.appName }}-service"
+spec:
+  ports:
+    - name: http
+      port: {{.Values.iam.exposedPort}}
+      targetPort: {{.Values.iam.containerPort}}
+  selector:
+    app: "{{ .Values.iam.appName }}-deployment"
+  type: ClusterIP

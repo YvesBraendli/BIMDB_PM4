@@ -42,6 +42,6 @@ iam:
   appName: bimdb-auth
   userName: admin
   userPassword: ""
-  imageTag: 21.1
+  imageTag: 21.1.1
   containerPort: 8080
   exposedPort: 80
