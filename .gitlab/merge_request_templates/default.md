@@ -3,9 +3,13 @@ Please check that the target branch %{target_branch} is correct and adjust accor
 # General information
 what are you changing and why. (Issue reference works too)
 
-- [ ] I have written automated tests for this change
+*Definition of Done:*  
+
+- [ ] I have written automated tests for this change (excluding /docs and pipelining)
+- [ ] I have defined what tests (for test coverage) are necessary for this change 
 - [ ] I have updated documentation as needed (can be found in /docs folder)
-- [ ] I have let someone review my code and solved all the threads
+- [ ] I have let someone review my code and tests and solved all the threads
+
 
 <!-- 
 Optional at the moment:
