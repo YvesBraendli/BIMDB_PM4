@@ -30,9 +30,9 @@ frontend-test:
         path: "frontend/bimdb/reports/ng-coverage.cobertura.xml"
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development'
-    # - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    #   changes:
-    #     - frontend/**/*
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      changes:
+        - frontend/**/*
 
 frontend-package:
   stage: package
@@ -60,8 +60,8 @@ frontend-package:
       --tag $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
       .
     - docker push $CI_REGISTRY_IMAGE:frontend-$CI_COMMIT_SHA
-#  rules:
-#    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
 
 # Here, the goal is to tag the "main" branch as "latest"
 frontend-tag-latest:

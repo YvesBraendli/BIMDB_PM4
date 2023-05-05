@@ -28,7 +28,7 @@ spec:
             - name: DB_ADDR
               value: {{ .Values.db.bimdb.appName }}-service
             - name: DB_PORT
-              value: {{ .Values.db.bimdb.containerPort }}
+              value: "{{ .Values.db.bimdb.containerPort }}"
             - name: DB_DATABASE
               valueFrom:
                 secretKeyRef:
