@@ -42,4 +42,11 @@ describe('LocaleDatePipe', () => {
 		expect(localeDate).toEqual('31.12.2021');
 	});
 
+	it('should return empty string if invalid date', () => {
+		const date = new Date('');
+		const localeDate = localeDatePipe.transform(date);
+		expect(localeDate).toEqual('');
+
+	});
+
 });
