@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.db.appName }}-pvc
+  name: {{ .Values.db.bimdb.appName }}-pvc
   namespace: {{ .Values.namespace }}
 spec:
   storageClassName: "cinder-csi-ssd"
@@ -9,4 +9,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.db.storageSize }}
+      storage: {{ .Values.db.bimdb.storageSize }}

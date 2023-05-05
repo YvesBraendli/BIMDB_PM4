@@ -19,11 +19,29 @@ frontend:
   exposedPort: 80
 
 db:
-  appName: bimdb-database
-  replicas: 1
-  imageTag: 15
-  containerPort: 5432
-  storageSize: 10Gi
-  userName: postgres
+  iam:
+    appName: bimdb-iam-database
+    replicas: 1
+    imageTag: 15
+    containerPort: 5432
+    storageSize: 10Gi
+    userName: postgres
+    userPassword: ""
+    databaseName: keycloak
+  bimdb:
+    appName: bimdb-database
+    replicas: 1
+    imageTag: 15
+    containerPort: 5432
+    storageSize: 10Gi
+    userName: postgres
+    userPassword: ""
+    databaseName: bimdb
+
+iam:
+  appName: bimdb-auth
+  userName: admin
   userPassword: ""
-  databaseName: bimdb
+  imageTag: 21.1
+  containerPort: 8080
+  exposedPort: 80

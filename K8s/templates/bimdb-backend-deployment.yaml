@@ -23,3 +23,26 @@ spec:
           env:
             - name: TMDB_API_KEY
               value: {{.Values.backend.env.TMDB_API_KEY}}
+            - name: DB_VENDOR
+              value: postgres
+            - name: DB_ADDR
+              value: {{ .Values.db.bimdb.appName }}-service
+            - name: DB_PORT
+              value: {{ .Values.db.bimdb.containerPort }}
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.db.bimdb.appName }}-credentials
+                  key: databaseName
+            - name: DB_SCHEMA
+              value: public
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.db.bimdb.appName }}-credentials
+                  key: userName
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.db.bimdb.appName }}-credentials
+                  key: userPassword

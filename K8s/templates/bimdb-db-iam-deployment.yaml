@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.db.iam.appName }}-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.db.iam.appName }}-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.db.iam.appName }}-deployment
+    spec:
+      containers:
+      - name: {{ .Values.db.iam.appName }}-deployment
+        image: "postgres:{{ .Values.db.iam.imageTag }}"
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.db.iam.appName }}-credentials
+              key: userName
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.db.iam.appName }}-credentials
+              key: databaseName
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.db.iam.appName }}-credentials
+              key: userPassword
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        ports:
+        - containerPort: {{ .Values.db.iam.containerPort }}
+          name: database
+        volumeMounts:
+        - name: pg-persistent-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: pg-persistent-storage
+        persistentVolumeClaim:
+          claimName: {{ .Values.db.iam.appName }}-pvc

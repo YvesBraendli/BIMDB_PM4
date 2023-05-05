@@ -21,11 +21,11 @@ backend-test:
     reports:
       junit:
         - "backend/bimdb/target/*-reports/TEST-*.xml"
-  rules:
-    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development'
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-      changes:
-        - backend/**/*
+  # rules:
+  #   - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development'
+  #   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  #     changes:
+  #       - backend/**/*
 
 backend-coverage:
   stage: reporting
@@ -59,8 +59,8 @@ backend-build:
     name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
     paths:
       - "backend/bimdb/target/*.jar"
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
+#  rules:
+#    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
 
 backend-package:
   stage: package
@@ -89,8 +89,8 @@ backend-package:
       --tag $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA
       .
     - docker push $CI_REGISTRY_IMAGE:backend-$CI_COMMIT_SHA
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
+#  rules:
+#    - if: $CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "development"
 
 # Here, the goal is to tag the "main" branch as "latest"
 backend-tag-latest:
