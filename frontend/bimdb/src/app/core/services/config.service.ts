@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { ApiConfig, Country } from 'src/app/generated/contract';
+import { environment } from 'src/environments/environment';
 import { ImgSizeConfig, TmdbImgConfig } from '../models/tmdb-img-config';
 import { HttpService } from './http.service';
 
@@ -46,7 +47,7 @@ export class ConfigService {
 
 	private loadApiConfig(hasCustomErrorHandler = false): Observable<void> {
 		return new Observable(subscriber => {
-			this.httpService.get<ApiConfig>('/api/config', hasCustomErrorHandler).subscribe({
+			this.httpService.get<ApiConfig>(`${environment.apiBaseUrl}/config`, hasCustomErrorHandler).subscribe({
 				next: res => {
 					this.imgConfig = {} as TmdbImgConfig;
 					this.imgConfig.baseUrl = res.images.secure_base_url;
@@ -65,7 +66,7 @@ export class ConfigService {
 
 	private loadCountries(hasCustomErrorHandler = false): Observable<void> {
 		return new Observable(subscriber => {
-			this.httpService.get<Country[]>('/api/config/countries', hasCustomErrorHandler).subscribe({
+			this.httpService.get<Country[]>(`${environment.apiBaseUrl}/config/countries`, hasCustomErrorHandler).subscribe({
 				next: res => {
 					this.countries = res;
 					subscriber.next();
