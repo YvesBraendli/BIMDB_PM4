@@ -9,13 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class TvService {
+public class TvService extends BaseService {
 
-    @Autowired
-    private MovieDBApiConfig movieDBApiConfig;
-
-    @Autowired
-    private RestTemplate restTemplate;
+    public TvService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
+        super(movieDBApiConfig, restTemplate);
+    }
 
     public DiscoverTv getTv(Integer page) {
         String url = movieDBApiConfig.getBaseUrl() + "discover/tv";

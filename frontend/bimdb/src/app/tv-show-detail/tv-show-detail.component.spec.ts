@@ -1,19 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateTestingModule } from 'ngx-translate-testing';
+import { of } from 'rxjs';
+import { TmdbImgConfig } from '../core/models/tmdb-img-config';
+import { ConfigService } from '../core/services/config.service';
+import { MovieDetailComponent } from '../movie-detail/movie-detail.component';
 import { TvShowDetailComponent } from './tv-show-detail.component';
 import { TvShowDetailService } from './tv-show-detail.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MovieDetailComponent } from '../movie-detail/movie-detail.component';
-import { TranslateTestingModule } from 'ngx-translate-testing';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { of } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TvDetailComponent', () => {
 	let component: TvShowDetailComponent;
 	let fixture: ComponentFixture<TvShowDetailComponent>;
 	let mockTvShowDetailService: TvShowDetailService;
+	let mockConfigService: ConfigService;
 
 	describe('when a tv show id is passed', () => {
 		const tvShowId = 100;
@@ -42,6 +45,11 @@ describe('TvDetailComponent', () => {
 			mockTvShowDetailService = TestBed.inject(TvShowDetailService);
 			mockTvShowDetailService.getTvShow = jasmine.createSpy().and.returnValue(of({}));
 			mockTvShowDetailService.getTvSeason = jasmine.createSpy().and.returnValue(of({ episodes: [] }));
+
+			mockConfigService = TestBed.inject(ConfigService);
+			spyOn(mockConfigService, 'getImageBaseUrl').and.returnValue('');
+			spyOn(mockConfigService, 'getCountries').and.returnValue([]);
+			spyOn(mockConfigService, 'getTmbdImgConfig').and.returnValue(new TmdbImgConfig());
 
 			fixture = TestBed.createComponent(TvShowDetailComponent);
 			component = fixture.componentInstance;

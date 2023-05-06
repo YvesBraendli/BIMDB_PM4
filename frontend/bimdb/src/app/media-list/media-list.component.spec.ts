@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 
-import { MediaListComponent } from './media-list.component';
 import { Media, MediaType } from './media';
+import { MediaListComponent } from './media-list.component';
 
 describe('MediaListComponent', () => {
 	let component: MediaListComponent;
@@ -54,4 +54,12 @@ describe('MediaListComponent', () => {
 		const link = component.getMediaLink(media);
 		expect(link).toEqual('');
 	});
+
+	it('should return max pages value', () => {
+		component.totalPages = 700;
+		expect(component.maxPages).toBe(500);
+		component.totalPages = 125;
+		expect(component.maxPages).toBe(125);
+	});
+
 });

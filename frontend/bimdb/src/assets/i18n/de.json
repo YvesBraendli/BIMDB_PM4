@@ -29,6 +29,7 @@
 		"similarMovies": "Ähnliche Filme"
 	},
 	"error": {
+		"config": "Fehler beim Laden der Konfiguration",
 		"unknown": "Etwas ist schief gelaufen",
 		"http": {
 			"401": "Kein Zugriff"

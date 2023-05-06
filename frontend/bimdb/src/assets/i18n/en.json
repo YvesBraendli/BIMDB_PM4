@@ -29,6 +29,7 @@
 		"similarMovies": "Similar Movies"
 	},
 	"error": {
+		"config": "Error while loading the configuration",
 		"unknown": "Something went wrong",
 		"http": {
 			"401": "Unauthorized"

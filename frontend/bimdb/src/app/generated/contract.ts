@@ -1,11 +1,31 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-04 16:35:37.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-06 15:10:06.
+
+export interface ApiConfig {
+	images: ApiImagesConfig;
+	change_keys: string[];
+}
+
+export interface ApiImagesConfig {
+	base_url: string;
+	secure_base_url: string;
+	backdrop_sizes: string[];
+	logo_sizes: string[];
+	poster_sizes: string[];
+	profile_sizes: string[];
+	still_sizes: string[];
+}
+
+export interface Country {
+	iso_3166_1: string;
+	english_name: string;
+}
 
 export interface Discover {
-    page: number;
-    total_pages: number;
-    total_results: number;
+	page: number;
+	total_pages: number;
+	total_results: number;
 }
 
 export interface DiscoverMovie extends Discover {
@@ -40,63 +60,63 @@ export interface Media {
 	backdrop_path: string;
 	genre_ids: number[];
 	id: number;
-    original_language: string;
-    overview: string;
-    popularity: number;
-    poster_path: string;
-    vote_average: number;
-    vote_count: number;
+	original_language: string;
+	overview: string;
+	popularity: number;
+	poster_path: string;
+	vote_average: number;
+	vote_count: number;
 }
 
 export interface Movie extends Media {
-    adult: boolean;
-    original_title: string;
-    release_date: Date;
-    title: string;
-    video: boolean;
+	adult: boolean;
+	original_title: string;
+	release_date: Date;
+	title: string;
+	video: boolean;
 }
 
 export interface MovieDetails extends Movie {
-    budget: number;
-    genres: Genre[];
-    homepage: string;
-    imdb_id: string;
-    revenue: number;
-    runtime: number;
-    status: string;
-    tagline: string;
+	budget: number;
+	genres: Genre[];
+	homepage: string;
+	imdb_id: string;
+	revenue: number;
+	runtime: number;
+	status: string;
+	tagline: string;
 }
 
 export interface Network {
-    id: number;
-    name: string;
-    origin_country: string;
-    logo_path: string;
+	id: number;
+	name: string;
+	origin_country: string;
+	logo_path: string;
 }
 
 export interface Season {
-    id: number;
-    air_date: string;
-    episode_count: number;
-    name: string;
-    overview: string;
-    poster_path: string;
-    season_number: number;
+	id: number;
+	air_date: string;
+	episode_count: number;
+	name: string;
+	overview: string;
+	poster_path: string;
+	season_number: number;
 }
 
 export interface TvShow extends Media {
-    first_air_date: string;
-    origin_country: string[];
-    name: string;
-    original_name: string;
+	first_air_date: string;
+	origin_country: string[];
+	name: string;
+	original_name: string;
 }
 
 export interface TvShowDetails extends TvShow {
-    episode_run_time: number[];
-    genres: Genre[];
-    homepage: string;
-    in_production: boolean;
-    languages: string[];
+	episode_run_time: number[];
+	genres: Genre[];
+	homepage: string;
+	in_production: boolean;
+	languages: string[];
 	last_air_date: string;
 	networks: Network[];
 	number_of_episodes: number;

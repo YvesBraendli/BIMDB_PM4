@@ -1,29 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateTestingModule } from 'ngx-translate-testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TmdbImgConfig } from '../core/models/tmdb-img-config';
 import { ConfigService } from '../core/services/config.service';
-import { MovieListComponent } from './movie-list.component';
+import { TmdbImgComponent } from './tmdb-img.component';
 
-describe('MovieListComponent', () => {
-	let component: MovieListComponent;
-	let fixture: ComponentFixture<MovieListComponent>;
+describe('TmdbImageComponent', () => {
+	let component: TmdbImgComponent;
+	let fixture: ComponentFixture<TmdbImgComponent>;
 	let mockConfigService: ConfigService;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [MovieListComponent, TranslateTestingModule.withTranslations({}), RouterTestingModule, HttpClientTestingModule]
+			imports: [TmdbImgComponent, HttpClientTestingModule]
 		})
 			.compileComponents();
+
 
 		mockConfigService = TestBed.inject(ConfigService);
 		spyOn(mockConfigService, 'getImageBaseUrl').and.returnValue('');
 		spyOn(mockConfigService, 'getCountries').and.returnValue([]);
 		spyOn(mockConfigService, 'getTmbdImgConfig').and.returnValue(new TmdbImgConfig());
 
-		fixture = TestBed.createComponent(MovieListComponent);
+		fixture = TestBed.createComponent(TmdbImgComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

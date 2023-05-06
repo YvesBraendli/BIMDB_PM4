@@ -2,11 +2,14 @@ package com.debugdemons.bimdb.service;
 
 import com.debugdemons.bimdb.domain.DiscoverTv;
 import com.debugdemons.bimdb.domain.TvShowDetails;
+import com.debugdemons.bimdb.domain.TvShowSeasonDetails;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -42,5 +45,19 @@ class TvServiceTest {
         tvShow.setName("Succession");
         when(restTemplate.getForObject("https://api.themoviedb.org/3/tv/305?api_key=api_key", TvShowDetails.class)).thenReturn(tvShow);
         assertEquals(tvShow, tvService.getTvShowById(305L));
+    }
+
+    @Test
+    void getTvShowSeasonDetails() {
+        TvShowSeasonDetails tvShowSeasonDetails = new TvShowSeasonDetails();
+        tvShowSeasonDetails.setApiId(923);
+        tvShowSeasonDetails.setName("Succession");
+        tvShowSeasonDetails.setSeasonNumber(1);
+        tvShowSeasonDetails.setOverview("Succession Season 1");
+        tvShowSeasonDetails.setAirDate("2020-09-20");
+        tvShowSeasonDetails.setEpisodes(new ArrayList<>());
+        tvShowSeasonDetails.setPosterPath("");
+        when(restTemplate.getForObject("https://api.themoviedb.org/3/tv/305/season/1?api_key=api_key", TvShowSeasonDetails.class)).thenReturn(tvShowSeasonDetails);
+        assertEquals(tvShowSeasonDetails, tvService.getTvShowSeasonDetails(305L, 1L));
     }
 }
