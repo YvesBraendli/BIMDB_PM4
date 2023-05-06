@@ -4,6 +4,8 @@ import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import { of } from 'rxjs';
+import { TmdbImgConfig } from '../core/models/tmdb-img-config';
+import { ConfigService } from '../core/services/config.service';
 import { MovieDetailComponent } from './movie-detail.component';
 import { MovieDetailService } from './movie-detail.service';
 
@@ -11,6 +13,7 @@ describe('MovieDetailComponent', () => {
 	let component: MovieDetailComponent;
 	let fixture: ComponentFixture<MovieDetailComponent>;
 	let mockMovieDetailService: MovieDetailService;
+	let mockConfigService: ConfigService;
 
 	describe('when a movie-id is passed', () => {
 		const movieId = 100;
@@ -35,7 +38,12 @@ describe('MovieDetailComponent', () => {
 			}).compileComponents();
 
 			mockMovieDetailService = TestBed.inject(MovieDetailService);
-			mockMovieDetailService.getMovie = jasmine.createSpy().and.returnValue(of({ genres: [{ id: 0, name: 'Action' }, {id: 1, name: 'Drama'}] }));
+			mockMovieDetailService.getMovie = jasmine.createSpy().and.returnValue(of({ genres: [{ id: 0, name: 'Action' }, { id: 1, name: 'Drama' }] }));
+
+			mockConfigService = TestBed.inject(ConfigService);
+			spyOn(mockConfigService, 'getImageBaseUrl').and.returnValue('');
+			spyOn(mockConfigService, 'getCountries').and.returnValue([]);
+			spyOn(mockConfigService, 'getTmbdImgConfig').and.returnValue(new TmdbImgConfig());
 
 			fixture = TestBed.createComponent(MovieDetailComponent);
 			component = fixture.componentInstance;

@@ -1,6 +1,6 @@
 <div *ngIf="movie" id="main">
 	<div id="details">
-		<img src="{{ posterBaseUrl + movie.poster_path }}" [title]="movie.title" [alt]="movie.title + ' Poster'" />
+		<app-tmdb-img [src]="movie.poster_path" [alt]="movie.title" [title]="movie.title" />
 		<div id="details-right">
 			<h2>{{movie.title}}</h2>
 			<p>{{movie.tagline}}</p>
@@ -20,7 +20,7 @@
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.releaseDate' | translate }}</h3>
-					<span>{{movie.release_date | date:'dd.MM.YYYY'}}</span>
+					<span>{{movie.release_date | localeDate }}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalLanguage' | translate }}</h3>

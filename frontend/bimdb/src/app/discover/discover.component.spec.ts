@@ -5,6 +5,8 @@ import { TranslateTestingModule } from 'ngx-translate-testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { TmdbImgConfig } from '../core/models/tmdb-img-config';
+import { ConfigService } from '../core/services/config.service';
 import { DiscoverMovie } from '../generated/contract';
 import { DiscoverComponent } from './discover.component';
 import { DiscoverService } from './discover.service';
@@ -14,6 +16,7 @@ describe('DiscoverComponent', () => {
 	let fixture: ComponentFixture<DiscoverComponent>;
 	let discoverService: DiscoverService;
 	let discoverSpy: jasmine.Spy;
+	let mockConfigService: ConfigService;
 	const discoverMovie: DiscoverMovie = {
 		page: 1,
 		total_pages: 10,
@@ -33,6 +36,12 @@ describe('DiscoverComponent', () => {
 			.compileComponents();
 		discoverService = TestBed.inject(DiscoverService);
 		discoverSpy = spyOn(discoverService, 'discover').and.returnValue(of(discoverMovie));
+
+		mockConfigService = TestBed.inject(ConfigService);
+		spyOn(mockConfigService, 'getImageBaseUrl').and.returnValue('');
+		spyOn(mockConfigService, 'getCountries').and.returnValue([]);
+		spyOn(mockConfigService, 'getTmbdImgConfig').and.returnValue(new TmdbImgConfig());
+
 		fixture = TestBed.createComponent(DiscoverComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();

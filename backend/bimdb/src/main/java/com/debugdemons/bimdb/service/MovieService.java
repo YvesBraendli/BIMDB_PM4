@@ -8,17 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class MovieService {
+public class MovieService extends BaseService {
 
-    @Autowired
-    private MovieDBApiConfig movieDBApiConfig;
+    public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
+        super(movieDBApiConfig, restTemplate);
+    }
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     public DiscoverMovie getMovies(Integer page) {
         String url = movieDBApiConfig.getBaseUrl() + "discover/movie";
-        if(page != null) {
+        if (page != null) {
             url += "?page=" + page + "&";
         } else {
             url += "?";
