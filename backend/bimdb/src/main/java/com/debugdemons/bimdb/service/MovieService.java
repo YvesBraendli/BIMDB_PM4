@@ -27,7 +27,7 @@ public class MovieService extends BaseService {
     }
 
     public MovieDetails getMovieById(Long id) {
-        String url = movieDBApiConfig.getBaseUrl() + "movie/" + id + "?api_key=" + movieDBApiConfig.getApiKey();
+        String url = movieDBApiConfig.getBaseUrl() + "movie/" + id + "?api_key=" + movieDBApiConfig.getApiKey() + "&append_to_response=credits,recommendations,similar";
         return restTemplate.getForObject(url, MovieDetails.class);
     }
 }

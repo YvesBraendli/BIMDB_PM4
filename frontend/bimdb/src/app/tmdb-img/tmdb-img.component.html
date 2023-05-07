@@ -1,1 +1,8 @@
-<img [alt]="alt + ' ' + type" [src]="src | tmdbImgSrc: type:size:customSize" [title]="title" />
+<img *ngIf="!altImg"
+	 [alt]="alt + ' ' + type"
+	 [src]="src | tmdbImgSrc: type:size:customSize"
+	 [title]="title"
+	 (error)="onError()"/>
+<div *ngIf="altImg" class="alt-img">
+	<span class="material-icons">{{altImg}}</span>
+</div>

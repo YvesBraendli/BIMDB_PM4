@@ -1,4 +1,4 @@
-<app-paginator *ngIf="media && media.length > 0" [totalPages]="maxPages" [page]="page"
+<app-paginator *ngIf="media && media.length > 0 && showPaginator" [totalPages]="maxPages" [page]="page"
 	(pageChange)="onPageChange($event)" />
 <div class="media-list">
 	<div *ngFor="let medium of media" class="medium">
@@ -8,5 +8,5 @@
 		<span class="date">{{ medium.release_date | localeDate }}</span>
 	</div>
 </div>
-<app-paginator *ngIf="media && media.length > 0" [totalPages]="maxPages" [page]="page"
+<app-paginator *ngIf="media && media.length > 0 && showPaginator" [totalPages]="maxPages" [page]="page"
 	(pageChange)="onPageChange($event)" />

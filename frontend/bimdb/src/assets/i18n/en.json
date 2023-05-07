@@ -5,7 +5,7 @@
 	},
 	"login": "Login",
 	"movies": "Movies",
-	"tvShows": "TV Shows",
+	"tvShows": "TV Shows",
 	"paginator": {
 		"of": "of {{totalPages}}",
 		"page": "Page"

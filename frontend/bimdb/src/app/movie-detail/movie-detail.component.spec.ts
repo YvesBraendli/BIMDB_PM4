@@ -8,6 +8,7 @@ import { TmdbImgConfig } from '../core/models/tmdb-img-config';
 import { ConfigService } from '../core/services/config.service';
 import { MovieDetailComponent } from './movie-detail.component';
 import { MovieDetailService } from './movie-detail.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MovieDetailComponent', () => {
 	let component: MovieDetailComponent;
@@ -23,7 +24,8 @@ describe('MovieDetailComponent', () => {
 				imports: [
 					MovieDetailComponent,
 					HttpClientTestingModule,
-					TranslateTestingModule.withTranslations({})
+					TranslateTestingModule.withTranslations({}),
+					BrowserAnimationsModule
 				],
 				providers: [
 					{
@@ -38,7 +40,22 @@ describe('MovieDetailComponent', () => {
 			}).compileComponents();
 
 			mockMovieDetailService = TestBed.inject(MovieDetailService);
-			mockMovieDetailService.getMovie = jasmine.createSpy().and.returnValue(of({ genres: [{ id: 0, name: 'Action' }, { id: 1, name: 'Drama' }] }));
+			mockMovieDetailService.getMovie = jasmine.createSpy().and.returnValue(of({
+				genres: [{ id: 0, name: 'Action' }, { id: 1, name: 'Drama' }],
+				credits: { cast: [] },
+				recommendations: {
+					results: [{
+						id: 0,
+						name: 'Recommendation'
+					}]
+				},
+				similar: {
+					results: [{
+						id: 0,
+						name: 'Recommendation'
+					}]
+				}
+			}));
 
 			mockConfigService = TestBed.inject(ConfigService);
 			spyOn(mockConfigService, 'getImageBaseUrl').and.returnValue('');
@@ -68,7 +85,8 @@ describe('MovieDetailComponent', () => {
 					HttpClientTestingModule,
 					MovieDetailComponent,
 					RouterTestingModule,
-					TranslateTestingModule.withTranslations({})
+					TranslateTestingModule.withTranslations({}),
+					BrowserAnimationsModule
 				]
 			}).compileComponents();
 

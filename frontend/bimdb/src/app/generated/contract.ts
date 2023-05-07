@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-06 15:10:06.
+
+// Generated using typescript-generator version 3.2.1263 on 2023-05-07 21:06:09.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
@@ -17,9 +18,23 @@ export interface ApiImagesConfig {
 	still_sizes: string[];
 }
 
+export interface Cast extends Credit {
+	character: string;
+}
+
 export interface Country {
 	iso_3166_1: string;
 	english_name: string;
+}
+
+export interface Credit {
+	id: number;
+	name: string;
+	profile_path: string;
+}
+
+export interface Credits {
+	cast: Cast[];
 }
 
 export interface Discover {
@@ -85,6 +100,13 @@ export interface MovieDetails extends Movie {
 	runtime: number;
 	status: string;
 	tagline: string;
+	credits: Credits;
+	recommendations: MovieListWrapper;
+	similar: MovieListWrapper;
+}
+
+export interface MovieListWrapper {
+	results: Movie[];
 }
 
 export interface Network {
