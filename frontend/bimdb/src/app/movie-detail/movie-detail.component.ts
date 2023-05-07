@@ -33,18 +33,20 @@ export class MovieDetailComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.id = +(this.route.snapshot.paramMap.get(PARAM_MOVIE_ID) ?? -1);
-		if (this.id >= 0) {
-			this.movieDetailService.getMovie(this.id).subscribe({
-				next: result => {
-					this.movie = result;
-					this.genreNames = this.movie.genres.map(genre => genre.name).join(', ');
-					this.cast = this.movie.credits.cast;
-					this.recommendations = this.movie.recommendations.results.map(recommendation => this.convertToMedia(recommendation));
-					this.similarMovies = this.movie.similar.results.map(similar => this.convertToMedia(similar));
-				}
-			});
-		}
+		this.route.params.subscribe(params => {
+			this.id = params[PARAM_MOVIE_ID];
+			if (this.id && this.id >= 0) {
+				this.movieDetailService.getMovie(this.id).subscribe({
+					next: result => {
+						this.movie = result;
+						this.genreNames = this.movie.genres.map(genre => genre.name).join(', ');
+						this.cast = this.movie.credits.cast;
+						this.recommendations = this.movie.recommendations.results.map(recommendation => this.convertToMedia(recommendation));
+						this.similarMovies = this.movie.similar.results.map(similar => this.convertToMedia(similar));
+					}
+				});
+			}
+		});
 	}
 
 	private convertToMedia(movie: Movie): Media {

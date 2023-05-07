@@ -24,6 +24,7 @@
 		"originalTitle": "Original Title",
 		"budget": "Budget",
 		"revenue": "Revenue",
+		"voteAverage": "User Score",
 		"cast": "Cast",
 		"recommendations": "Recommendations",
 		"similarMovies": "Similar Movies"

@@ -38,13 +38,15 @@
 					<h3>{{ 'movieDetail.revenue' | translate }}</h3>
 					<span>{{movie.revenue | currency:'USD'}}</span>
 				</li>
-				<div>
-				</div>
+				<li>
+					<h3>{{ 'movieDetail.voteAverage' | translate }}</h3>
+					<span>{{movie.vote_average | number:'1.0-1'}} ({{movie.vote_count}})</span>
+				</li>
 			</ul>
 		</div>
 	</div>
 
-	<mat-tab-group [mat-stretch-tabs]="false">
+	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
 		<mat-tab label="{{ 'movieDetail.cast' | translate }}">
 			<app-cast-list [cast]="cast ?? []"></app-cast-list>
 		</mat-tab>
