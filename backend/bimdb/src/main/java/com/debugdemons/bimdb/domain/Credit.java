@@ -13,5 +13,5 @@ public class Credit implements Serializable {
     private String name;
 
     @JsonProperty("profile_path")
-    private String profile_path;
+    private String profilePath;
 }

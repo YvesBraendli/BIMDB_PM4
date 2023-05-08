@@ -9,4 +9,7 @@ public class Credits implements Serializable {
 
     @JsonProperty("cast")
     private List<Cast> cast;
+
+    @JsonProperty("crew")
+    private List<Crew> crew;
 }

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-// Generated using typescript-generator version 3.2.1263 on 2023-05-07 21:06:09.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-08 17:08:02.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
@@ -35,6 +35,11 @@ export interface Credit {
 
 export interface Credits {
 	cast: Cast[];
+	crew: Crew[];
+}
+
+export interface Crew extends Credit {
+	job: string;
 }
 
 export interface Discover {

@@ -1,20 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Cast } from '../generated/contract';
+import { Credit } from '../generated/contract';
 import { TmdbImgComponent } from '../tmdb-img/tmdb-img.component';
 import { ImageSize, ImageType } from '../core/models/tmdb-img-config';
 
 @Component({
-	selector: 'app-cast-list',
+	selector: 'app-credit-list',
 	standalone: true,
 	imports: [CommonModule, TmdbImgComponent],
-	templateUrl: './cast-list.component.html',
-	styleUrls: ['./cast-list.component.scss']
+	templateUrl: './credit-list.component.html',
+	styleUrls: ['./credit-list.component.scss']
 })
-export class CastListComponent {
+export class CreditListComponent {
 
 	@Input()
-	public cast?: Cast[];
+	public credits?: Credit[];
+	@Input()
+	public descFn?: (credit: Credit) => string;
 
 	protected readonly ImageSize = ImageSize;
 	protected readonly ImageType = ImageType;

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CastListComponent } from './cast-list.component';
+import { CreditListComponent } from './credit-list.component';
 
 describe('CastListComponent', () => {
-	let component: CastListComponent;
-	let fixture: ComponentFixture<CastListComponent>;
+	let component: CreditListComponent;
+	let fixture: ComponentFixture<CreditListComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ CastListComponent ]
+			imports: [CreditListComponent]
 		})
 			.compileComponents();
 
-		fixture = TestBed.createComponent(CastListComponent);
+		fixture = TestBed.createComponent(CreditListComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

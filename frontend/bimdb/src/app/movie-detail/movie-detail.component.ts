@@ -2,9 +2,9 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { CastListComponent } from '../cast-list/cast-list.component';
+import { CreditListComponent } from '../credit-list/credit-list.component';
 import { LocaleDatePipe } from '../core/pipes/locale-date.pipe';
-import { Cast, Movie, MovieDetails } from '../generated/contract';
+import { Cast, Credit, Crew, Movie, MovieDetails } from '../generated/contract';
 import { TmdbImgComponent } from '../tmdb-img/tmdb-img.component';
 import { MovieDetailService } from './movie-detail.service';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -19,13 +19,14 @@ export const PARAM_MOVIE_ID = 'movie-id';
 	templateUrl: './movie-detail.component.html',
 	styleUrls: ['./movie-detail.component.scss'],
 	providers: [DatePipe],
-	imports: [CommonModule, CastListComponent, TranslateModule, LocaleDatePipe, TmdbImgComponent, MatTabsModule, MediaListComponent]
+	imports: [CommonModule, CreditListComponent, TranslateModule, LocaleDatePipe, TmdbImgComponent, MatTabsModule, MediaListComponent]
 })
 export class MovieDetailComponent implements OnInit {
 	public id?: number;
 	public movie?: MovieDetails;
 	public genreNames?: string;
 	public cast?: Cast[];
+	public crew?: Crew[];
 	public recommendations?: Media[];
 	public similarMovies?: Media[];
 
@@ -41,6 +42,7 @@ export class MovieDetailComponent implements OnInit {
 						this.movie = result;
 						this.genreNames = this.movie.genres.map(genre => genre.name).join(', ');
 						this.cast = this.movie.credits.cast;
+						this.crew = this.movie.credits.crew;
 						this.recommendations = this.movie.recommendations.results.map(recommendation => this.convertToMedia(recommendation));
 						this.similarMovies = this.movie.similar.results.map(similar => this.convertToMedia(similar));
 					}
@@ -48,6 +50,10 @@ export class MovieDetailComponent implements OnInit {
 			}
 		});
 	}
+
+	public readonly descFnCast = (credit: Credit): string => (credit as Cast).character;
+
+	public readonly descFnCrew = (credit: Credit): string => (credit as Crew).job;
 
 	private convertToMedia(movie: Movie): Media {
 		return ({

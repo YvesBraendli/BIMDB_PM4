@@ -40,7 +40,7 @@ class MovieServiceTest {
         MovieDetails movie = new MovieDetails();
         movie.setApiId(538);
         movie.setName("Interstellar");
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/movie/538?api_key=api_key", MovieDetails.class)).thenReturn(movie);
+        when(restTemplate.getForObject("https://api.themoviedb.org/3/movie/538?api_key=api_key&append_to_response=credits,recommendations,similar", MovieDetails.class)).thenReturn(movie);
         assertEquals(movie, movieService.getMovieById(538L));
     }
 }

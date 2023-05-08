@@ -8,6 +8,7 @@ import { ConfigService } from '../core/services/config.service';
 import { MovieDetailComponent } from './movie-detail.component';
 import { MovieDetailService } from './movie-detail.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Cast, Crew } from '../generated/contract';
 
 describe('MovieDetailComponent', () => {
 	let params: Subject<Params>;
@@ -92,5 +93,19 @@ describe('MovieDetailComponent', () => {
 		it('should not call getMovie', () => {
 			expect(mockMovieDetailService.getMovie).not.toHaveBeenCalled();
 		});
+	});
+
+	it('should return character when descFnCast is called', () => {
+		const cast = {
+			character: 'Max'
+		} as Cast;
+		expect(component.descFnCast(cast)).toEqual(cast.character);
+	});
+
+	it('should return job when descFnCrew is called', () => {
+		const crew = {
+			job: 'Set Designer'
+		} as Crew;
+		expect(component.descFnCrew(crew)).toEqual(crew.job);
 	});
 });

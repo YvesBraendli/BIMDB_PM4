@@ -48,7 +48,10 @@
 
 	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
 		<mat-tab label="{{ 'movieDetail.cast' | translate }}">
-			<app-cast-list [cast]="cast ?? []"></app-cast-list>
+			<app-credit-list [credits]="cast ?? []" [descFn]="descFnCast"></app-credit-list>
+		</mat-tab>
+		<mat-tab label="{{ 'movieDetail.crew' | translate }}">
+			<app-credit-list [credits]="crew ?? []" [descFn]="descFnCrew"></app-credit-list>
 		</mat-tab>
 		<mat-tab label="{{ 'movieDetail.recommendations' | translate }}">
 			<app-media-list [media]="recommendations ?? []"

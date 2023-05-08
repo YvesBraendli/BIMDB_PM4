@@ -1,0 +1,11 @@
+<ul id="cast-list">
+	<li *ngFor="let credit of credits">
+		<app-tmdb-img [alt]="credit.name"
+					  [src]="credit.profile_path"
+					  [title]="credit.name"
+					  [size]="ImageSize.Medium"
+					  [type]="ImageType.Profile"/>
+		<span class="name">{{credit.name}}</span>
+		<span *ngIf="descFn" class="desc">{{descFn(credit)}}</span>
+	</li>
+</ul>

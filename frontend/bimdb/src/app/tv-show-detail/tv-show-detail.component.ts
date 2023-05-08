@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { CastListComponent } from '../cast-list/cast-list.component';
+import { CreditListComponent } from '../credit-list/credit-list.component';
 import { ImageSize } from '../core/models/tmdb-img-config';
 import { LocaleDatePipe } from '../core/pipes/locale-date.pipe';
 import { Episode, TvShowDetails } from '../generated/contract';
@@ -19,7 +19,7 @@ export const PARAM_TV_SHOW_ID = 'tv-show-id';
 	templateUrl: './tv-show-detail.component.html',
 	styleUrls: ['./tv-show-detail.component.scss'],
 	providers: [DatePipe],
-	imports: [CommonModule, CastListComponent, TranslateModule, MatTabsModule, LocaleDatePipe, TmdbImgComponent]
+	imports: [CommonModule, CreditListComponent, TranslateModule, MatTabsModule, LocaleDatePipe, TmdbImgComponent]
 })
 export class TvShowDetailComponent implements OnInit {
 	public id?: number;
