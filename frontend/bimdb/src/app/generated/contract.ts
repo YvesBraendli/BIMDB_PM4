@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-
-// Generated using typescript-generator version 3.2.1263 on 2023-05-08 17:08:02.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-09 16:36:19.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
@@ -73,6 +72,12 @@ export interface Episode {
 
 export interface Genre {
 	id: number;
+	name: string;
+}
+
+export interface Language {
+	iso_639_1: string;
+	english_name: string;
 	name: string;
 }
 

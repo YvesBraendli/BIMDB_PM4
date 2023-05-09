@@ -3,6 +3,7 @@ package com.debugdemons.bimdb.service;
 import com.debugdemons.bimdb.domain.ApiConfig;
 import com.debugdemons.bimdb.domain.ApiImagesConfig;
 import com.debugdemons.bimdb.domain.Country;
+import com.debugdemons.bimdb.domain.Language;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,5 +48,16 @@ class ConfigServiceTest {
         Country[] countries = new Country[]{switzerland};
         when(restTemplate.getForObject("https://api.themoviedb.org/3/configuration/countries?api_key=api_key", Country[].class)).thenReturn(countries);
         assertEquals(countries, configService.getCountries());
+    }
+
+    @Test
+    void getLanguages() {
+        Language english = new Language();
+        english.setName("English");
+        english.setEnglishName("English");
+        english.setIso("en");
+        Language[] languages = new Language[]{english};
+        when(restTemplate.getForObject("https://api.themoviedb.org/3/configuration/languages?api_key=api_key", Language[].class)).thenReturn(languages);
+        assertEquals(languages, configService.getLanguages());
     }
 }

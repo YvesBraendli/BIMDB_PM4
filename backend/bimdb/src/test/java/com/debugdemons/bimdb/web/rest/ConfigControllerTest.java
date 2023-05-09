@@ -1,9 +1,6 @@
 package com.debugdemons.bimdb.web.rest;
 
-import com.debugdemons.bimdb.domain.ApiConfig;
-import com.debugdemons.bimdb.domain.ApiImagesConfig;
-import com.debugdemons.bimdb.domain.Country;
-import com.debugdemons.bimdb.domain.DiscoverTv;
+import com.debugdemons.bimdb.domain.*;
 import com.debugdemons.bimdb.service.ConfigService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +48,17 @@ class ConfigControllerTest {
         when(configService.getCountries()).thenReturn(countries);
         this.mockMvc.perform(get("/api/config/countries")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("[{\"iso_3166_1\":\"CH\",\"english_name\":\"Switzerland\"}]")));
+    }
+
+    @Test
+    void getLanguages() throws Exception {
+        Language english = new Language();
+        english.setName("English");
+        english.setEnglishName("English");
+        english.setIso("en");
+        Language[] languages = new Language[]{english};
+        when(configService.getLanguages()).thenReturn(languages);
+        this.mockMvc.perform(get("/api/config/languages")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("[{\"iso_639_1\":\"en\",\"english_name\":\"English\",\"name\":\"English\"}]")));
     }
 }
