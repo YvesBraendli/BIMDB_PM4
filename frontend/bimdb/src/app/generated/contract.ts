@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-09 16:36:19.
+
+// Generated using typescript-generator version 3.2.1263 on 2023-05-09 19:56:04.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
@@ -167,4 +168,20 @@ export interface TvShowSeasonDetails {
 	overview: string;
 	poster_path: string;
 	season_number: number;
+}
+
+export interface WatchProvider {
+	provider_name: string;
+	logo_path: string;
+}
+
+export interface WatchProviders {
+	buy: WatchProvider[];
+	country: string;
+	flatrate: WatchProvider[];
+	rent: WatchProvider[];
+}
+
+export interface WatchProvidersResult {
+	watchProviders: WatchProviders[];
 }

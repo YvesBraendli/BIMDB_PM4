@@ -1,0 +1,20 @@
+#providers {
+	margin: 1rem 0;
+}
+
+.img-list {
+	display: flex;
+	list-style-type: none;
+	padding-left: 0;
+
+	li {
+		height: 4rem;
+		width: 4rem;
+		margin-right: 0.5rem;
+	}
+}
+
+p.disclaimer {
+	font-size: 0.75rem;
+	opacity: 0.75;
+}

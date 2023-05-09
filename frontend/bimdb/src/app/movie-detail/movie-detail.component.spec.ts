@@ -54,6 +54,9 @@ describe('MovieDetailComponent', () => {
 				}]
 			}
 		}));
+		mockMovieDetailService.getWatchProviders = jasmine.createSpy().and.returnValue(of({
+			results: {}
+		}));
 
 		mockConfigService = TestBed.inject(ConfigService);
 		spyOn(mockConfigService, 'getImageBaseUrl').and.returnValue('');
@@ -81,6 +84,10 @@ describe('MovieDetailComponent', () => {
 			expect(mockMovieDetailService.getMovie).toHaveBeenCalledOnceWith(movieId);
 			expect(component.genreNames).toBe('Action, Drama');
 		});
+
+		it(`should call getWatchProviders with ${movieId}`, () => {
+			expect(mockMovieDetailService.getWatchProviders).toHaveBeenCalledOnceWith(movieId);
+		});
 	});
 
 	describe('when no movie id is passed', () => {
@@ -92,6 +99,10 @@ describe('MovieDetailComponent', () => {
 
 		it('should not call getMovie', () => {
 			expect(mockMovieDetailService.getMovie).not.toHaveBeenCalled();
+		});
+
+		it('should not call getWatchProviders', () => {
+			expect(mockMovieDetailService.getWatchProviders).not.toHaveBeenCalled();
 		});
 	});
 

@@ -24,7 +24,7 @@
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalLanguage' | translate }}</h3>
-					<span>{{movie.original_language}}</span>
+					<span>{{movie.original_language | languageIso }}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalTitle' | translate }}</h3>
@@ -60,6 +60,9 @@
 		<mat-tab label="{{ 'movieDetail.similarMovies' | translate }}">
 			<app-media-list [media]="similarMovies ?? []"
 							[showPaginator]="false"></app-media-list>
+		</mat-tab>
+		<mat-tab label="{{ 'movieDetail.streamingServices' | translate }}">
+			<app-watch-provider-list [watchProvidersResult]="watchProvidersResult"></app-watch-provider-list>
 		</mat-tab>
 	</mat-tab-group>
 </div>

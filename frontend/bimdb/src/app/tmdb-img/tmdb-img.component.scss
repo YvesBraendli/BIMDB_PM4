@@ -1,7 +1,4 @@
 img, .alt-img {
-	aspect-ratio: 2/3;
-	border-radius: 4px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 	width: 100%;
 }
@@ -17,4 +14,15 @@ img, .alt-img {
 		display: block;
 		font-size: 8rem;
 	}
+}
+
+.Poster,
+.Profile {
+	aspect-ratio: 2/3;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.Logo {
+	aspect-ratio: 1;
 }

@@ -1,6 +1,7 @@
 package com.debugdemons.bimdb.web.rest;
 
 import com.debugdemons.bimdb.domain.MovieDetails;
+import com.debugdemons.bimdb.domain.WatchProvidersResult;
 import com.debugdemons.bimdb.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,5 +23,10 @@ public class MovieController {
     @GetMapping("/{id}")
     public MovieDetails getMovieDetails(@PathVariable Long id) {
         return movieService.getMovieById(id);
+    }
+
+    @GetMapping("/{id}/watch-providers")
+    public WatchProvidersResult getWatchProviders(@PathVariable Long id) {
+        return movieService.getWatchProviders(id);
     }
 }

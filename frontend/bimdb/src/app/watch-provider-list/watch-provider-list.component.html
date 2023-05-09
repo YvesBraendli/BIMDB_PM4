@@ -1,0 +1,47 @@
+<div id="providers">
+	<mat-accordion>
+		<mat-expansion-panel *ngFor="let watchProviders of watchProvidersResult?.watchProviders">
+			<mat-expansion-panel-header>
+				{{ watchProviders.country | countryIso }}
+			</mat-expansion-panel-header>
+
+			<ng-container *ngIf="watchProviders.flatrate && watchProviders.flatrate.length > 0">
+				<h4>{{ 'watchProviderList.flatrate' | translate }}</h4>
+				<ul class="img-list">
+					<li *ngFor="let watchProvider of watchProviders.flatrate">
+						<app-tmdb-img [alt]="watchProvider.provider_name"
+									  [src]="watchProvider.logo_path"
+									  [title]="watchProvider.provider_name"
+									  [type]="ImageType.Logo"/>
+					</li>
+				</ul>
+			</ng-container>
+
+			<ng-container *ngIf="watchProviders.rent && watchProviders.rent.length > 0">
+				<h4>{{ 'watchProviderList.rent' | translate }}</h4>
+				<ul class="img-list">
+					<li *ngFor="let watchProvider of watchProviders.rent">
+						<app-tmdb-img [alt]="watchProvider.provider_name"
+									  [src]="watchProvider.logo_path"
+									  [title]="watchProvider.provider_name"
+									  [type]="ImageType.Logo"/>
+					</li>
+				</ul>
+			</ng-container>
+
+			<ng-container *ngIf="watchProviders.buy && watchProviders.buy.length > 0">
+				<h4>{{ 'watchProviderList.buy' | translate }}</h4>
+				<ul class="img-list">
+					<li *ngFor="let watchProvider of watchProviders.buy">
+						<app-tmdb-img [alt]="watchProvider.provider_name"
+									  [src]="watchProvider.logo_path"
+									  [title]="watchProvider.provider_name"
+									  [type]="ImageType.Logo"/>
+					</li>
+				</ul>
+			</ng-container>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+	<p class="disclaimer">{{ 'watchProviderList.disclaimer' | translate }}</p>
+</div>
