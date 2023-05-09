@@ -23,4 +23,10 @@ public class MovieDetails extends Movie implements Serializable {
     private String status;
     @JsonProperty("tagline")
     private String tagline;
+    @JsonProperty("credits")
+    private Credits credits;
+    @JsonProperty("recommendations")
+    private MovieListWrapper recommendations;
+    @JsonProperty("similar")
+    private MovieListWrapper similar;
 }

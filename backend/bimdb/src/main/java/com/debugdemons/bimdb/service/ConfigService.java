@@ -3,6 +3,7 @@ package com.debugdemons.bimdb.service;
 import com.debugdemons.bimdb.config.MovieDBApiConfig;
 import com.debugdemons.bimdb.domain.ApiConfig;
 import com.debugdemons.bimdb.domain.Country;
+import com.debugdemons.bimdb.domain.Language;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,5 +22,10 @@ public class ConfigService extends BaseService {
     public Country[] getCountries() {
         String url = movieDBApiConfig.getBaseUrl() + "configuration/countries?api_key=" + movieDBApiConfig.getApiKey();
         return restTemplate.getForObject(url, Country[].class);
+    }
+
+    public Language[] getLanguages() {
+        String url = movieDBApiConfig.getBaseUrl() + "configuration/languages?api_key=" + movieDBApiConfig.getApiKey();
+        return restTemplate.getForObject(url, Language[].class);
     }
 }

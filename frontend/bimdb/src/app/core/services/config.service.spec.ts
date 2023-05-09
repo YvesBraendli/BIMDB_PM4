@@ -46,6 +46,10 @@ describe('ConfigService', () => {
 		expect(countriesRequest.request.method).toEqual('GET');
 		countriesRequest.flush([]);
 
+		const languagesRequest = httpTestingController.expectOne('/api/config/languages');
+		expect(languagesRequest.request.method).toEqual('GET');
+		languagesRequest.flush([]);
+
 		httpTestingController.verify();
 
 	});
@@ -106,6 +110,22 @@ describe('ConfigService', () => {
 		expect(service.getCountries()).toEqual(mockCountriesResponse);
 
 		httpTestingController.expectNone('/api/config/countries');
+	});
+
+	it('should get languages', () => {
+		const mockLanguagesResponse = [{ iso_639_1: 'en', english_name: 'English', name: 'English' }];
+		httpTestingController.expectNone('/api/config/languages');
+
+		expect(service.getLanguages()).toEqual([]);
+
+		const countriesRequest = httpTestingController.expectOne('/api/config/languages');
+		expect(countriesRequest.request.method).toEqual('GET');
+		countriesRequest.flush(mockLanguagesResponse);
+
+		httpTestingController.verify();
+		expect(service.getLanguages()).toEqual(mockLanguagesResponse);
+
+		httpTestingController.expectNone('/api/config/languages');
 	});
 
 });

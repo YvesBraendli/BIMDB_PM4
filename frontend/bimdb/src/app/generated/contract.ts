@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-06 15:10:06.
+
+// Generated using typescript-generator version 3.2.1263 on 2023-05-09 19:56:04.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
@@ -17,9 +18,28 @@ export interface ApiImagesConfig {
 	still_sizes: string[];
 }
 
+export interface Cast extends Credit {
+	character: string;
+}
+
 export interface Country {
 	iso_3166_1: string;
 	english_name: string;
+}
+
+export interface Credit {
+	id: number;
+	name: string;
+	profile_path: string;
+}
+
+export interface Credits {
+	cast: Cast[];
+	crew: Crew[];
+}
+
+export interface Crew extends Credit {
+	job: string;
 }
 
 export interface Discover {
@@ -56,6 +76,12 @@ export interface Genre {
 	name: string;
 }
 
+export interface Language {
+	iso_639_1: string;
+	english_name: string;
+	name: string;
+}
+
 export interface Media {
 	backdrop_path: string;
 	genre_ids: number[];
@@ -85,6 +111,13 @@ export interface MovieDetails extends Movie {
 	runtime: number;
 	status: string;
 	tagline: string;
+	credits: Credits;
+	recommendations: MovieListWrapper;
+	similar: MovieListWrapper;
+}
+
+export interface MovieListWrapper {
+	results: Movie[];
 }
 
 export interface Network {
@@ -135,4 +168,20 @@ export interface TvShowSeasonDetails {
 	overview: string;
 	poster_path: string;
 	season_number: number;
+}
+
+export interface WatchProvider {
+	provider_name: string;
+	logo_path: string;
+}
+
+export interface WatchProviders {
+	buy: WatchProvider[];
+	country: string;
+	flatrate: WatchProvider[];
+	rent: WatchProvider[];
+}
+
+export interface WatchProvidersResult {
+	watchProviders: WatchProviders[];
 }

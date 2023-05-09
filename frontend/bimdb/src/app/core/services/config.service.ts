@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
-import { ApiConfig, Country } from 'src/app/generated/contract';
+import { ApiConfig, Country, Language } from 'src/app/generated/contract';
 import { environment } from 'src/environments/environment';
 import { ImgSizeConfig, TmdbImgConfig } from '../models/tmdb-img-config';
 import { HttpService } from './http.service';
@@ -11,13 +11,18 @@ import { HttpService } from './http.service';
 export class ConfigService {
 	private imgConfig?: TmdbImgConfig;
 	private countries: Country[] = [];
+	private languages: Language[] = [];
 
 	public constructor(private httpService: HttpService) {
 	}
 
 	public loadAppConfig(hasCustomErrorHandler = false): Observable<void> {
 		return new Observable(subscriber => {
-			forkJoin([this.loadApiConfig(hasCustomErrorHandler), this.loadCountries(hasCustomErrorHandler)]).subscribe({
+			forkJoin([
+				this.loadApiConfig(hasCustomErrorHandler),
+				this.loadCountries(hasCustomErrorHandler),
+				this.loadLanguages(hasCustomErrorHandler)
+			]).subscribe({
 				next: () => {
 					subscriber.next();
 					subscriber.complete();
@@ -32,6 +37,13 @@ export class ConfigService {
 			this.loadCountries().subscribe();
 		}
 		return this.countries;
+	}
+
+	public getLanguages(): Language[] {
+		if (this.languages.length === 0) {
+			this.loadLanguages().subscribe();
+		}
+		return this.languages;
 	}
 
 	public getTmbdImgConfig(): TmdbImgConfig {
@@ -69,6 +81,19 @@ export class ConfigService {
 			this.httpService.get<Country[]>(`${environment.apiBaseUrl}/config/countries`, hasCustomErrorHandler).subscribe({
 				next: res => {
 					this.countries = res;
+					subscriber.next();
+					subscriber.complete();
+				},
+				error: err => subscriber.error(err)
+			});
+		});
+	}
+
+	private loadLanguages(hasCustomErrorHandler = false): Observable<void> {
+		return new Observable(subscriber => {
+			this.httpService.get<Language[]>(`${environment.apiBaseUrl}/config/languages`, hasCustomErrorHandler).subscribe({
+				next: res => {
+					this.languages = res;
 					subscriber.next();
 					subscriber.complete();
 				},

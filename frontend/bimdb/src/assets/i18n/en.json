@@ -5,7 +5,7 @@
 	},
 	"login": "Login",
 	"movies": "Movies",
-	"tvShows": "TV Shows",
+	"tvShows": "TV Shows",
 	"paginator": {
 		"of": "of {{totalPages}}",
 		"page": "Page"
@@ -24,9 +24,12 @@
 		"originalTitle": "Original Title",
 		"budget": "Budget",
 		"revenue": "Revenue",
+		"voteAverage": "User Score",
 		"cast": "Cast",
+		"crew": "Crew",
 		"recommendations": "Recommendations",
-		"similarMovies": "Similar Movies"
+		"similarMovies": "Similar Movies",
+		"streamingServices": "Streaming Services"
 	},
 	"error": {
 		"config": "Error while loading the configuration",
@@ -46,5 +49,11 @@
 		"season": "Season",
 		"episode": "Episode",
 		"minutes": "Minutes"
+	},
+	"watchProviderList": {
+		"flatrate": "Flatrate",
+		"rent": "Rent",
+		"buy": "Buy",
+		"disclaimer": "Data provided by JustWatch"
 	}
 }

@@ -61,6 +61,10 @@ input[type=number]::-webkit-outer-spin-button {
 		background-color: rgb(51, 51, 51);
 		color: white;
 	}
+
+	.mdc-tab__text-label {
+		color: white !important;
+	}
 }
 
 html, body { height: 100%; }

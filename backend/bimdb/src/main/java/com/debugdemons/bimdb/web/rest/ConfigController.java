@@ -2,6 +2,7 @@ package com.debugdemons.bimdb.web.rest;
 
 import com.debugdemons.bimdb.domain.ApiConfig;
 import com.debugdemons.bimdb.domain.Country;
+import com.debugdemons.bimdb.domain.Language;
 import com.debugdemons.bimdb.service.ConfigService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,11 @@ public class ConfigController {
     @GetMapping("countries")
     public Country[] getCountries() {
         return configService.getCountries();
+    }
+
+    @GetMapping("languages")
+    public Language[] getLanguages() {
+        return configService.getLanguages();
     }
 
 }

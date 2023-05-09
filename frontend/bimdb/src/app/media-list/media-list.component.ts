@@ -19,8 +19,9 @@ import { Media, MediaType } from './media';
 })
 export class MediaListComponent {
 	@Input() public page = 1;
-	@Input() public totalPages = 10;
+	@Input() public totalPages = 1;
 	@Input() public media: Media[] = [];
+	@Input() public showPaginator = true;
 	@Output() public pageChange = new EventEmitter<number>();
 	public ImageSize = ImageSize;
 	private static readonly maxPage = 500;

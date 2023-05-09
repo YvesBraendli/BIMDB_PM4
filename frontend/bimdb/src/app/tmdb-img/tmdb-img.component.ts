@@ -24,4 +24,9 @@ export class TmdbImgComponent {
 	@Input()
 	public customSize?: string;
 
+	public altImg?: string;
+
+	public onError(): void {
+		this.altImg = this.type === ImageType.Profile ? 'person' : 'movie';
+	}
 }

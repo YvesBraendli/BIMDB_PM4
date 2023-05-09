@@ -1,6 +1,6 @@
 <div *ngIf="movie" id="main">
 	<div id="details">
-		<app-tmdb-img [src]="movie.poster_path" [alt]="movie.title" [title]="movie.title" />
+		<app-tmdb-img [src]="movie.poster_path" [alt]="movie.title" [title]="movie.title"/>
 		<div id="details-right">
 			<h2>{{movie.title}}</h2>
 			<p>{{movie.tagline}}</p>
@@ -24,7 +24,7 @@
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalLanguage' | translate }}</h3>
-					<span>{{movie.original_language}}</span>
+					<span>{{movie.original_language | languageIso }}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalTitle' | translate }}</h3>
@@ -38,18 +38,31 @@
 					<h3>{{ 'movieDetail.revenue' | translate }}</h3>
 					<span>{{movie.revenue | currency:'USD'}}</span>
 				</li>
-				<div>
-				</div>
+				<li>
+					<h3>{{ 'movieDetail.voteAverage' | translate }}</h3>
+					<span>{{movie.vote_average | number:'1.0-1'}} ({{movie.vote_count}})</span>
+				</li>
 			</ul>
 		</div>
 	</div>
 
-	<h2>{{ 'movieDetail.cast' | translate }}</h2>
-	<div id="cast">
-		<app-cast-list></app-cast-list>
-	</div>
-
-	<h2>{{ 'movieDetail.recommendations' | translate }}</h2>
-
-	<h2>{{ 'movieDetail.similarMovies' | translate }}</h2>
+	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
+		<mat-tab label="{{ 'movieDetail.cast' | translate }}">
+			<app-credit-list [credits]="cast ?? []" [descFn]="descFnCast"></app-credit-list>
+		</mat-tab>
+		<mat-tab label="{{ 'movieDetail.crew' | translate }}">
+			<app-credit-list [credits]="crew ?? []" [descFn]="descFnCrew"></app-credit-list>
+		</mat-tab>
+		<mat-tab label="{{ 'movieDetail.recommendations' | translate }}">
+			<app-media-list [media]="recommendations ?? []"
+							[showPaginator]="false"></app-media-list>
+		</mat-tab>
+		<mat-tab label="{{ 'movieDetail.similarMovies' | translate }}">
+			<app-media-list [media]="similarMovies ?? []"
+							[showPaginator]="false"></app-media-list>
+		</mat-tab>
+		<mat-tab label="{{ 'movieDetail.streamingServices' | translate }}">
+			<app-watch-provider-list [watchProvidersResult]="watchProvidersResult"></app-watch-provider-list>
+		</mat-tab>
+	</mat-tab-group>
 </div>
