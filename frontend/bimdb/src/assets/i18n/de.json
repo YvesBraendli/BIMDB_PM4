@@ -43,8 +43,12 @@
 		"firstAirDate": "Erstausstrahlung",
 		"originalLanguage": "Originale Sprache",
 		"originalTitle": "Originaler Titel",
+		"voteAverage": "Bewertung",
 		"cast": "Cast",
+		"crew": "Crew",
 		"recommendations": "Vorschläge",
+		"similarTvShows": "Ähnliche Serien",
+		"streamingServices": "Streaming Anbieter",
 		"seasons": "Staffeln",
 		"season": "Staffel",
 		"episode": "Folge",
@@ -54,6 +58,7 @@
 		"flatrate": "Flatrate",
 		"rent": "Ausleihen",
 		"buy": "Kaufen",
-		"disclaimer": "Daten zur Verfügung gestellt durch JustWatch"
+		"disclaimer": "Daten zur Verfügung gestellt durch JustWatch",
+		"noProviders": "Keine Anbieter verfügbar"
 	}
 }

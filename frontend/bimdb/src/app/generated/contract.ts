@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-// Generated using typescript-generator version 3.2.1263 on 2023-05-09 19:56:04.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-10 17:03:04.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
@@ -158,6 +158,13 @@ export interface TvShowDetails extends TvShow {
 	status: string;
 	tagline: string;
 	type: string;
+	credits: Credits;
+	recommendations: TvShowListWrapper;
+	similar: TvShowListWrapper;
+}
+
+export interface TvShowListWrapper {
+	results: TvShow[];
 }
 
 export interface TvShowSeasonDetails {

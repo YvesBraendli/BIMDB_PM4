@@ -18,7 +18,15 @@ public class WatchProvider implements Serializable {
         return providerName;
     }
 
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
     public String getLogoPath() {
         return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 }

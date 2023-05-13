@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../core/services/http.service';
-import { TvShowDetails, TvShowSeasonDetails } from '../generated/contract';
+import { TvShowDetails, TvShowSeasonDetails, WatchProvidersResult } from '../generated/contract';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,5 +18,9 @@ export class TvShowDetailService {
 
 	public getTvSeason(id: number, season: number): Observable<TvShowSeasonDetails> {
 		return this.httpService.get(`${environment.apiBaseUrl}/tv/${id}/${season}`);
+	}
+
+	public getWatchProviders(id: number): Observable<WatchProvidersResult> {
+		return this.httpService.get<WatchProvidersResult>(`${environment.apiBaseUrl}/tv/${id}/watch-providers`);
 	}
 }

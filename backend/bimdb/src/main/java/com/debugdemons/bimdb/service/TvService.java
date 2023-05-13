@@ -4,6 +4,7 @@ import com.debugdemons.bimdb.config.MovieDBApiConfig;
 import com.debugdemons.bimdb.domain.DiscoverTv;
 import com.debugdemons.bimdb.domain.TvShowDetails;
 import com.debugdemons.bimdb.domain.TvShowSeasonDetails;
+import com.debugdemons.bimdb.domain.WatchProvidersResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,8 +28,13 @@ public class TvService extends BaseService {
     }
 
     public TvShowDetails getTvShowById(Long id) {
-        String url = movieDBApiConfig.getBaseUrl() + "tv/" + id + "?api_key=" + movieDBApiConfig.getApiKey();
+        String url = movieDBApiConfig.getBaseUrl() + "tv/" + id + "?api_key=" + movieDBApiConfig.getApiKey() + "&append_to_response=credits,recommendations,similar";
         return restTemplate.getForObject(url, TvShowDetails.class);
+    }
+
+    public WatchProvidersResult getWatchProviders(Long id) {
+        String url = movieDBApiConfig.getBaseUrl() + "tv/" + id + "/watch/providers?api_key=" + movieDBApiConfig.getApiKey();
+        return restTemplate.getForObject(url, WatchProvidersResult.class);
     }
 
     public TvShowSeasonDetails getTvShowSeasonDetails(Long id, Long seasonNumber) {

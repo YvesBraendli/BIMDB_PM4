@@ -17,8 +17,23 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class WatchProviderListComponent {
 
+	private _watchProvidersResult?: WatchProvidersResult;
+
+	public get watchProvidersResult(): WatchProvidersResult | undefined {
+		return this._watchProvidersResult;
+	}
+
 	@Input()
-	public watchProvidersResult?: WatchProvidersResult;
+	public set watchProvidersResult(value: WatchProvidersResult | undefined) {
+		this._watchProvidersResult = value;
+		if (this._watchProvidersResult) {
+			this._watchProvidersResult.watchProviders = this._watchProvidersResult.watchProviders.filter(watchProviders =>
+				watchProviders.flatrate && watchProviders.flatrate.length > 0 ||
+				watchProviders.rent && watchProviders.rent.length > 0 ||
+				watchProviders.buy && watchProviders.buy.length > 0
+			);
+		}
+	}
 
 	protected readonly ImageType = ImageType;
 }

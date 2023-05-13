@@ -2,6 +2,7 @@ package com.debugdemons.bimdb.web.rest;
 
 import com.debugdemons.bimdb.domain.TvShowDetails;
 import com.debugdemons.bimdb.domain.TvShowSeasonDetails;
+import com.debugdemons.bimdb.domain.WatchProvidersResult;
 import com.debugdemons.bimdb.service.TvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,11 @@ public class TvController {
     @GetMapping("/{id}/{seasonNumber}")
     public TvShowSeasonDetails getTvShowSeasonDetails(@PathVariable Long id, @PathVariable Long seasonNumber) {
         return tvService.getTvShowSeasonDetails(id, seasonNumber);
+    }
+
+    @GetMapping("/{id}/watch-providers")
+    public WatchProvidersResult getWatchProviders(@PathVariable Long id) {
+        return tvService.getWatchProviders(id);
     }
 }
 

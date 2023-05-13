@@ -2,6 +2,9 @@ package com.debugdemons.bimdb.web.rest;
 
 import com.debugdemons.bimdb.domain.TvShowDetails;
 import com.debugdemons.bimdb.domain.TvShowSeasonDetails;
+import com.debugdemons.bimdb.domain.WatchProvider;
+import com.debugdemons.bimdb.domain.WatchProviders;
+import com.debugdemons.bimdb.domain.WatchProvidersResult;
 import com.debugdemons.bimdb.service.TvService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -34,7 +41,7 @@ class TvControllerTest {
         tvShow.setName("Succession");
         when(movieService.getTvShowById(305L)).thenReturn(tvShow);
         this.mockMvc.perform(get("/api/tv/305")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("{\"backdrop_path\":null,\"genre_ids\":null,\"id\":305,\"original_language\":null,\"overview\":null,\"popularity\":0.0,\"poster_path\":null,\"vote_average\":-1.0,\"vote_count\":0,\"first_air_date\":null,\"origin_country\":null,\"name\":\"Succession\",\"original_name\":null,\"episode_run_time\":null,\"genres\":null,\"homepage\":null,\"in_production\":false,\"languages\":null,\"last_air_date\":null,\"networks\":null,\"number_of_episodes\":0,\"number_of_seasons\":0,\"seasons\":null,\"status\":null,\"tagline\":null,\"type\":null}")));
+                .andExpect(content().string(containsString("{\"backdrop_path\":null,\"genre_ids\":null,\"id\":305,\"original_language\":null,\"overview\":null,\"popularity\":0.0,\"poster_path\":null,\"vote_average\":-1.0,\"vote_count\":0,\"first_air_date\":null,\"origin_country\":null,\"name\":\"Succession\",\"original_name\":null,\"episode_run_time\":null,\"genres\":null,\"homepage\":null,\"in_production\":false,\"languages\":null,\"last_air_date\":null,\"networks\":null,\"number_of_episodes\":0,\"number_of_seasons\":0,\"seasons\":null,\"status\":null,\"tagline\":null,\"type\":null,\"credits\":null,\"recommendations\":null,\"similar\":null}")));
     }
 
     @Test
@@ -45,5 +52,27 @@ class TvControllerTest {
         when(movieService.getTvShowSeasonDetails(305L, 1L)).thenReturn(tvShowSeasonDetails);
         this.mockMvc.perform(get("/api/tv/305/1")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("{\"id\":305,\"air_date\":null,\"episodes\":null,\"name\":\"Succession\",\"overview\":null,\"poster_path\":null,\"season_number\":null}")));
+    }
+
+    @Test
+    void getWatchProviders() throws Exception {
+        WatchProvider watchProvider = new WatchProvider();
+        watchProvider.setProviderName("Google Play Movies");
+        watchProvider.setLogoPath("/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg");
+
+        WatchProviders watchProviders = new WatchProviders();
+        watchProviders.setCountry("CH");
+        watchProviders.getFlatrate().add(watchProvider);
+        watchProviders.getRent().add(watchProvider);
+        watchProviders.getBuy().add(watchProvider);
+
+        WatchProvidersResult result = new WatchProvidersResult();
+        result.setWatchProviders(List.of(watchProviders));
+
+        when(movieService.getWatchProviders(305L)).thenReturn(result);
+        this.mockMvc.perform(get("/api/tv/305/watch-providers"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("{\"watchProviders\":[{\"buy\":[{\"provider_name\":\"Google Play Movies\",\"logo_path\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}],\"country\":\"CH\",\"flatrate\":[{\"provider_name\":\"Google Play Movies\",\"logo_path\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}],\"rent\":[{\"provider_name\":\"Google Play Movies\",\"logo_path\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}]}]}")));
     }
 }
