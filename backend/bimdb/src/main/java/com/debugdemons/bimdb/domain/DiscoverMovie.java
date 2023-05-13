@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class DiscoverMovie extends Discover {
+public class DiscoverMovie extends PaginationResponse {
 
-    @JsonProperty("results")
-    private List<Movie> results;
+	@JsonProperty("results")
+	private List<Movie> results;
 
-    public List<Movie> getResults() {
-        return results;
-    }
+	public List<Movie> getResults() {
+		return results;
+	}
 
 }

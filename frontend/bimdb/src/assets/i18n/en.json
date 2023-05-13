@@ -5,7 +5,9 @@
 	},
 	"login": "Login",
 	"movies": "Movies",
-	"tvShows": "TV Shows",
+	"tvShows": "TV Shows",
+	"people": "People",
+	"allResults": "All results",
 	"paginator": {
 		"of": "of {{totalPages}}",
 		"page": "Page"
@@ -60,5 +62,6 @@
 		"buy": "Buy",
 		"disclaimer": "Data provided by JustWatch",
 		"noProviders": "No Services available"
-	}
+	},
+	"noResults": "No results found"
 }

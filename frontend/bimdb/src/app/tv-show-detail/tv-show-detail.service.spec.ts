@@ -44,7 +44,7 @@ describe('TvShowDetailService', () => {
 		const seasonNumber = 1;
 		const mockResponse = {
 			id,
-			season_number: seasonNumber
+			seasonNumber
 		} as TvShowSeasonDetails;
 
 		service.getTvSeason(id, seasonNumber).subscribe(res => {

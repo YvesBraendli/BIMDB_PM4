@@ -14,9 +14,9 @@ export class CountryIsoPipe implements PipeTransform {
 	}
 
 	public transform(isoCode: string | null | undefined): string {
-		const country = this.configService.getCountries().find(country => country.iso_3166_1 === isoCode);
-		if (country?.english_name && country.english_name !== '') {
-			return country.english_name;
+		const country = this.configService.getCountries().find(country => country.iso === isoCode);
+		if (country?.englishName && country.englishName !== '') {
+			return country.englishName;
 		}
 		return isoCode && isoCode !== '' ? isoCode : NO_COUNTRY_PLACEHOLDER;
 	}

@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { environment } from 'src/environments/environment';
 import { HttpHeaderConstants } from '../constants/http-headers';
 import { HttpService } from './http.service';
 
 describe('HttpService', () => {
 	let service: HttpService;
 	let httpTestingController: HttpTestingController;
+	const requestUrl = '/test';
+	const calledUrl = `${environment.apiBaseUrl}${requestUrl}`;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
@@ -21,12 +24,11 @@ describe('HttpService', () => {
 	});
 
 	it('should get with custom error handler', () => {
-		const url = 'https://bimdb.ch';
 		const mockResponse = { success: true };
-		service.get(url, true).subscribe(res => {
+		service.get(requestUrl, true).subscribe(res => {
 			expect(res).toEqual({ success: true });
 		});
-		const getRequest = httpTestingController.expectOne(url);
+		const getRequest = httpTestingController.expectOne(calledUrl);
 		expect(getRequest.request.method).toEqual('GET');
 		expect(getRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('true');
 		getRequest.flush(mockResponse);
@@ -35,12 +37,11 @@ describe('HttpService', () => {
 	});
 
 	it('should get with global error handler', () => {
-		const url = 'https://bimdb.ch';
 		const mockResponse = { success: true };
-		service.get(url).subscribe(res => {
+		service.get(requestUrl).subscribe(res => {
 			expect(res).toEqual({ success: true });
 		});
-		const getRequest = httpTestingController.expectOne(url);
+		const getRequest = httpTestingController.expectOne(calledUrl);
 		expect(getRequest.request.method).toEqual('GET');
 		expect(getRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('false');
 		getRequest.flush(mockResponse);
@@ -49,12 +50,11 @@ describe('HttpService', () => {
 	});
 
 	it('should put with custom error handler', () => {
-		const url = 'https://bimdb.ch';
 		const mockResponse = { success: true };
-		service.put(url, {}, true).subscribe(res => {
+		service.put(requestUrl, {}, true).subscribe(res => {
 			expect(res).toEqual({ success: true });
 		});
-		const putRequest = httpTestingController.expectOne(url);
+		const putRequest = httpTestingController.expectOne(calledUrl);
 		expect(putRequest.request.method).toEqual('PUT');
 		expect(putRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('true');
 		putRequest.flush(mockResponse);
@@ -63,12 +63,11 @@ describe('HttpService', () => {
 	});
 
 	it('should put with global error handler', () => {
-		const url = 'https://bimdb.ch';
 		const mockResponse = { success: true };
-		service.put(url).subscribe(res => {
+		service.put(requestUrl).subscribe(res => {
 			expect(res).toEqual({ success: true });
 		});
-		const putRequest = httpTestingController.expectOne(url);
+		const putRequest = httpTestingController.expectOne(calledUrl);
 		expect(putRequest.request.method).toEqual('PUT');
 		expect(putRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('false');
 		putRequest.flush(mockResponse);
@@ -77,12 +76,11 @@ describe('HttpService', () => {
 	});
 
 	it('should post with custom error handler', () => {
-		const url = 'https://bimdb.ch';
 		const mockResponse = { success: true };
-		service.post(url, {}, true).subscribe(res => {
+		service.post(requestUrl, {}, true).subscribe(res => {
 			expect(res).toEqual({ success: true });
 		});
-		const postRequest = httpTestingController.expectOne(url);
+		const postRequest = httpTestingController.expectOne(calledUrl);
 		expect(postRequest.request.method).toEqual('POST');
 		expect(postRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('true');
 		postRequest.flush(mockResponse);
@@ -91,12 +89,11 @@ describe('HttpService', () => {
 	});
 
 	it('should post with global error handler', () => {
-		const url = 'https://bimdb.ch';
 		const mockResponse = { success: true };
-		service.post(url).subscribe(res => {
+		service.post(requestUrl).subscribe(res => {
 			expect(res).toEqual({ success: true });
 		});
-		const postRequest = httpTestingController.expectOne(url);
+		const postRequest = httpTestingController.expectOne(calledUrl);
 		expect(postRequest.request.method).toEqual('POST');
 		expect(postRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('false');
 		postRequest.flush(mockResponse);

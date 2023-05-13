@@ -14,6 +14,7 @@ export class TmdbImgSrcPipe implements PipeTransform {
 	}
 
 	public transform(src: string | undefined, type: ImageType, size: ImageSize, custom?: string): string {
+		if (!src) return '';
 		if (custom && size !== ImageSize.Custom) {
 			size = ImageSize.Custom;
 		}

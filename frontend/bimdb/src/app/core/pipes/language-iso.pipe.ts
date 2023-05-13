@@ -14,12 +14,12 @@ export class LanguageIsoPipe implements PipeTransform {
 	}
 
 	public transform(isoCode: string | null | undefined): string {
-		const language = this.configService.getLanguages().find(language => language.iso_639_1 === isoCode);
+		const language = this.configService.getLanguages().find(language => language.iso === isoCode);
 		if (language?.name && language.name !== '') {
 			return language.name;
 		}
-		if (language?.english_name && language.english_name !== '') {
-			return language.english_name;
+		if (language?.englishName && language.englishName !== '') {
+			return language.englishName;
 		}
 		return isoCode && isoCode !== '' ? isoCode : NO_LANGUAGE_PLACEHOLDER;
 	}

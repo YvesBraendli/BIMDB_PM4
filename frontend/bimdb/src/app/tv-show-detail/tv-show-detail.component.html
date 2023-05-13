@@ -1,6 +1,6 @@
 <div *ngIf="tvShow" id="main">
 	<div id="details">
-		<app-tmdb-img [alt]="tvShow.name" [src]="tvShow.poster_path" [title]="tvShow.name"/>
+		<app-tmdb-img [alt]="tvShow.name" [src]="tvShow.posterPath" [title]="tvShow.name"/>
 		<div id="details-right">
 			<h2>{{tvShow.name}}</h2>
 			<p>{{tvShow.tagline}}</p>
@@ -12,19 +12,19 @@
 				</li>
 				<li>
 					<h3>{{ 'tvShowDetail.firstAirDate' | translate }}</h3>
-					<span>{{tvShow.first_air_date | localeDate }}</span>
+					<span>{{tvShow.releaseDate | localeDate }}</span>
 				</li>
 				<li>
 					<h3>{{ 'tvShowDetail.originalLanguage' | translate }}</h3>
-					<span>{{tvShow.original_language | languageIso }}</span>
+					<span>{{tvShow.originalLanguage | languageIso }}</span>
 				</li>
 				<li>
 					<h3>{{ 'tvShowDetail.originalTitle' | translate }}</h3>
-					<span>{{tvShow.original_name}}</span>
+					<span>{{tvShow.originalName}}</span>
 				</li>
 				<li>
 					<h3>{{ 'tvShowDetail.voteAverage' | translate }}</h3>
-					<span>{{tvShow.vote_average | number:'1.0-1'}} ({{tvShow.vote_count}})</span>
+					<span>{{tvShow.voteAverage | number:'1.0-1'}} ({{tvShow.voteCount}})</span>
 				</li>
 			</ul>
 		</div>
@@ -32,10 +32,10 @@
 
 	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
 		<mat-tab label="{{ 'tvShowDetail.cast' | translate }}">
-			<app-credit-list [credits]="tvShow.credits.cast ?? []" [descFn]="descFnCast"></app-credit-list>
+			<app-credit-list [credits]="tvShow.credits.cast" [descFn]="descFnCast"></app-credit-list>
 		</mat-tab>
 		<mat-tab label="{{ 'tvShowDetail.crew' | translate }}">
-			<app-credit-list [credits]="tvShow.credits.crew ?? []" [descFn]="descFnCrew"></app-credit-list>
+			<app-credit-list [credits]="tvShow.credits.crew" [descFn]="descFnCrew"></app-credit-list>
 		</mat-tab>
 		<mat-tab label="{{ 'tvShowDetail.recommendations' | translate }}">
 			<app-media-list [media]="recommendations ?? []" [showPaginator]="false"></app-media-list>
@@ -45,11 +45,11 @@
 		</mat-tab>
 		<mat-tab label="{{ 'tvShowDetail.seasons' | translate }}">
 			<mat-accordion>
-				<mat-expansion-panel (opened)="selectSeason(season.season_number)"
+				<mat-expansion-panel (opened)="selectSeason(season.seasonNumber)"
 									 *ngFor="let season of tvShow.seasons">
 					<mat-expansion-panel-header collapsedHeight="auto" expandedHeight="auto">
 						<div class="season-header">
-							<app-tmdb-img [alt]="season.name" [size]="ImageSize.Small" [src]="season.poster_path"
+							<app-tmdb-img [alt]="season.name" [size]="ImageSize.Small" [src]="season.posterPath"
 										  [title]="season.name"/>
 							<div>
 								<h3 class="name">{{ season.name }}</h3>
@@ -59,22 +59,22 @@
 					</mat-expansion-panel-header>
 
 					<ng-template matExpansionPanelContent>
-						<ul *ngIf="getEpisodes(season.season_number) as episodes" class="episodes">
+						<ul *ngIf="getEpisodes(season.seasonNumber) as episodes" class="episodes">
 							<li *ngFor="let episode of episodes">
 								<h4 class="name">{{ episode.name }}</h4>
 								<ul class="details">
-									<li *ngIf="episode.season_number && episode.episode_number">
+									<li *ngIf="episode.seasonNumber && episode.episodeNumber">
 										<span class="material-icons">tag</span>
-										{{ 'tvShowDetail.season' | translate }} {{ episode.season_number }},
-										{{ 'tvShowDetail.episode' | translate }} {{ episode.episode_number }}
+										{{ 'tvShowDetail.season' | translate }} {{ episode.seasonNumber }},
+										{{ 'tvShowDetail.episode' | translate }} {{ episode.episodeNumber }}
 									</li>
 									<li *ngIf="episode.runtime > 0">
 										<span class="material-icons">timer</span>
 										{{ episode.runtime }} {{ 'tvShowDetail.minutes' | translate }}
 									</li>
-									<li *ngIf="episode.vote_average && episode.vote_count">
+									<li *ngIf="episode.voteAverage && episode.voteCount">
 										<span class="material-icons">grade</span>
-										{{ episode.vote_average }} ({{ episode.vote_count }})
+										{{ episode.voteAverage }} ({{ episode.voteCount }})
 									</li>
 								</ul>
 								<p>{{episode.overview}}</p>

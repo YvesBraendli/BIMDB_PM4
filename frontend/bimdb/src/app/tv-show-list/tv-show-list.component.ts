@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Media, MediaType } from '../media-list/media';
-import { TvShowListService } from './tv-show-list.service';
+import { Component } from '@angular/core';
+import { Media } from '../generated/contract';
 import { MediaListComponent } from '../media-list/media-list.component';
+import { TvShowListService } from './tv-show-list.service';
 
 @Component({
 	selector: 'app-tv-show-list',
@@ -22,14 +22,8 @@ export class TvShowListComponent {
 
 	public discover(): void {
 		this.tvShowListService.discover(this.page).subscribe((result) => {
-			this.tvShows = result.results.map((tvShow) => ({
-				id: tvShow.id,
-				title: tvShow.name,
-				release_date: new Date(tvShow.first_air_date),
-				poster_path: tvShow.poster_path,
-				mediaType: MediaType.TvShow
-			}) as Media);
-			this.totalPages = result.total_pages;
+			this.tvShows = result.results;
+			this.totalPages = result.totalPages;
 		});
 	}
 

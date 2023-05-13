@@ -17,12 +17,12 @@ describe('CountryPipePipe', () => {
 		mockConfigService = TestBed.inject(ConfigService);
 		spyOn(mockConfigService, 'getCountries').and.returnValue([
 			{
-				iso_3166_1: 'CH',
-				english_name: 'Switzerland'
+				iso: 'CH',
+				englishName: 'Switzerland'
 			},
 			{
-				iso_3166_1: 'EN',
-				english_name: ''
+				iso: 'EN',
+				englishName: ''
 			}
 		]);
 

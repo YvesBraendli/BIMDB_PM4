@@ -25,8 +25,8 @@ describe('DiscoverService', () => {
 	it('should return discover movie', () => {
 		const mockResponse = {
 			page: 1,
-			total_pages: 10,
-			total_results: 200,
+			totalPages: 10,
+			totalResults: 200,
 			results: []
 		} as DiscoverMovie;
 

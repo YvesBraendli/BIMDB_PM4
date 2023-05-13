@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WatchProviderResultDeserializerTest {
 
@@ -87,6 +85,14 @@ public class WatchProviderResultDeserializerTest {
             }
             """;
 
+    private static final String INVALID_JSON = """
+            {
+              "results": {
+                "valid": false
+              }
+            }
+            """;
+
     @Test
     public void testDeserialize() throws JsonProcessingException {
         WatchProvidersResult watchProvidersResult = new ObjectMapper().readValue(JSON, WatchProvidersResult.class);
@@ -113,6 +119,11 @@ public class WatchProviderResultDeserializerTest {
         assertEquals(3, watchProviders.getRent().size());
         assertEquals(2, watchProviders.getBuy().size());
     }
+
+  @Test
+  public void testDeserializeInvalidWatchProviderJson() {
+    assertThrows(RuntimeException.class, () -> new ObjectMapper().readValue(INVALID_JSON, WatchProvidersResult.class));
+  }
 
     private void assertGooglePlayMovies(WatchProvider watchProvider) {
         assertEquals("Google Play Movies", watchProvider.getProviderName());

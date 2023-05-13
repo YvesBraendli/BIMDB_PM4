@@ -4,9 +4,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule } from '@angular/router';
 import { ImageSize } from '../core/models/tmdb-img-config';
 import { LocaleDatePipe } from '../core/pipes/locale-date.pipe';
+import { Media, MediaType } from '../generated/contract';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { TmdbImgComponent } from '../tmdb-img/tmdb-img.component';
-import { Media, MediaType } from './media';
 
 
 @Component({

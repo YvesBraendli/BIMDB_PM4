@@ -1,8 +1,8 @@
 <div *ngIf="movie" id="main">
 	<div id="details">
-		<app-tmdb-img [src]="movie.poster_path" [alt]="movie.title" [title]="movie.title"/>
+		<app-tmdb-img [src]="movie.posterPath" [alt]="movie.name" [title]="movie.name"/>
 		<div id="details-right">
-			<h2>{{movie.title}}</h2>
+			<h2>{{movie.name}}</h2>
 			<p>{{movie.tagline}}</p>
 			<p>{{movie.overview}}</p>
 			<ul id="detail-list">
@@ -20,15 +20,15 @@
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.releaseDate' | translate }}</h3>
-					<span>{{movie.release_date | localeDate }}</span>
+					<span>{{movie.releaseDate | localeDate }}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalLanguage' | translate }}</h3>
-					<span>{{movie.original_language | languageIso }}</span>
+					<span>{{movie.originalLanguage | languageIso }}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.originalTitle' | translate }}</h3>
-					<span>{{movie.original_title}}</span>
+					<span>{{movie.originalName}}</span>
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.budget' | translate }}</h3>
@@ -40,7 +40,7 @@
 				</li>
 				<li>
 					<h3>{{ 'movieDetail.voteAverage' | translate }}</h3>
-					<span>{{movie.vote_average | number:'1.0-1'}} ({{movie.vote_count}})</span>
+					<span>{{movie.voteAverage | number:'1.0-1'}} ({{movie.voteCount}})</span>
 				</li>
 			</ul>
 		</div>

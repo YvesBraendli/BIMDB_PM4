@@ -1,7 +1,7 @@
 <ul id="cast-list">
 	<li *ngFor="let credit of credits">
 		<app-tmdb-img [alt]="credit.name"
-					  [src]="credit.profile_path"
+					  [src]="credit.profilePath"
 					  [title]="credit.name"
 					  [size]="ImageSize.Medium"
 					  [type]="ImageType.Profile"/>

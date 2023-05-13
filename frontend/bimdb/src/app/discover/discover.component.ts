@@ -1,6 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { Media, MediaType } from '../media-list/media';
+import { Media } from '../generated/contract';
 import { MediaListComponent } from '../media-list/media-list.component';
 import { DiscoverService } from './discover.service';
 
@@ -24,14 +24,8 @@ export class DiscoverComponent {
 	public discover(): void {
 		this.discoverService.discover(this.page).subscribe({
 			next: result => {
-				this.movies = result.results.map((movie) => ({
-					id: movie.id,
-					title: movie.title,
-					release_date: movie.release_date,
-					poster_path: movie.poster_path,
-					mediaType: MediaType.Movie
-				}) as Media);
-				this.totalPages = result.total_pages;
+				this.movies = result.results;
+				this.totalPages = result.totalPages;
 			}
 		});
 	}
@@ -40,11 +34,4 @@ export class DiscoverComponent {
 		this.page = page;
 		this.discover();
 	}
-}
-
-export class Movie {
-	public id?: number;
-	public name?: string;
-	public date?: Date;
-	public imgUrl?: string;
 }
