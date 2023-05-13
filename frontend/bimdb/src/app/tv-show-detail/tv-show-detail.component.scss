@@ -9,6 +9,7 @@
 
 	#details {
 		display: flex;
+		margin-bottom: 2rem;
 
 		img {
 			border-radius: 4px;
@@ -47,29 +48,17 @@
 	}
 }
 
-#seasons {
-	list-style-type: none;
-	padding-left: 0;
+.season-header {
+	display: flex;
 
-	& > li {
-		display: flex;
+	app-tmdb-img {
 		margin: 1rem 0;
+		width: 8rem;
+	}
 
-		&:hover {
-			background-color: rgba(153, 153, 153, 0.2);
-		}
-
-		img {
-			border-radius: 4px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-			height: 12rem;
-			width: 8rem;
-		}
-
-		div {
-			flex: 1;
-			margin: 1rem;
-		}
+	div {
+		flex: 1;
+		margin: 0 1rem 1rem 1rem;
 	}
 }
 
@@ -84,5 +73,23 @@
 
 	.name {
 		font-weight: bold;
+	}
+
+	.details {
+		list-style-type: none;
+		padding-left: 0;
+
+		li {
+			align-items: center;
+			display: inline-flex;
+
+			span {
+				margin-right: 1rem;
+			}
+		}
+
+		li + li {
+			margin-left: 2rem;
+		}
 	}
 }

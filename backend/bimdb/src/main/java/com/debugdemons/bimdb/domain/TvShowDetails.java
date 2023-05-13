@@ -31,4 +31,10 @@ public class TvShowDetails extends TvShow {
     private String tagline;
     @JsonProperty("type")
     private String type;
+    @JsonProperty("credits")
+    private Credits credits;
+    @JsonProperty("recommendations")
+    private TvShowListWrapper recommendations;
+    @JsonProperty("similar")
+    private TvShowListWrapper similar;
 }

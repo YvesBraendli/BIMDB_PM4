@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TvShowDetails, TvShowSeasonDetails } from '../generated/contract';
+import { TvShowDetails, TvShowSeasonDetails, WatchProviders, WatchProvidersResult } from '../generated/contract';
 import { TvShowDetailService } from './tv-show-detail.service';
 
 describe('TvShowDetailService', () => {
@@ -54,6 +54,24 @@ describe('TvShowDetailService', () => {
 		const discoverRequest = httpTestingController.expectOne(`/api/tv/${id}/${seasonNumber}`);
 		expect(discoverRequest.request.method).toEqual('GET');
 		discoverRequest.flush(mockResponse);
+
+		httpTestingController.verify();
+	});
+
+	it('should return watch providers', () => {
+		const id = 1;
+		const watchProviders: WatchProviders[] = [];
+		const mockResponse = {
+			watchProviders
+		} as WatchProvidersResult;
+
+		service.getWatchProviders(id).subscribe(res => {
+			expect(res.watchProviders).toEqual(watchProviders);
+		});
+
+		const watchProvidersRequest = httpTestingController.expectOne(`/api/tv/${id}/watch-providers`);
+		expect(watchProvidersRequest.request.method).toEqual('GET');
+		watchProvidersRequest.flush(mockResponse);
 
 		httpTestingController.verify();
 	});

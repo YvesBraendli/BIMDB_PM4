@@ -43,8 +43,12 @@
 		"firstAirDate": "First aired",
 		"originalLanguage": "Original Language",
 		"originalTitle": "Original Title",
+		"voteAverage": "User Score",
 		"cast": "Cast",
+		"crew": "Crew",
 		"recommendations": "Recommendations",
+		"similarTvShows": "Similar TV Shows",
+		"streamingServices": "Streaming Services",
 		"seasons": "Seasons",
 		"season": "Season",
 		"episode": "Episode",
@@ -54,6 +58,7 @@
 		"flatrate": "Flatrate",
 		"rent": "Rent",
 		"buy": "Buy",
-		"disclaimer": "Data provided by JustWatch"
+		"disclaimer": "Data provided by JustWatch",
+		"noProviders": "No Services available"
 	}
 }
