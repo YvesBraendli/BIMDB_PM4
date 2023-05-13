@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { ApiConfig, Country, Language } from 'src/app/generated/contract';
-import { environment } from 'src/environments/environment';
 import { ImgSizeConfig, TmdbImgConfig } from '../models/tmdb-img-config';
 import { HttpService } from './http.service';
 
@@ -59,15 +58,15 @@ export class ConfigService {
 
 	private loadApiConfig(hasCustomErrorHandler = false): Observable<void> {
 		return new Observable(subscriber => {
-			this.httpService.get<ApiConfig>(`${environment.apiBaseUrl}/config`, hasCustomErrorHandler).subscribe({
+			this.httpService.get<ApiConfig>('/config', hasCustomErrorHandler).subscribe({
 				next: res => {
 					this.imgConfig = {} as TmdbImgConfig;
-					this.imgConfig.baseUrl = res.images.secure_base_url;
-					this.imgConfig.backdropSizes = this.createImgSizeConfig(res.images.backdrop_sizes);
-					this.imgConfig.logoSizes = this.createImgSizeConfig(res.images.logo_sizes);
-					this.imgConfig.posterSizes = this.createImgSizeConfig(res.images.poster_sizes);
-					this.imgConfig.profileSizes = this.createImgSizeConfig(res.images.profile_sizes);
-					this.imgConfig.stillSizes = this.createImgSizeConfig(res.images.still_sizes);
+					this.imgConfig.baseUrl = res.images.secureBaseUrl;
+					this.imgConfig.backdropSizes = this.createImgSizeConfig(res.images.backdropSizes);
+					this.imgConfig.logoSizes = this.createImgSizeConfig(res.images.logoSizes);
+					this.imgConfig.posterSizes = this.createImgSizeConfig(res.images.posterSizes);
+					this.imgConfig.profileSizes = this.createImgSizeConfig(res.images.profileSizes);
+					this.imgConfig.stillSizes = this.createImgSizeConfig(res.images.stillSizes);
 					subscriber.next();
 					subscriber.complete();
 				},
@@ -78,7 +77,7 @@ export class ConfigService {
 
 	private loadCountries(hasCustomErrorHandler = false): Observable<void> {
 		return new Observable(subscriber => {
-			this.httpService.get<Country[]>(`${environment.apiBaseUrl}/config/countries`, hasCustomErrorHandler).subscribe({
+			this.httpService.get<Country[]>('/config/countries', hasCustomErrorHandler).subscribe({
 				next: res => {
 					this.countries = res;
 					subscriber.next();
@@ -91,7 +90,7 @@ export class ConfigService {
 
 	private loadLanguages(hasCustomErrorHandler = false): Observable<void> {
 		return new Observable(subscriber => {
-			this.httpService.get<Language[]>(`${environment.apiBaseUrl}/config/languages`, hasCustomErrorHandler).subscribe({
+			this.httpService.get<Language[]>('/config/languages', hasCustomErrorHandler).subscribe({
 				next: res => {
 					this.languages = res;
 					subscriber.next();

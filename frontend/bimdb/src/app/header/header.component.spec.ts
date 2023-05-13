@@ -4,11 +4,13 @@ import { TranslateTestingModule } from 'ngx-translate-testing';
 import { WindowService } from '../core/services/window.service';
 
 import { HeaderComponent } from './header.component';
+import { HeaderService } from './header.service';
 
 describe('HeaderComponent', () => {
 	let component: HeaderComponent;
 	let fixture: ComponentFixture<HeaderComponent>;
 	let reloadSpy: jasmine.Spy;
+	let focusSearchSpy: jasmine.Spy;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
@@ -21,6 +23,7 @@ describe('HeaderComponent', () => {
 			.compileComponents();
 
 		reloadSpy = spyOn(TestBed.inject(WindowService), 'reload').and.callFake(() => undefined);
+		focusSearchSpy = spyOn(TestBed.inject(HeaderService), 'focusSearch');
 		fixture = TestBed.createComponent(HeaderComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
@@ -37,6 +40,11 @@ describe('HeaderComponent', () => {
 		select.dispatchEvent(new Event('change'));
 		expect(component.language).toEqual('de');
 		expect(reloadSpy).toHaveBeenCalled();
+	});
+
+	it('should call focus search', () => {
+		component.focusSearch();
+		expect(focusSearchSpy).toHaveBeenCalled();
 	});
 
 });

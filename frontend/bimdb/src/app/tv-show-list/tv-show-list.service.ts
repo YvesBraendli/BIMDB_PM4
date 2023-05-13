@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { HttpService } from '../core/services/http.service';
 import { DiscoverTv } from '../generated/contract';
 
@@ -13,6 +12,6 @@ export class TvShowListService {
 	}
 
 	public discover(page: number): Observable<DiscoverTv> {
-		return this.httpService.get<DiscoverTv>(`${environment.apiBaseUrl}/discover/tv?page=${page}`);
+		return this.httpService.get<DiscoverTv>(`/discover/tv?page=${page}`);
 	}
 }

@@ -1,19 +1,18 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { CreditListComponent } from '../credit-list/credit-list.component';
 import { ImageSize } from '../core/models/tmdb-img-config';
-import { LocaleDatePipe } from '../core/pipes/locale-date.pipe';
-import { Cast, Credit, Crew, Episode, TvShow, TvShowDetails, WatchProvidersResult } from '../generated/contract';
-import { TmdbImgComponent } from '../tmdb-img/tmdb-img.component';
-import { TvShowDetailService } from './tv-show-detail.service';
-import { WatchProviderListComponent } from '../watch-provider-list/watch-provider-list.component';
-import { Media, MediaType } from '../media-list/media';
-import { MediaListComponent } from '../media-list/media-list.component';
 import { LanguageIsoPipe } from '../core/pipes/language-iso.pipe';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { LocaleDatePipe } from '../core/pipes/locale-date.pipe';
+import { CreditListComponent } from '../credit-list/credit-list.component';
+import { Cast, Credit, Crew, Episode, Media, TvShowDetails, WatchProvidersResult } from '../generated/contract';
+import { MediaListComponent } from '../media-list/media-list.component';
+import { TmdbImgComponent } from '../tmdb-img/tmdb-img.component';
+import { WatchProviderListComponent } from '../watch-provider-list/watch-provider-list.component';
+import { TvShowDetailService } from './tv-show-detail.service';
 
 export const PARAM_TV_SHOW_ID = 'tv-show-id';
 
@@ -75,18 +74,8 @@ export class TvShowDetailComponent implements OnInit {
 			.getTvShow(id)
 			.subscribe((result) => {
 				this.tvShow = result;
-				this.recommendations = result.recommendations.results.map(tvShow => this.convertToMedia(tvShow));
-				this.similarTvShows = result.similar.results.map(tvShow => this.convertToMedia(tvShow));
+				this.recommendations = result.recommendations.results;
+				this.similarTvShows = result.similar.results;
 			});
-	}
-
-	private convertToMedia(tvShow: TvShow): Media {
-		return ({
-			id: tvShow.id,
-			title: tvShow.name,
-			release_date: new Date(tvShow.first_air_date),
-			poster_path: tvShow.poster_path,
-			mediaType: MediaType.TvShow
-		}) as Media;
 	}
 }

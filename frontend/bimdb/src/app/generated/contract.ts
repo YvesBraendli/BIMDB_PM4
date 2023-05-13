@@ -1,21 +1,20 @@
 /* tslint:disable */
 /* eslint-disable */
-
-// Generated using typescript-generator version 3.2.1263 on 2023-05-10 17:03:04.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-13 17:02:29.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
-	change_keys: string[];
+	changeKeys: string[];
 }
 
 export interface ApiImagesConfig {
-	base_url: string;
-	secure_base_url: string;
-	backdrop_sizes: string[];
-	logo_sizes: string[];
-	poster_sizes: string[];
-	profile_sizes: string[];
-	still_sizes: string[];
+	baseUrl: string;
+	secureBaseUrl: string;
+	backdropSizes: string[];
+	logoSizes: string[];
+	posterSizes: string[];
+	profileSizes: string[];
+	stillSizes: string[];
 }
 
 export interface Cast extends Credit {
@@ -23,14 +22,14 @@ export interface Cast extends Credit {
 }
 
 export interface Country {
-	iso_3166_1: string;
-	english_name: string;
+	iso: string;
+	englishName: string;
 }
 
 export interface Credit {
 	id: number;
 	name: string;
-	profile_path: string;
+	profilePath: string;
 }
 
 export interface Credits {
@@ -42,33 +41,27 @@ export interface Crew extends Credit {
 	job: string;
 }
 
-export interface Discover {
-	page: number;
-	total_pages: number;
-	total_results: number;
-}
-
-export interface DiscoverMovie extends Discover {
+export interface DiscoverMovie extends PaginationResponse {
 	results: Movie[];
 }
 
-export interface DiscoverTv extends Discover {
+export interface DiscoverTv extends PaginationResponse {
 	results: TvShow[];
 }
 
 export interface Episode {
 	id: number;
-	air_date: Date;
-	episode_number: number;
+	airDate: Date;
+	episodeNumber: number;
 	name: string;
 	overview: string;
-	production_code: string;
+	productionCode: string;
 	runtime: number;
-	season_number: number;
-	show_id: number;
-	still_path: string;
-	vote_average: number;
-	vote_count: number;
+	seasonNumber: number;
+	showId: number;
+	stillPath: string;
+	voteAverage: number;
+	voteCount: number;
 }
 
 export interface Genre {
@@ -77,28 +70,29 @@ export interface Genre {
 }
 
 export interface Language {
-	iso_639_1: string;
-	english_name: string;
+	iso: string;
+	englishName: string;
 	name: string;
 }
 
 export interface Media {
-	backdrop_path: string;
-	genre_ids: number[];
+	backdropPath: string;
+	genreIds: number[];
 	id: number;
-	original_language: string;
+	originalLanguage: string;
 	overview: string;
 	popularity: number;
-	poster_path: string;
-	vote_average: number;
-	vote_count: number;
+	posterPath: string;
+	voteAverage: number;
+	voteCount: number;
+	name: string;
+	originalName: string;
+	releaseDate: Date;
+	mediaType: MediaType;
 }
 
 export interface Movie extends Media {
 	adult: boolean;
-	original_title: string;
-	release_date: Date;
-	title: string;
 	video: boolean;
 }
 
@@ -106,7 +100,7 @@ export interface MovieDetails extends Movie {
 	budget: number;
 	genres: Genre[];
 	homepage: string;
-	imdb_id: string;
+	imdbId: string;
 	revenue: number;
 	runtime: number;
 	status: string;
@@ -123,37 +117,48 @@ export interface MovieListWrapper {
 export interface Network {
 	id: number;
 	name: string;
-	origin_country: string;
-	logo_path: string;
+	originCountry: string;
+	logoPath: string;
+}
+
+export interface PaginationResponse {
+	page: number;
+	totalPages: number;
+	totalResults: number;
+}
+
+export interface People extends PaginationResponse {
+	results: Credit[];
+}
+
+export interface SearchResultWrapper extends PaginationResponse {
+	results: Media[];
 }
 
 export interface Season {
 	id: number;
-	air_date: string;
-	episode_count: number;
+	airDate: string;
+	episodeCount: number;
 	name: string;
 	overview: string;
-	poster_path: string;
-	season_number: number;
+	posterPath: string;
+	seasonNumber: number;
 }
 
 export interface TvShow extends Media {
-	first_air_date: string;
-	origin_country: string[];
-	name: string;
-	original_name: string;
+	originCountry: string[];
 }
 
 export interface TvShowDetails extends TvShow {
-	episode_run_time: number[];
+	episodeRunTime: number[];
 	genres: Genre[];
 	homepage: string;
-	in_production: boolean;
+	inProduction: boolean;
 	languages: string[];
-	last_air_date: string;
+	lastAirDate: string;
 	networks: Network[];
-	number_of_episodes: number;
-	number_of_seasons: number;
+	numberOfEpisodes: number;
+	numberOfSeasons: number;
 	seasons: Season[];
 	status: string;
 	tagline: string;
@@ -169,17 +174,17 @@ export interface TvShowListWrapper {
 
 export interface TvShowSeasonDetails {
 	id: number;
-	air_date: string;
+	airDate: string;
 	episodes: Episode[];
 	name: string;
 	overview: string;
-	poster_path: string;
-	season_number: number;
+	posterPath: string;
+	seasonNumber: number;
 }
 
 export interface WatchProvider {
-	provider_name: string;
-	logo_path: string;
+	providerName: string;
+	logoPath: string;
 }
 
 export interface WatchProviders {
@@ -191,4 +196,10 @@ export interface WatchProviders {
 
 export interface WatchProvidersResult {
 	watchProviders: WatchProviders[];
+}
+
+export const enum MediaType {
+	Movie = "movie",
+	TvShow = "tv",
+	Person = "person",
 }

@@ -2,23 +2,24 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AutocompleteComponent } from '../autocomplete/single-autocomplete/autocomplete.component';
 import { StorageKeys } from '../core/constants/storage-keys';
-import { SearchService } from '../core/services/search.service';
 import { WindowService } from '../core/services/window.service';
+import { HeaderService } from './header.service';
 
 @Component({
 	standalone: true,
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss'],
-	imports: [CommonModule, TranslateModule, RouterModule, AutocompleteComponent]
+	imports: [CommonModule, TranslateModule, RouterModule]
 })
 export class HeaderComponent {
 	public language = 'en';
-	public search = this.searchService.suggestions;
 
-	public constructor(private windowService: WindowService, private translateService: TranslateService, private searchService: SearchService) {
+	public constructor(
+		private windowService: WindowService,
+		private translateService: TranslateService,
+		private headerService: HeaderService) {
 		this.language = this.translateService.currentLang ?? this.translateService.defaultLang;
 	}
 
@@ -27,5 +28,9 @@ export class HeaderComponent {
 		this.language = select.value;
 		localStorage.setItem(StorageKeys.Language, this.language);
 		this.windowService.reload();
+	}
+
+	public focusSearch(): void {
+		this.headerService.focusSearch();
 	}
 }

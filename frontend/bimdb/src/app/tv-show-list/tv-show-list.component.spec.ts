@@ -19,9 +19,9 @@ describe('TvShowListComponent', () => {
 	let mockConfigService: ConfigService;
 	const discoverTv: DiscoverTv = {
 		page: 1,
-		total_pages: 1,
-		total_results: 0,
-		results: [{ id: 0, name: 'Title', first_air_date: '01.01.2023', poster_path: '' }]
+		totalPages: 1,
+		totalResults: 0,
+		results: [{ id: 0, name: 'Title', releaseDate: new Date('01.01.2023'), posterPath: '' }]
 	} as DiscoverTv;
 
 	beforeEach(async () => {

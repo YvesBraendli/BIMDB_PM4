@@ -17,13 +17,13 @@ describe('LanguageIsoPipe', () => {
 		mockConfigService = TestBed.inject(ConfigService);
 		spyOn(mockConfigService, 'getLanguages').and.returnValue([
 			{
-				iso_639_1: 'en',
-				english_name: 'English',
+				iso: 'en',
+				englishName: 'English',
 				name: 'English'
 			},
 			{
-				iso_639_1: 'aa',
-				english_name: 'Afar',
+				iso: 'aa',
+				englishName: 'Afar',
 				name: ''
 			},
 		]);

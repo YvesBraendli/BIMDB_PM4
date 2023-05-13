@@ -6,8 +6,6 @@
 	<a [routerLink]="['/movies']">{{'movies' | translate}}</a>
 	<a [routerLink]="['/tv-shows']">{{'tvShows' | translate}}</a>
 
-	<app-autocomplete [theme]="'light'" [fetchRemote]="search"></app-autocomplete>
-
 	<div id="lang-wrapper">
 		<span class="material-icons">language</span>
 		<select id="language-select" [value]="language" (change)="changeLanguage($event)">
@@ -17,4 +15,8 @@
 	</div>
 
 	<a>{{'login' | translate}} </a>
+
+	<a [routerLink]="['search']" (click)="focusSearch()">
+		<span id="header-search-icon" class="material-icons">search</span>
+	</a>
 </header>

@@ -28,13 +28,13 @@ describe('ConfigService', () => {
 	it('should load app config', () => {
 		const mockApiConfig = {
 			images: {
-				base_url: '',
-				secure_base_url: '',
-				backdrop_sizes: [],
-				logo_sizes: [],
-				poster_sizes: [],
-				profile_sizes: [],
-				still_sizes: []
+				baseUrl: '',
+				secureBaseUrl: '',
+				backdropSizes: [],
+				logoSizes: [],
+				posterSizes: [],
+				profileSizes: [],
+				stillSizes: []
 			} as ApiImagesConfig
 		} as ApiConfig;
 		service.loadAppConfig().subscribe();
@@ -65,16 +65,16 @@ describe('ConfigService', () => {
 	});
 
 	it('should get img config', () => {
-		const secure_base_url = 'https://super-secure.com/';
+		const secureBaseUrl = 'https://super-secure.com/';
 		const mockImgConfigResponse = {
 			images: {
-				base_url: '',
-				secure_base_url,
-				backdrop_sizes: ['w100', 'w200', 'w300', 'original'],
-				logo_sizes: ['w100', 'w200', 'w300', 'w400', 'original'],
-				poster_sizes: [],
-				profile_sizes: [],
-				still_sizes: []
+				baseUrl: '',
+				secureBaseUrl,
+				backdropSizes: ['w100', 'w200', 'w300', 'original'],
+				logoSizes: ['w100', 'w200', 'w300', 'w400', 'original'],
+				posterSizes: [],
+				profileSizes: [],
+				stillSizes: []
 			} as ApiImagesConfig
 		} as ApiConfig;
 		httpTestingController.expectNone('/api/config');
@@ -91,13 +91,13 @@ describe('ConfigService', () => {
 		const logoImgSizeConfig = new ImgSizeConfig({ small: 'w100', medium: 'w300', large: 'w400', originial: 'original' });
 		expect(service.getTmbdImgConfig().backdropSizes).toEqual(backdropImgSizeConfig);
 		expect(service.getTmbdImgConfig().logoSizes).toEqual(logoImgSizeConfig);
-		expect(service.getImageBaseUrl()).toBe(secure_base_url);
+		expect(service.getImageBaseUrl()).toBe(secureBaseUrl);
 
 		httpTestingController.expectNone('/api/config');
 	});
 
 	it('should get countries', () => {
-		const mockCountriesResponse = [{ iso_3166_1: 'CH', english_name: 'Switzerland' }];
+		const mockCountriesResponse = [{ iso: 'CH', englishName: 'Switzerland' }];
 		httpTestingController.expectNone('/api/config/countries');
 
 		expect(service.getCountries()).toEqual([]);
@@ -113,7 +113,7 @@ describe('ConfigService', () => {
 	});
 
 	it('should get languages', () => {
-		const mockLanguagesResponse = [{ iso_639_1: 'en', english_name: 'English', name: 'English' }];
+		const mockLanguagesResponse = [{ iso: 'en', englishName: 'English', name: 'English' }];
 		httpTestingController.expectNone('/api/config/languages');
 
 		expect(service.getLanguages()).toEqual([]);

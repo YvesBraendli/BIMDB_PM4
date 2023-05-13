@@ -2,43 +2,23 @@ package com.debugdemons.bimdb.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Date;
-
 public class Movie extends Media {
 
-    @JsonProperty("adult")
-    private boolean adult;
-    @JsonProperty("original_title")
-    private String name;
-    @JsonProperty("release_date")
-    private Date releaseDate;
-    @JsonProperty("title")
-    private String title;
-    @JsonProperty("video")
-    private boolean video;
+	@JsonProperty("adult")
+	private boolean adult;
+	@JsonProperty("video")
+	private boolean video;
 
-    public boolean isAdult() {
-        return adult;
-    }
+	public Movie() {
+		mediaType = MediaType.MOVIE;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public boolean isAdult() {
+		return adult;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public boolean isVideo() {
-        return video;
-    }
+	public boolean isVideo() {
+		return video;
+	}
 
 }

@@ -19,9 +19,9 @@ describe('DiscoverComponent', () => {
 	let mockConfigService: ConfigService;
 	const discoverMovie: DiscoverMovie = {
 		page: 1,
-		total_pages: 10,
-		total_results: 200,
-		results: [{ id: 0, title: 'Title', release_date: new Date('01.01.2023'), poster_path: '' }]
+		totalPages: 10,
+		totalResults: 200,
+		results: [{ id: 0, name: 'Title', releaseDate: new Date('01.01.2023'), posterPath: '' }]
 	} as DiscoverMovie;
 
 	beforeEach(async () => {

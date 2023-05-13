@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WatchProviderListComponent } from './watch-provider-list.component';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import { WatchProvider, WatchProviders, WatchProvidersResult } from '../generated/contract';
+import { WatchProviderListComponent } from './watch-provider-list.component';
 
 describe('WatchProviderListComponent', () => {
 	let component: WatchProviderListComponent;
@@ -28,7 +28,7 @@ describe('WatchProviderListComponent', () => {
 
 	it('should filter watch providers', () => {
 		const watchProvider = {
-			provider_name: 'Google Play Movies'
+			providerName: 'Google Play Movies'
 		} as WatchProvider;
 
 		component.watchProvidersResult = {

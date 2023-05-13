@@ -6,6 +6,8 @@
 	"login": "Anmelden",
 	"movies": "Filme",
 	"tvShows": "Serien",
+	"people": "Personen",
+	"allResults": "Alle Ergebnisse",
 	"paginator": {
 		"of": "von {{totalPages}}",
 		"page": "Seite"
@@ -60,5 +62,6 @@
 		"buy": "Kaufen",
 		"disclaimer": "Daten zur Verfügung gestellt durch JustWatch",
 		"noProviders": "Keine Anbieter verfügbar"
-	}
+	},
+	"noResults": "Keine Ergebnisse gefunden"
 }

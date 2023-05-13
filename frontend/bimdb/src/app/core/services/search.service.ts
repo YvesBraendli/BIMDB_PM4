@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
-import { AutocompleteOption } from 'src/app/autocomplete/single-autocomplete/autocomplete.component';
-import { Movie } from 'src/app/discover/discover.component';
+import { Observable } from 'rxjs';
+import { DiscoverMovie, DiscoverTv, People, SearchResultWrapper } from 'src/app/generated/contract';
+import { MOVIES_ROUTE, PEOPLE_ROUTE } from '../constants/routes';
+import { HttpService } from './http.service';
+
+export const SEARCH_BASE_URL = '/search';
+export const SEARCH_TV_ROUTE = 'tv';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class SearchService {
 
-	private static readonly movies = [
-		{ name: 'Barbie', date: new Date(2023, 6, 21) },
-		{ name: 'Shazam', date: new Date(2023, 6, 21) },
-		{ name: 'Ant-Man', date: new Date(2023, 6, 21) },
-		{ name: 'Thor', date: new Date(2023, 6, 21) },
-	];
+	public constructor(private httpService: HttpService) { }
 
-	// public constructor(private httpClient: HttpClient) { }
-
-	public search(query: string): Observable<Movie[]> {
-		// return this.httpClient.get<Movie[]>('/api/search', { params: { query } });
-		return of(SearchService.movies.filter(movie => movie.name.toLowerCase().includes(query.toLowerCase())));
+	public search(query: string, page = 1, hasCustomErrorHandler = false): Observable<SearchResultWrapper> {
+		return this.httpService.get(`${SEARCH_BASE_URL}?query=${query}&page=${page}`, hasCustomErrorHandler);
 	}
 
-	public suggestions(query: string): Observable<AutocompleteOption[]> {
-		return of(SearchService.movies.filter(movie => movie.name.toLowerCase().includes(query.toLowerCase())))
-			.pipe(map(movies => movies.map(movie => ({ displayValue: movie.name, value: movie.name }))));
+	public searchMovies(query: string, page = 1, hasCustomErrorHandler = false): Observable<DiscoverMovie> {
+		return this.httpService.get(`${SEARCH_BASE_URL}/${MOVIES_ROUTE}?query=${query}&page=${page}`, hasCustomErrorHandler);
+	}
+
+	public searchTv(query: string, page = 1, hasCustomErrorHandler = false): Observable<DiscoverTv> {
+		return this.httpService.get(`${SEARCH_BASE_URL}/${SEARCH_TV_ROUTE}?query=${query}&page=${page}`, hasCustomErrorHandler);
+	}
+
+	public searchPeople(query: string, page = 1, hasCustomErrorHandler = false): Observable<People> {
+		return this.httpService.get(`${SEARCH_BASE_URL}/${PEOPLE_ROUTE}?query=${query}&page=${page}`, hasCustomErrorHandler);
 	}
 }

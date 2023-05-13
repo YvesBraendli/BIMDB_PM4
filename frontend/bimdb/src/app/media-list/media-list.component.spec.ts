@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 
-import { Media, MediaType } from './media';
+import { Media, MediaType } from '../generated/contract';
 import { MediaListComponent } from './media-list.component';
 
 describe('MediaListComponent', () => {

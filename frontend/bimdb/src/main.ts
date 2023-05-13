@@ -11,12 +11,14 @@ import { DiscoverComponent } from './app/discover/discover.component';
 import { NotFoundComponent } from './app/not-found/not-found.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DISCOVER_ROUTE, MOVIES_ROUTE, MOVIE_ROUTE, PEOPLE_ROUTE, SEARCH_ROUTE, TV_SHOWS_ROUTE, TV_SHOW_ROUTE } from './app/core/constants/routes';
 import { StorageKeys } from './app/core/constants/storage-keys';
 import { GlobalErrorHandler } from './app/core/handlers/error-handler';
 import { BimdbMissingTranslationHandler } from './app/core/handlers/missing-translation.handler';
 import { ErrorInterceptor } from './app/core/interceptors/error.interceptor';
 import { NotificationService } from './app/core/services/notification.service';
 import { MovieDetailComponent, PARAM_MOVIE_ID } from './app/movie-detail/movie-detail.component';
+import { DATA_TAB_INDEX, SearchComponent, SearchTabs } from './app/search/search.component';
 import { PARAM_TV_SHOW_ID, TvShowDetailComponent } from './app/tv-show-detail/tv-show-detail.component';
 import { TvShowListComponent } from './app/tv-show-list/tv-show-list.component';
 import { environment } from './environments/environment';
@@ -25,13 +27,17 @@ if (environment.production) {
 	enableProdMode();
 }
 const routes: Routes = [
-	{ path: '', redirectTo: 'discover', pathMatch: 'full' },
-	{ path: 'discover', component: DiscoverComponent },
+	{ path: '', redirectTo: DISCOVER_ROUTE, pathMatch: 'full' },
+	{ path: DISCOVER_ROUTE, component: DiscoverComponent },
 	// TODO add movies entrypoint in backend and navigate to MovieListComponent
-	{ path: 'movies', component: DiscoverComponent },
-	{ path: `movie/:${PARAM_MOVIE_ID}`, component: MovieDetailComponent },
-	{ path: 'tv-shows', component: TvShowListComponent },
-	{ path: `tv-show/:${PARAM_TV_SHOW_ID}`, component: TvShowDetailComponent },
+	{ path: MOVIES_ROUTE, component: DiscoverComponent },
+	{ path: `${MOVIE_ROUTE}/:${PARAM_MOVIE_ID}`, component: MovieDetailComponent },
+	{ path: TV_SHOWS_ROUTE, component: TvShowListComponent },
+	{ path: `${TV_SHOW_ROUTE}/:${PARAM_TV_SHOW_ID}`, component: TvShowDetailComponent },
+	{ path: SEARCH_ROUTE, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.ALL } },
+	{ path: `${SEARCH_ROUTE}/${MOVIES_ROUTE}`, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.MOVIES } },
+	{ path: `${SEARCH_ROUTE}/${TV_SHOWS_ROUTE}`, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.TV } },
+	{ path: `${SEARCH_ROUTE}/${PEOPLE_ROUTE}`, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.PEOPLE } },
 	{ path: '**', component: NotFoundComponent }
 ];
 

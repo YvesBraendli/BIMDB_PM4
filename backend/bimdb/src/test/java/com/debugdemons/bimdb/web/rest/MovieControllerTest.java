@@ -25,41 +25,41 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class MovieControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @MockBean
-    private MovieService movieService;
+	@MockBean
+	private MovieService movieService;
 
-    @Test
-    void movieDetails() throws Exception {
-        MovieDetails movie = new MovieDetails();
-        movie.setApiId(538);
-        movie.setName("Interstellar");
-        when(movieService.getMovieById(538L)).thenReturn(movie);
-        this.mockMvc.perform(get("/api/movie/538")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("{\"backdrop_path\":null,\"genre_ids\":null,\"id\":538,\"original_language\":null,\"overview\":null,\"popularity\":0.0,\"poster_path\":null,\"vote_average\":-1.0,\"vote_count\":0,\"adult\":false,\"original_title\":\"Interstellar\",\"release_date\":null,\"title\":null,\"video\":false,\"budget\":0,\"genres\":null,\"homepage\":null,\"imdb_id\":null,\"revenue\":0,\"runtime\":null,\"status\":null,\"tagline\":null,\"credits\":null,\"recommendations\":null,\"similar\":null}")));
-    }
+	@Test
+	void movieDetails() throws Exception {
+		MovieDetails movie = new MovieDetails();
+		movie.setApiId(538);
+		movie.setName("Interstellar");
+		when(movieService.getMovieById(538L)).thenReturn(movie);
+		this.mockMvc.perform(get("/api/movie/538")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("{\"backdropPath\":null,\"genreIds\":null,\"id\":538,\"originalLanguage\":null,\"overview\":null,\"popularity\":0.0,\"posterPath\":null,\"voteAverage\":-1.0,\"voteCount\":0,\"name\":\"Interstellar\",\"originalName\":null,\"releaseDate\":null,\"mediaType\":\"movie\",\"adult\":false,\"video\":false,\"budget\":0,\"genres\":null,\"homepage\":null,\"imdbId\":null,\"revenue\":0,\"runtime\":null,\"status\":null,\"tagline\":null,\"credits\":null,\"recommendations\":null,\"similar\":null}")));
+	}
 
-    @Test
-    void getWatchProviders() throws Exception {
-        WatchProvider watchProvider = new WatchProvider();
-        watchProvider.setProviderName("Google Play Movies");
-        watchProvider.setLogoPath("/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg");
+	@Test
+	void getWatchProviders() throws Exception {
+		WatchProvider watchProvider = new WatchProvider();
+		watchProvider.setProviderName("Google Play Movies");
+		watchProvider.setLogoPath("/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg");
 
-        WatchProviders watchProviders = new WatchProviders();
-        watchProviders.setCountry("CH");
-        watchProviders.getFlatrate().add(watchProvider);
-        watchProviders.getRent().add(watchProvider);
-        watchProviders.getBuy().add(watchProvider);
+		WatchProviders watchProviders = new WatchProviders();
+		watchProviders.setCountry("CH");
+		watchProviders.getFlatrate().add(watchProvider);
+		watchProviders.getRent().add(watchProvider);
+		watchProviders.getBuy().add(watchProvider);
 
-        WatchProvidersResult result = new WatchProvidersResult();
-        result.setWatchProviders(List.of(watchProviders));
+		WatchProvidersResult result = new WatchProvidersResult();
+		result.setWatchProviders(List.of(watchProviders));
 
-        when(movieService.getWatchProviders(538L)).thenReturn(result);
-        this.mockMvc.perform(get("/api/movie/538/watch-providers"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("{\"watchProviders\":[{\"buy\":[{\"provider_name\":\"Google Play Movies\",\"logo_path\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}],\"country\":\"CH\",\"flatrate\":[{\"provider_name\":\"Google Play Movies\",\"logo_path\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}],\"rent\":[{\"provider_name\":\"Google Play Movies\",\"logo_path\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}]}]}")));
-    }
+		when(movieService.getWatchProviders(538L)).thenReturn(result);
+		this.mockMvc.perform(get("/api/movie/538/watch-providers"))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("{\"watchProviders\":[{\"buy\":[{\"providerName\":\"Google Play Movies\",\"logoPath\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}],\"country\":\"CH\",\"flatrate\":[{\"providerName\":\"Google Play Movies\",\"logoPath\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}],\"rent\":[{\"providerName\":\"Google Play Movies\",\"logoPath\":\"/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg\"}]}]}")));
+	}
 }

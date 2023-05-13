@@ -1,0 +1,27 @@
+<div class="search-container">
+	<div class="search-wrapper">
+		<input #searchInput type="search" placeholder="{{'search' | translate }}&hellip;" [formControl]="searchControl">
+		<span class="search-input-icon material-icons">search</span>
+	</div>
+	<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectedIndexChange($event)">
+		<mat-tab label="{{ 'allResults' | translate }} ({{ results?.totalResults ?? '-'}})">
+			<app-media-list *ngIf="results" (pageChange)="searchMulti($event)" [media]="results.results" [page]="results.page"
+			[totalPages]="results.totalPages"></app-media-list>
+			<p *ngIf="!results || results.totalResults === 0">{{ 'noResults' | translate }}</p>
+		</mat-tab>
+		<mat-tab label="{{ 'movies' | translate }} ({{ discoverMovie?.totalResults ?? '-'}})">
+			<app-media-list *ngIf="discoverMovie"  (pageChange)="searchMovies($event)" [media]="discoverMovie.results" [page]="discoverMovie.page"
+				[totalPages]="discoverMovie.totalPages"></app-media-list>
+			<p *ngIf="!discoverMovie || discoverMovie?.totalResults === 0">{{ 'noResults' | translate }}</p>
+		</mat-tab>
+		<mat-tab label="{{ 'tvShows' | translate }} ({{ discoverTv?.totalResults ?? '-'}})">
+			<app-media-list *ngIf="discoverTv"  (pageChange)="searchTv($event)" [media]="discoverTv.results" [page]="discoverTv.page"
+				[totalPages]="discoverTv.totalPages"></app-media-list>
+			<p *ngIf="!discoverTv || discoverTv.totalResults === 0">{{ 'noResults' | translate }}</p>
+		</mat-tab>
+		<mat-tab label="{{ 'people' | translate }} ({{ people?.totalResults ?? '-'}})">
+			<app-credit-list *ngIf="people" [credits]="people.results"></app-credit-list>
+			<p *ngIf="!people || people.totalResults === 0">{{ 'noResults' | translate }}</p>
+		</mat-tab>
+	</mat-tab-group>
+</div>

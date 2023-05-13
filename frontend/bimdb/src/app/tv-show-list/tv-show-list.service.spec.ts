@@ -1,7 +1,7 @@
-import { TvShowListService } from './tv-show-list.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { DiscoverTv } from '../generated/contract';
+import { TvShowListService } from './tv-show-list.service';
 
 describe('TvShowListService', () => {
 	let service: TvShowListService;
@@ -24,8 +24,8 @@ describe('TvShowListService', () => {
 	it('should return discover tv show', () => {
 		const mockResponse = {
 			page: 1,
-			total_pages: 1,
-			total_results: 0,
+			totalPages: 1,
+			totalResults: 0,
 			results: []
 		} as DiscoverTv;
 
