@@ -64,5 +64,13 @@
 		"disclaimer": "Data provided by JustWatch",
 		"noProviders": "No Services available"
 	},
-	"noResults": "No results found"
+	"noResults": "No results found",
+	"personDetail": {
+		"birthday": "Birthday",
+		"birthplace": "Birthplace",
+		"dayOfDeath": "Day of Death",
+		"popularity": "Popularity",
+		"cast": "Cast",
+		"crew": "Crew"
+	}
 }

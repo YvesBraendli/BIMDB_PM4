@@ -5,3 +5,4 @@ export const MOVIE_ROUTE = 'movie';
 export const TV_SHOWS_ROUTE = 'tv-shows';
 export const TV_SHOW_ROUTE = 'tv-show';
 export const PEOPLE_ROUTE = 'people';
+export const PERSON_ROUTE = 'person';

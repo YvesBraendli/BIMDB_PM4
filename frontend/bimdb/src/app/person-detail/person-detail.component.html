@@ -1,0 +1,36 @@
+<div *ngIf="person" id="main">
+	<div id="details">
+		<app-tmdb-img [alt]="person.name" [src]="person.profilePath" [title]="person.name"/>
+		<div id="details-right">
+			<h2>{{person.name}}</h2>
+			<p>{{person.biography}}</p>
+			<ul id="detail-list">
+				<li *ngIf="person.birthday">
+					<h3>{{ 'personDetail.birthday' | translate }}</h3>
+					<span>{{person.birthday | localeDate}}</span>
+				</li>
+				<li *ngIf="person.placeOfBirth">
+					<h3>{{ 'personDetail.birthplace' | translate }}</h3>
+					<span>{{person.placeOfBirth}}</span>
+				</li>
+				<li *ngIf="person.deathday">
+					<h3>{{ 'personDetail.dayOfDeath' | translate }}</h3>
+					<span>{{person.deathday | localeDate}}</span>
+				</li>
+				<li *ngIf="person.popularity">
+					<h3>{{ 'personDetail.popularity' | translate }}</h3>
+					<span>{{person.popularity}}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
+		<mat-tab label="{{ 'personDetail.cast' | translate }}">
+			<app-media-list [media]="person.combinedCredits.cast" [showPaginator]="false"></app-media-list>
+		</mat-tab>
+		<mat-tab label="{{ 'personDetail.crew' | translate }}">
+			<app-media-list [media]="person.combinedCredits.crew" [showPaginator]="false"></app-media-list>
+		</mat-tab>
+	</mat-tab-group>
+</div>

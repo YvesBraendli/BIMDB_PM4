@@ -1,0 +1,43 @@
+@mixin image-list {
+
+	ul.image-list {
+		display: grid;
+		grid-column-gap: 2rem;
+		grid-row-gap: 2rem;
+		grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+		list-style-type: none;
+		padding-left: 0;
+		margin: 2rem;
+
+		li {
+			display: flex;
+			flex-direction: column;
+			transition: transform 250ms;
+
+			&:hover,
+			&:focus {
+				transform: scale(1.05);
+			}
+
+			&:active {
+				transform: scale(0.95);
+			}
+
+			span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.name {
+				font-size: 1.25rem;
+				margin: 0.5rem 0.5rem 0.25rem 0.5rem;
+			}
+
+			.desc {
+				font-size: 0.875rem;
+				margin: 0 0.5rem;
+			}
+		}
+	}
+}

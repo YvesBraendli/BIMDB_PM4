@@ -1,7 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, ErrorHandler, enableProdMode, importProvidersFrom } from '@angular/core';
+import { APP_INITIALIZER, enableProdMode, ErrorHandler, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { Routes, provideRouter, withHashLocation } from '@angular/router';
+import { provideRouter, Routes, withHashLocation } from '@angular/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app/app.component';
@@ -12,7 +12,16 @@ import { NotFoundComponent } from './app/not-found/not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
-import { DISCOVER_ROUTE, MOVIES_ROUTE, MOVIE_ROUTE, PEOPLE_ROUTE, SEARCH_ROUTE, TV_SHOWS_ROUTE, TV_SHOW_ROUTE } from './app/core/constants/routes';
+import {
+	DISCOVER_ROUTE,
+	MOVIE_ROUTE,
+	MOVIES_ROUTE,
+	PEOPLE_ROUTE,
+	PERSON_ROUTE,
+	SEARCH_ROUTE,
+	TV_SHOW_ROUTE,
+	TV_SHOWS_ROUTE
+} from './app/core/constants/routes';
 import { StorageKeys } from './app/core/constants/storage-keys';
 import { GlobalErrorHandler } from './app/core/handlers/error-handler';
 import { BimdbMissingTranslationHandler } from './app/core/handlers/missing-translation.handler';
@@ -24,6 +33,7 @@ import { DATA_TAB_INDEX, SearchComponent, SearchTabs } from './app/search/search
 import { PARAM_TV_SHOW_ID, TvShowDetailComponent } from './app/tv-show-detail/tv-show-detail.component';
 import { TvShowListComponent } from './app/tv-show-list/tv-show-list.component';
 import { environment } from './environments/environment';
+import { PARAM_PERSON_ID, PersonDetailComponent } from './app/person-detail/person-detail.component';
 
 if (environment.production) {
 	enableProdMode();
@@ -37,9 +47,22 @@ const routes: Routes = [
 	{ path: TV_SHOWS_ROUTE, component: TvShowListComponent },
 	{ path: `${TV_SHOW_ROUTE}/:${PARAM_TV_SHOW_ID}`, component: TvShowDetailComponent },
 	{ path: SEARCH_ROUTE, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.ALL } },
-	{ path: `${SEARCH_ROUTE}/${MOVIES_ROUTE}`, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.MOVIES } },
-	{ path: `${SEARCH_ROUTE}/${TV_SHOWS_ROUTE}`, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.TV } },
-	{ path: `${SEARCH_ROUTE}/${PEOPLE_ROUTE}`, component: SearchComponent, data: { [DATA_TAB_INDEX]: SearchTabs.PEOPLE } },
+	{
+		path: `${SEARCH_ROUTE}/${MOVIES_ROUTE}`,
+		component: SearchComponent,
+		data: { [DATA_TAB_INDEX]: SearchTabs.MOVIES }
+	},
+	{
+		path: `${SEARCH_ROUTE}/${TV_SHOWS_ROUTE}`,
+		component: SearchComponent,
+		data: { [DATA_TAB_INDEX]: SearchTabs.TV }
+	},
+	{
+		path: `${SEARCH_ROUTE}/${PEOPLE_ROUTE}`,
+		component: SearchComponent,
+		data: { [DATA_TAB_INDEX]: SearchTabs.PEOPLE }
+	},
+	{ path: `${PERSON_ROUTE}/:${PARAM_PERSON_ID}`, component: PersonDetailComponent },
 	{ path: '**', component: NotFoundComponent }
 ];
 
