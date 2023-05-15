@@ -37,10 +37,11 @@ public class MovieDbApiInterceptor implements ClientHttpRequestInterceptor {
 
 	private static class MovieDbHttpRequest extends HttpRequestWrapper {
 		private static final String LANGUAGE_QUERY_PARAM = "language";
+		private static final String TOKEN_TYPE = "Bearer ";
 
 		public MovieDbHttpRequest(HttpRequest request, String apiKey) {
 			super(request);
-			request.getHeaders().add(HttpHeaders.AUTHORIZATION, apiKey);
+			request.getHeaders().add(HttpHeaders.AUTHORIZATION, TOKEN_TYPE + apiKey);
 		}
 
 		@Override
