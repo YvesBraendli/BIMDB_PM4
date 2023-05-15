@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-13 17:02:29.
+
+// Generated using typescript-generator version 3.2.1263 on 2023-05-15 21:24:36.
 
 export interface ApiConfig {
 	images: ApiImagesConfig;
@@ -19,6 +20,11 @@ export interface ApiImagesConfig {
 
 export interface Cast extends Credit {
 	character: string;
+}
+
+export interface CombinedCredits {
+	cast: Media[];
+	crew: Media[];
 }
 
 export interface Country {
@@ -129,6 +135,18 @@ export interface PaginationResponse {
 
 export interface People extends PaginationResponse {
 	results: Credit[];
+}
+
+export interface Person {
+	id: number;
+	birthday: Date;
+	deathday: Date;
+	name: string;
+	popularity: number;
+	biography: string;
+	placeOfBirth: string;
+	profilePath: string;
+	combinedCredits: CombinedCredits;
 }
 
 export interface SearchResultWrapper extends PaginationResponse {

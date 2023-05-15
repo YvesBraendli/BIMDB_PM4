@@ -1,12 +1,12 @@
 <app-paginator *ngIf="media && media.length > 0 && showPaginator" [totalPages]="maxPages" [page]="page"
-	(pageChange)="onPageChange($event)" />
-<div class="media-list">
-	<div *ngFor="let medium of media" class="medium">
+			   (pageChange)="onPageChange($event)"/>
+<ul class="image-list">
+	<li *ngFor="let medium of media" class="medium">
 		<app-tmdb-img [routerLink]="getMediaLink(medium)" [src]="medium.posterPath" [alt]="medium.name"
-			[title]="medium.name" [size]="ImageSize.Medium" />
+					  [size]="ImageSize.Medium" [title]="medium.name"/>
 		<span class="name">{{ medium.name }}</span>
-		<span class="date">{{ medium.releaseDate | localeDate }}</span>
-	</div>
-</div>
+		<span class="desc">{{ medium.releaseDate | localeDate }}</span>
+	</li>
+</ul>
 <app-paginator *ngIf="media && media.length > 0 && showPaginator" [totalPages]="maxPages" [page]="page"
-	(pageChange)="onPageChange($event)" />
+			   (pageChange)="onPageChange($event)"/>

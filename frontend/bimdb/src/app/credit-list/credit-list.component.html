@@ -1,6 +1,7 @@
-<ul id="cast-list">
+<ul class="image-list">
 	<li *ngFor="let credit of credits">
 		<app-tmdb-img [alt]="credit.name"
+					  [routerLink]="['/person/' + credit.id]"
 					  [src]="credit.profilePath"
 					  [title]="credit.name"
 					  [size]="ImageSize.Medium"
