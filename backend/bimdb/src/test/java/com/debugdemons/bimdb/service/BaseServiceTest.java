@@ -48,7 +48,7 @@ public class BaseServiceTest {
 		mockServer.expect(ExpectedCount.once(),
 						requestTo(url))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(HttpHeaders.AUTHORIZATION, "api_key"))
+				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer api_key"))
 				.andRespond(withStatus(HttpStatus.OK)
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(responseBody));
