@@ -4,60 +4,56 @@ import com.debugdemons.bimdb.domain.ApiConfig;
 import com.debugdemons.bimdb.domain.ApiImagesConfig;
 import com.debugdemons.bimdb.domain.Country;
 import com.debugdemons.bimdb.domain.Language;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+class ConfigServiceTest extends BaseServiceTest {
 
-@SpringBootTest
-class ConfigServiceTest {
+	@Autowired
+	private ConfigService configService;
 
-    @MockBean
-    private RestTemplate restTemplate;
-    @Autowired
-    private ConfigService configService;
+	@Test
+	void getApiConfig() throws JsonProcessingException {
+		ApiImagesConfig expectedImagesConfig = new ApiImagesConfig();
+		expectedImagesConfig.setBaseUrl("http://image.tmdb.org/t/p/");
+		expectedImagesConfig.setSecureBaseUrl("https://image.tmdb.org/t/p/");
+		expectedImagesConfig.setBackdropSizes(Arrays.asList("w300", "w780", "w1280"));
+		expectedImagesConfig.setLogoSizes(Arrays.asList("w45", "w92", "w154", "w185", "w300", "w500"));
+		expectedImagesConfig.setPosterSizes(Arrays.asList("w92", "w154", "w185", "w342", "w500", "w780"));
+		expectedImagesConfig.setProfileSizes(Arrays.asList("w45", "w185", "h632"));
+		expectedImagesConfig.setStillSizes(Arrays.asList("w92", "w185", "w300"));
 
-    @Test
-    void getApiConfig() {
-        ApiImagesConfig apiImagesConfig = new ApiImagesConfig();
-        apiImagesConfig.setBaseUrl("http://image.tmdb.org/t/p/");
-        apiImagesConfig.setSecureBaseUrl("https://image.tmdb.org/t/p/");
-        apiImagesConfig.setBackdropSizes(Arrays.asList("w300", "w780", "w1280"));
-        apiImagesConfig.setLogoSizes(Arrays.asList("w45", "w92", "w154", "w185", "w300", "w500"));
-        apiImagesConfig.setPosterSizes(Arrays.asList("w92", "w154", "w185", "w342", "w500", "w780"));
-        apiImagesConfig.setProfileSizes(Arrays.asList("w45", "w185", "h632"));
-        apiImagesConfig.setStillSizes(Arrays.asList("w92", "w185", "w300"));
-        ApiConfig apiConfig = new ApiConfig();
-        apiConfig.setImages(apiImagesConfig);
-        apiConfig.setChangeKeys(Arrays.asList("title", "id"));
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/configuration?api_key=api_key", ApiConfig.class)).thenReturn(apiConfig);
-        assertEquals(apiConfig, configService.getApiConfig());
-    }
+		ApiConfig expectedApiConfig = new ApiConfig();
+		expectedApiConfig.setImages(expectedImagesConfig);
+		expectedApiConfig.setChangeKeys(Arrays.asList("title", "id"));
 
-    @Test
-    void getCountries() {
-        Country switzerland = new Country();
-        switzerland.setEnglishName("Switzerland");
-        switzerland.setIso("CH");
-        Country[] countries = new Country[]{switzerland};
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/configuration/countries?api_key=api_key", Country[].class)).thenReturn(countries);
-        assertEquals(countries, configService.getCountries());
-    }
+		mockServerExpectGet("https://api.themoviedb.org/3/configuration?language=en", expectedApiConfig);
+		assertJsonEquals(expectedApiConfig, configService.getApiConfig());
+	}
 
-    @Test
-    void getLanguages() {
-        Language english = new Language();
-        english.setName("English");
-        english.setEnglishName("English");
-        english.setIso("en");
-        Language[] languages = new Language[]{english};
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/configuration/languages?api_key=api_key", Language[].class)).thenReturn(languages);
-        assertEquals(languages, configService.getLanguages());
-    }
+	@Test
+	void getCountries() throws JsonProcessingException {
+		Country switzerland = new Country();
+		switzerland.setEnglishName("Switzerland");
+		switzerland.setIso("CH");
+		Country[] expectedCountries = new Country[]{switzerland};
+
+		mockServerExpectGet("https://api.themoviedb.org/3/configuration/countries?language=en", expectedCountries);
+		assertJsonEquals(expectedCountries, configService.getCountries());
+	}
+
+	@Test
+	void getLanguages() throws JsonProcessingException {
+		Language english = new Language();
+		english.setName("Deutsch");
+		english.setEnglishName("German");
+		english.setIso("de");
+		Language[] expectedLanguages = new Language[]{english};
+
+		mockServerExpectGet("https://api.themoviedb.org/3/configuration/languages?language=en", expectedLanguages);
+		assertJsonEquals(expectedLanguages, configService.getLanguages());
+	}
 }

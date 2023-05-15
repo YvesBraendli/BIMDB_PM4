@@ -1,70 +1,76 @@
 package com.debugdemons.bimdb.service;
 
-import com.debugdemons.bimdb.domain.DiscoverMovie;
-import com.debugdemons.bimdb.domain.MovieDetails;
-import com.debugdemons.bimdb.domain.WatchProvider;
-import com.debugdemons.bimdb.domain.WatchProviders;
-import com.debugdemons.bimdb.domain.WatchProvidersResult;
+import com.debugdemons.bimdb.domain.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 @SpringBootTest
-class MovieServiceTest {
+class MovieServiceTest extends BaseServiceTest {
 
-    @MockBean
-    private RestTemplate restTemplate;
-    @Autowired
-    private MovieService movieService;
+	@Autowired
+	private MovieService movieService;
 
-    @Test
-    void discoverMovie() {
-        DiscoverMovie discoverMovie = new DiscoverMovie();
-        discoverMovie.setTotalPages(20);
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/discover/movie?api_key=api_key", DiscoverMovie.class)).thenReturn(discoverMovie);
-        assertEquals(movieService.getMovies(null), discoverMovie);
-    }
+	@Test
+	void discoverMovie() throws JsonProcessingException {
+		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
+		expectedDiscoverMovie.setTotalPages(20);
+		mockServerExpectGet("https://api.themoviedb.org/3/discover/movie?language=en", expectedDiscoverMovie);
+		DiscoverMovie discoverMovie = movieService.getMovies(null);
+		assertJsonEquals(expectedDiscoverMovie, discoverMovie);
+	}
 
-    @Test
-    void discoverMoviePage() {
-        DiscoverMovie discoverMovie = new DiscoverMovie();
-        discoverMovie.setTotalPages(20);
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/discover/movie?page=15&api_key=api_key", DiscoverMovie.class)).thenReturn(discoverMovie);
-        assertEquals(movieService.getMovies(15), discoverMovie);
-    }
+	@Test
+	void discoverMoviePage() throws JsonProcessingException {
+		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
+		expectedDiscoverMovie.setTotalPages(20);
+		mockServerExpectGet("https://api.themoviedb.org/3/discover/movie?page=15&language=en", expectedDiscoverMovie);
+		assertJsonEquals(expectedDiscoverMovie, movieService.getMovies(15));
+	}
 
-    @Test
-    void movieDetails() {
-        MovieDetails movie = new MovieDetails();
-        movie.setApiId(538);
-        movie.setName("Interstellar");
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/movie/538?api_key=api_key&append_to_response=credits,recommendations,similar", MovieDetails.class)).thenReturn(movie);
-        assertEquals(movie, movieService.getMovieById(538L));
-    }
+	@Test
+	void movieDetails() throws JsonProcessingException {
+		MovieDetails expectedMovie = new MovieDetails();
+		expectedMovie.setApiId(538);
+		expectedMovie.setName("Interstellar");
+		mockServerExpectGet("https://api.themoviedb.org/3/movie/538?append_to_response=credits,recommendations,similar&language=en", expectedMovie);
+		assertJsonEquals(expectedMovie, movieService.getMovieById(538L));
+	}
 
-    @Test
-    void watchProviders() {
-        WatchProvider watchProvider = new WatchProvider();
-        watchProvider.setProviderName("Google Play Movies");
-        watchProvider.setLogoPath("/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg");
+	@Test
+	void watchProviders() throws JsonProcessingException {
+		final String watchProviderJson = """
+				{
+					"id": 594767,
+					"results": {
+						"CH": {
+							"link": "https://www.themoviedb.org/movie/550-fight-club/watch?locale=CH",
+							"flatrate": [
+								{
+									"display_priority": 1,
+									"logo_path": "/68MNrwlkpF7WnmNPXLah69CR5cb.jpg",
+									"provider_id": 119,
+									"provider_name": "Amazon Prime Video"
+								}
+							]
+						}
+					}
+				}""";
+		WatchProvider watchProvider = new WatchProvider();
+		watchProvider.setProviderName("Amazon Prime Video");
+		watchProvider.setLogoPath("/68MNrwlkpF7WnmNPXLah69CR5cb.jpg");
 
-        WatchProviders watchProviders = new WatchProviders();
-        watchProviders.setCountry("CH");
-        watchProviders.getFlatrate().add(watchProvider);
-        watchProviders.getRent().add(watchProvider);
-        watchProviders.getBuy().add(watchProvider);
+		WatchProviders watchProviders = new WatchProviders();
+		watchProviders.setCountry("CH");
+		watchProviders.getFlatrate().add(watchProvider);
 
-        WatchProvidersResult result = new WatchProvidersResult();
-        result.setWatchProviders(List.of(watchProviders));
+		WatchProvidersResult result = new WatchProvidersResult();
+		result.setWatchProviders(List.of(watchProviders));
 
-        when(restTemplate.getForObject("https://api.themoviedb.org/3/movie/538/watch/providers?api_key=api_key", WatchProvidersResult.class)).thenReturn(result);
-        assertEquals(result, movieService.getWatchProviders(538L));
-    }
+		mockServerExpectGet("https://api.themoviedb.org/3/movie/538/watch/providers?language=en", watchProviderJson);
+		assertJsonEquals(result, movieService.getWatchProviders(538L));
+	}
 }

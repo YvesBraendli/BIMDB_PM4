@@ -35,7 +35,6 @@ public class SearchService extends BaseService {
 	}
 
 	private String getSearchUrl(String route, String query, int page) {
-		return movieDBApiConfig.getBaseUrl() + "search/"+route+"?query=" + query + "&page=" + page + "&"
-				+ "api_key=" + movieDBApiConfig.getApiKey();
+		return movieDBApiConfig.getBaseUrl() + "search/" + route + "?query=" + query + "&page=" + page;
 	}
 }

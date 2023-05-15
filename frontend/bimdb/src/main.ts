@@ -4,18 +4,20 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { Routes, provideRouter, withHashLocation } from '@angular/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Observable } from 'rxjs';
 import { AppComponent } from './app/app.component';
 import { HeaderInterceptor } from './app/core/interceptors/header.interceptor';
 import { DiscoverComponent } from './app/discover/discover.component';
 import { NotFoundComponent } from './app/not-found/not-found.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { Observable } from 'rxjs';
 import { DISCOVER_ROUTE, MOVIES_ROUTE, MOVIE_ROUTE, PEOPLE_ROUTE, SEARCH_ROUTE, TV_SHOWS_ROUTE, TV_SHOW_ROUTE } from './app/core/constants/routes';
 import { StorageKeys } from './app/core/constants/storage-keys';
 import { GlobalErrorHandler } from './app/core/handlers/error-handler';
 import { BimdbMissingTranslationHandler } from './app/core/handlers/missing-translation.handler';
 import { ErrorInterceptor } from './app/core/interceptors/error.interceptor';
+import { ConfigService } from './app/core/services/config.service';
 import { NotificationService } from './app/core/services/notification.service';
 import { MovieDetailComponent, PARAM_MOVIE_ID } from './app/movie-detail/movie-detail.component';
 import { DATA_TAB_INDEX, SearchComponent, SearchTabs } from './app/search/search.component';
@@ -45,14 +47,28 @@ function HttpLoaderFactory(httpHandler: HttpBackend): TranslateHttpLoader {
 	return new TranslateHttpLoader(new HttpClient(httpHandler));
 }
 
-function initializeApp(translateService: TranslateService) {
+function initializeApp(translateService: TranslateService, configService: ConfigService) {
 	return (): Observable<void> => {
-		return new Observable(observer => {
-			const language = localStorage.getItem(StorageKeys.Language) ?? 'en';
-			translateService.setDefaultLang('en');
-			translateService.use(language);
-			observer.next();
-			observer.complete();
+		const language = localStorage.getItem(StorageKeys.Language) ?? 'en';
+		translateService.setDefaultLang('en');
+		translateService.use(language);
+		return configService.loadAppConfig(true);
+	};
+}
+
+function initializeKeycloak(keycloak: KeycloakService) {
+	return (): Promise<boolean> => {
+		return keycloak.init({
+			config: {
+				url: environment.keycloackUrl,
+				realm: 'master',
+				clientId: 'bimdb'
+			},
+			initOptions: {
+				onLoad: 'check-sso',
+				silentCheckSsoRedirectUri:
+					window.location.origin + '/assets/silent-check-sso.html'
+			}
 		});
 	};
 }
@@ -60,7 +76,7 @@ function initializeApp(translateService: TranslateService) {
 bootstrapApplication(AppComponent, {
 	providers: [
 		provideRouter(routes, withHashLocation()),
-		importProvidersFrom(HttpClientModule, BrowserAnimationsModule, TranslateModule.forRoot({
+		importProvidersFrom(HttpClientModule, BrowserAnimationsModule, KeycloakAngularModule, TranslateModule.forRoot({
 			defaultLanguage: 'en',
 			loader: {
 				provide: TranslateLoader,
@@ -72,9 +88,20 @@ bootstrapApplication(AppComponent, {
 				useClass: BimdbMissingTranslationHandler
 			}
 		})),
-		{ provide: APP_INITIALIZER, useFactory: initializeApp, deps: [TranslateService], multi: true },
+		{ provide: APP_INITIALIZER, useFactory: initializeApp, deps: [TranslateService, ConfigService], multi: true },
+		{
+			provide: APP_INITIALIZER,
+			useFactory: initializeKeycloak,
+			multi: true,
+			deps: [KeycloakService]
+		},
 		{ provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, deps: [TranslateService], multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, deps: [NotificationService], multi: true },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	]
+}).catch(() => {
+	// TODO: proper error handling in case application can't start
+	const errorElement = document.createElement('div');
+	errorElement.innerText = 'RIP BIMDB';
+	document.body.appendChild(errorElement);
 });

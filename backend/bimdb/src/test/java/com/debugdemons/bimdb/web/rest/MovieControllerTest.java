@@ -38,7 +38,7 @@ class MovieControllerTest {
 		movie.setName("Interstellar");
 		when(movieService.getMovieById(538L)).thenReturn(movie);
 		this.mockMvc.perform(get("/api/movie/538")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("{\"backdropPath\":null,\"genreIds\":null,\"id\":538,\"originalLanguage\":null,\"overview\":null,\"popularity\":0.0,\"posterPath\":null,\"voteAverage\":-1.0,\"voteCount\":0,\"name\":\"Interstellar\",\"originalName\":null,\"releaseDate\":null,\"mediaType\":\"movie\",\"adult\":false,\"video\":false,\"budget\":0,\"genres\":null,\"homepage\":null,\"imdbId\":null,\"revenue\":0,\"runtime\":null,\"status\":null,\"tagline\":null,\"credits\":null,\"recommendations\":null,\"similar\":null}")));
+				.andExpect(content().string(containsString("{\"backdropPath\":null,\"genreIds\":null,\"id\":538,\"originalLanguage\":null,\"overview\":null,\"popularity\":0.0,\"posterPath\":null,\"voteAverage\":-1.0,\"voteCount\":0,\"name\":\"Interstellar\",\"originalName\":null,\"releaseDate\":null,\"mediaType\":\"movie\",\"adult\":false,\"video\":false,\"budget\":null,\"genres\":null,\"homepage\":null,\"imdbId\":null,\"revenue\":null,\"runtime\":null,\"status\":null,\"tagline\":null,\"credits\":null,\"recommendations\":null,\"similar\":null}")));
 	}
 
 	@Test
