@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MovieDetails extends Movie implements Serializable {
 	@JsonProperty("budget")
-	private int budget;
+	private Long budget;
 	@JsonProperty("genres")
 	private List<Genre> genres;
 	@JsonProperty("homepage")
@@ -17,7 +17,7 @@ public class MovieDetails extends Movie implements Serializable {
 	@JsonAlias("imdb_id")
 	private String imdbId;
 	@JsonProperty("revenue")
-	private int revenue;
+	private Long revenue;
 	@JsonProperty("runtime")
 	private Integer runtime;
 	@JsonProperty("status")
@@ -35,11 +35,11 @@ public class MovieDetails extends Movie implements Serializable {
 		super();
 	}
 
-	public int getBudget() {
+	public Long getBudget() {
 		return budget;
 	}
 
-	public void setBudget(int budget) {
+	public void setBudget(Long budget) {
 		this.budget = budget;
 	}
 
@@ -67,11 +67,11 @@ public class MovieDetails extends Movie implements Serializable {
 		this.imdbId = imdbId;
 	}
 
-	public int getRevenue() {
+	public Long getRevenue() {
 		return revenue;
 	}
 
-	public void setRevenue(int revenue) {
+	public void setRevenue(Long revenue) {
 		this.revenue = revenue;
 	}
 

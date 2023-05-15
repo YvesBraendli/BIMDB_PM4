@@ -4,7 +4,8 @@
 
 export const environment = {
 	production: false,
-	apiBaseUrl: '/api'
+	apiBaseUrl: '/api',
+	keycloackUrl: 'https://bimdb-auth-stage.pm4.init-lab.ch/'
 };
 
 /*

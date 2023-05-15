@@ -10,29 +10,26 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class MovieService extends BaseService {
 
-    public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
-        super(movieDBApiConfig, restTemplate);
-    }
+	public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
+		super(movieDBApiConfig, restTemplate);
+	}
 
 
-    public DiscoverMovie getMovies(Integer page) {
-        String url = movieDBApiConfig.getBaseUrl() + "discover/movie";
-        if (page != null) {
-            url += "?page=" + page + "&";
-        } else {
-            url += "?";
-        }
-        url += "api_key=" + movieDBApiConfig.getApiKey();
-        return restTemplate.getForObject(url, DiscoverMovie.class);
-    }
+	public DiscoverMovie getMovies(Integer page) {
+		String url = movieDBApiConfig.getBaseUrl() + "discover/movie";
+		if (page != null) {
+			url += "?page=" + page;
+		}
+		return restTemplate.getForObject(url, DiscoverMovie.class);
+	}
 
-    public MovieDetails getMovieById(Long id) {
-        String url = movieDBApiConfig.getBaseUrl() + "movie/" + id + "?api_key=" + movieDBApiConfig.getApiKey() + "&append_to_response=credits,recommendations,similar";
-        return restTemplate.getForObject(url, MovieDetails.class);
-    }
+	public MovieDetails getMovieById(Long id) {
+		String url = movieDBApiConfig.getBaseUrl() + "movie/" + id + "?append_to_response=credits,recommendations,similar";
+		return restTemplate.getForObject(url, MovieDetails.class);
+	}
 
-    public WatchProvidersResult getWatchProviders(Long id) {
-        String url = movieDBApiConfig.getBaseUrl() + "movie/" + id + "/watch/providers?api_key=" + movieDBApiConfig.getApiKey();
-        return restTemplate.getForObject(url, WatchProvidersResult.class);
-    }
+	public WatchProvidersResult getWatchProviders(Long id) {
+		String url = movieDBApiConfig.getBaseUrl() + "movie/" + id + "/watch/providers";
+		return restTemplate.getForObject(url, WatchProvidersResult.class);
+	}
 }

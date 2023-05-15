@@ -10,22 +10,22 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ConfigService extends BaseService {
 
-    public ConfigService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
-        super(movieDBApiConfig, restTemplate);
-    }
+	public ConfigService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
+		super(movieDBApiConfig, restTemplate);
+	}
 
-    public ApiConfig getApiConfig() {
-        String url = movieDBApiConfig.getBaseUrl() + "configuration?api_key=" + movieDBApiConfig.getApiKey();
-        return restTemplate.getForObject(url, ApiConfig.class);
-    }
+	public ApiConfig getApiConfig() {
+		String url = movieDBApiConfig.getBaseUrl() + "configuration";
+		return restTemplate.getForObject(url, ApiConfig.class);
+	}
 
-    public Country[] getCountries() {
-        String url = movieDBApiConfig.getBaseUrl() + "configuration/countries?api_key=" + movieDBApiConfig.getApiKey();
-        return restTemplate.getForObject(url, Country[].class);
-    }
+	public Country[] getCountries() {
+		String url = movieDBApiConfig.getBaseUrl() + "configuration/countries";
+		return restTemplate.getForObject(url, Country[].class);
+	}
 
-    public Language[] getLanguages() {
-        String url = movieDBApiConfig.getBaseUrl() + "configuration/languages?api_key=" + movieDBApiConfig.getApiKey();
-        return restTemplate.getForObject(url, Language[].class);
-    }
+	public Language[] getLanguages() {
+		String url = movieDBApiConfig.getBaseUrl() + "configuration/languages";
+		return restTemplate.getForObject(url, Language[].class);
+	}
 }

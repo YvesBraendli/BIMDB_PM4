@@ -14,7 +14,8 @@
 		</select>
 	</div>
 
-	<a>{{'login' | translate}} </a>
+	<a *ngIf="!isLoggedIn" (click)="login()">{{'login' | translate}} </a>
+	<a *ngIf="isLoggedIn" (click)="logout()">{{'logout' | translate}} </a>
 
 	<a [routerLink]="['search']" (click)="focusSearch()">
 		<span id="header-search-icon" class="material-icons">search</span>

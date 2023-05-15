@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import { WindowService } from '../core/services/window.service';
 
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { HeaderComponent } from './header.component';
 import { HeaderService } from './header.service';
 
@@ -11,19 +12,27 @@ describe('HeaderComponent', () => {
 	let fixture: ComponentFixture<HeaderComponent>;
 	let reloadSpy: jasmine.Spy;
 	let focusSearchSpy: jasmine.Spy;
+	let loginSpy: jasmine.Spy;
+	let logoutSpy: jasmine.Spy;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
 				HeaderComponent,
 				TranslateTestingModule.withTranslations({}),
-				RouterTestingModule
+				RouterTestingModule,
+				KeycloakAngularModule
 			]
 		})
 			.compileComponents();
 
 		reloadSpy = spyOn(TestBed.inject(WindowService), 'reload').and.callFake(() => undefined);
 		focusSearchSpy = spyOn(TestBed.inject(HeaderService), 'focusSearch');
+		const keycloakService = TestBed.inject(KeycloakService);
+		spyOn(keycloakService, 'isLoggedIn').and.resolveTo(true);
+		spyOn(keycloakService, 'loadUserProfile').and.resolveTo({ username: 'user' });
+		loginSpy = spyOn(keycloakService, 'login').and.resolveTo();
+		logoutSpy = spyOn(keycloakService, 'logout').and.resolveTo();
 		fixture = TestBed.createComponent(HeaderComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
@@ -31,6 +40,7 @@ describe('HeaderComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
+		expect(component.isLoggedIn).toBeTrue();
 	});
 
 	it('should change language', () => {
@@ -45,6 +55,16 @@ describe('HeaderComponent', () => {
 	it('should call focus search', () => {
 		component.focusSearch();
 		expect(focusSearchSpy).toHaveBeenCalled();
+	});
+
+	it('should login', () => {
+		component.login();
+		expect(loginSpy).toHaveBeenCalled();
+	});
+
+	it('should logout', () => {
+		component.logout();
+		expect(logoutSpy).toHaveBeenCalled();
 	});
 
 });
