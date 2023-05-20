@@ -1,14 +1,14 @@
 package com.debugdemons.bimdb;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 class BimdbApplicationTests {
 
 	@Test
 	void contextLoads() {
-		BimdbApplication.main(new String[] {});
+		assertDoesNotThrow(() -> BimdbApplication.main(new String[0]));
 	}
 
 }

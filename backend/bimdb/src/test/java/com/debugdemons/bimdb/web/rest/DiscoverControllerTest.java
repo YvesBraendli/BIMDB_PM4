@@ -35,7 +35,7 @@ class DiscoverControllerTest {
 	void discoverMovie() throws Exception {
 		DiscoverMovie discoverMovie = new DiscoverMovie();
 		discoverMovie.setTotalPages(20);
-		when(movieService.getMovies(null)).thenReturn(discoverMovie);
+		when(movieService.getMovies(null, null)).thenReturn(discoverMovie);
 		this.mockMvc.perform(get("/api/discover/movies")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("{\"page\":0,\"totalPages\":20,\"totalResults\":0,\"results\":null}")));
 	}

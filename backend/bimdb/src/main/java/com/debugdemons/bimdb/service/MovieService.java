@@ -4,22 +4,30 @@ import com.debugdemons.bimdb.config.MovieDBApiConfig;
 import com.debugdemons.bimdb.domain.DiscoverMovie;
 import com.debugdemons.bimdb.domain.MovieDetails;
 import com.debugdemons.bimdb.domain.WatchProvidersResult;
+import com.debugdemons.bimdb.model.UserPreferences;
+import com.debugdemons.bimdb.repository.PreferencesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class MovieService extends BaseService {
 
+	@Autowired
+	private PreferencesRepository preferencesRepository;
+
 	public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
 		super(movieDBApiConfig, restTemplate);
 	}
 
-
-	public DiscoverMovie getMovies(Integer page) {
-		String url = movieDBApiConfig.getBaseUrl() + "discover/movie";
-		if (page != null) {
-			url += "?page=" + page;
-		}
+	public DiscoverMovie getMovies(Integer page, String username) {
+		UserPreferences userPreferences = preferencesRepository.findByUsernameAndSource(username, "TMDB");
+		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl(), "discover/movie")
+				.withPageNumber(page)
+				.withGenres(userPreferences.getFavoriteMovieGenres())
+				.withCast(userPreferences.getFavoriteActors());
+		String url = tmdbUrlBuilder.build();
+		getLogger().info("API request to TMDB: " + url);
 		return restTemplate.getForObject(url, DiscoverMovie.class);
 	}
 

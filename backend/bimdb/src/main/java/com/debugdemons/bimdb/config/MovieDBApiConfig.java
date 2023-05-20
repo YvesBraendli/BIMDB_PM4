@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class MovieDBApiConfig {
 
+    public static final String NAME = "TMDB";
     private String apiKey;
     private String baseUrl;
 

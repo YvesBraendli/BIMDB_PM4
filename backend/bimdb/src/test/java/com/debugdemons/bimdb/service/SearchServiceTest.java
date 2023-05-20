@@ -7,9 +7,7 @@ import com.debugdemons.bimdb.domain.SearchResultWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 public class SearchServiceTest extends BaseServiceTest {
 	@Autowired
 	private SearchService searchService;

@@ -1,9 +1,10 @@
 package com.debugdemons.bimdb.service;
 
 import com.debugdemons.bimdb.config.MovieDBApiConfig;
+import com.debugdemons.bimdb.utils.LoggerProvider;
 import org.springframework.web.client.RestTemplate;
 
-public abstract class BaseService {
+public abstract class BaseService implements LoggerProvider {
 
     protected final MovieDBApiConfig movieDBApiConfig;
 
