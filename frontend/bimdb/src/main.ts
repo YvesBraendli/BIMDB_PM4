@@ -83,9 +83,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
 	return (): Promise<boolean> => {
 		return keycloak.init({
 			config: {
-				url: environment.keycloackUrl,
-				realm: 'master',
-				clientId: 'bimdb'
+				url: environment.keycloackConfig.url,
+				realm: environment.keycloackConfig.realm,
+				clientId: environment.keycloackConfig.clientID
 			},
 			initOptions: {
 				onLoad: 'check-sso',
