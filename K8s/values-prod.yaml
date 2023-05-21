@@ -2,4 +2,4 @@ namespace: betterimdb-prod
 environment: prod
 
 frontend:
-  url: "https://bimdb-prod.pm4.init-lab.ch/"
+  url: "https://bimdb-prod.pm4.init-lab.ch"

@@ -2,4 +2,4 @@ namespace: betterimdb-stage
 environment: stage
 
 frontend:
-  url: "https://bimdb-stage.pm4.init-lab.ch/"
+  url: "https://bimdb-stage.pm4.init-lab.ch"
