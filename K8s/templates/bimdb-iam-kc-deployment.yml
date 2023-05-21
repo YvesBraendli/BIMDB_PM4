@@ -16,7 +16,7 @@ spec:
       containers:
       - name: {{ .Values.iam.appName }}-deployment
         image: "quay.io/keycloak/keycloak:{{ .Values.iam.imageTag }}"
-        args: ["start-dev"]
+        args: ["start-dev --import-realm"]
         env:
         - name: KEYCLOAK_ADMIN
           value: {{ .Values.iam.userName }}
@@ -47,6 +47,9 @@ spec:
               key: userPassword
         - name: KC_PROXY
           value: "edge"
+        volumeMounts:
+          - name: keycloak-volume
+            mountPath: /opt/keycloak/data/import
         ports:
         - name: http
           containerPort: 8080
@@ -54,3 +57,7 @@ spec:
           httpGet:
             path: /realms/master
             port: 8080
+        volumes:
+          - name: keycloak-volume
+            configMap:
+              name: keycloak-configmap

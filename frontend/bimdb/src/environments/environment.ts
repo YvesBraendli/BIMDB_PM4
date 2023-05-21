@@ -5,7 +5,11 @@
 export const environment = {
 	production: false,
 	apiBaseUrl: '/api',
-	keycloackUrl: 'https://bimdb-auth-stage.pm4.init-lab.ch/'
+	keycloackConfig: {
+		url: 'https://bimdb-auth-stage.pm4.init-lab.ch/',
+		realm: 'BIMDB',
+		clientID: 'BIMDB'
+	}
 };
 
 /*
