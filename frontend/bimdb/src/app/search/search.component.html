@@ -3,25 +3,41 @@
 		<input #searchInput type="search" placeholder="{{'search' | translate }}&hellip;" [formControl]="searchControl">
 		<span class="search-input-icon material-icons">search</span>
 	</div>
-	<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectedIndexChange($event)">
-		<mat-tab label="{{ 'allResults' | translate }} ({{ results?.totalResults ?? '-'}})">
-			<app-media-list *ngIf="results" (pageChange)="searchMulti($event)" [media]="results.results" [page]="results.page"
-			[totalPages]="results.totalPages"></app-media-list>
-			<p *ngIf="!results || results.totalResults === 0">{{ 'noResults' | translate }}</p>
+	<mat-tab-group (selectedIndexChange)="selectedIndexChange($event)" [mat-stretch-tabs]="false"
+				   [selectedIndex]="selectedTabIndex">
+		<mat-tab label="{{ 'allResults' | translate }} ({{ results?.totalResults ?? '0'}})">
+			<app-media-list (pageChange)="searchMulti($event)"
+							*ngIf="results && results.totalResults > 0; else noResults" [media]="results.results"
+							[page]="results.page"
+							[totalPages]="results.totalPages"></app-media-list>
+			<ng-template #noResults>
+				<p>{{ 'noResults' | translate }}</p>
+			</ng-template>
 		</mat-tab>
-		<mat-tab label="{{ 'movies' | translate }} ({{ discoverMovie?.totalResults ?? '-'}})">
-			<app-media-list *ngIf="discoverMovie"  (pageChange)="searchMovies($event)" [media]="discoverMovie.results" [page]="discoverMovie.page"
-				[totalPages]="discoverMovie.totalPages"></app-media-list>
-			<p *ngIf="!discoverMovie || discoverMovie?.totalResults === 0">{{ 'noResults' | translate }}</p>
+		<mat-tab label="{{ 'movies' | translate }} ({{ discoverMovie?.totalResults ?? '0'}})">
+			<app-media-list (pageChange)="searchMovies($event)"
+							*ngIf="discoverMovie && discoverMovie.totalResults > 0; else noMovies" [media]="discoverMovie.results"
+							[page]="discoverMovie.page"
+							[totalPages]="discoverMovie.totalPages"></app-media-list>
+			<ng-template #noMovies>
+				<p>{{ 'noResults' | translate }}</p>
+			</ng-template>
 		</mat-tab>
-		<mat-tab label="{{ 'tvShows' | translate }} ({{ discoverTv?.totalResults ?? '-'}})">
-			<app-media-list *ngIf="discoverTv"  (pageChange)="searchTv($event)" [media]="discoverTv.results" [page]="discoverTv.page"
-				[totalPages]="discoverTv.totalPages"></app-media-list>
-			<p *ngIf="!discoverTv || discoverTv.totalResults === 0">{{ 'noResults' | translate }}</p>
+		<mat-tab label="{{ 'tvShows' | translate }} ({{ discoverTv?.totalResults ?? '0'}})">
+			<app-media-list (pageChange)="searchTv($event)"
+							*ngIf="discoverTv && discoverTv.totalResults > 0; else noTvShow" [media]="discoverTv.results"
+							[page]="discoverTv.page"
+							[totalPages]="discoverTv.totalPages"></app-media-list>
+			<ng-template #noTvShow>
+				<p>{{ 'noResults' | translate }}</p>
+			</ng-template>
 		</mat-tab>
-		<mat-tab label="{{ 'people' | translate }} ({{ people?.totalResults ?? '-'}})">
-			<app-credit-list *ngIf="people" [credits]="people.results"></app-credit-list>
-			<p *ngIf="!people || people.totalResults === 0">{{ 'noResults' | translate }}</p>
+		<mat-tab label="{{ 'people' | translate }} ({{ people?.totalResults ?? '0'}})">
+			<app-credit-list *ngIf="people && people.totalResults > 0; else noPeople"
+							 [credits]="people.results"></app-credit-list>
+			<ng-template #noPeople>
+				<p>{{ 'noResults' | translate }}</p>
+			</ng-template>
 		</mat-tab>
 	</mat-tab-group>
 </div>
