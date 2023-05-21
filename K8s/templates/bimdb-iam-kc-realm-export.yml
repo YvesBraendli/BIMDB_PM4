@@ -482,15 +482,17 @@ data:
           "clientId": "BIMDB",
           "name": "BIMDB",
           "description": "",
-          "rootUrl": "https://{{ .Values.frontend.url }}/",
-          "adminUrl": "https://{{ .Values.frontend.url }}/",
-          "baseUrl": "https://{{ .Values.frontend.url }}/",
+          "rootUrl": "{{ .Values.frontend.url }}/",
+          "adminUrl": "{{ .Values.frontend.url }}/",
+          "baseUrl": "{{ .Values.frontend.url }}/",
           "surrogateAuthRequired": false,
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "https://{{ .Values.frontend.url }}/*"
+            "{{ .Values.frontend.url }}/*",
+            "http://localhost:4200/*",
+            "http://localhost/*"
           ],
           "webOrigins": [
             "+"
