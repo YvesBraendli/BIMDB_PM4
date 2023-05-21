@@ -57,7 +57,7 @@ spec:
           httpGet:
             path: /realms/master
             port: 8080
-        volumes:
-          - name: keycloak-volume
-            configMap:
-              name: keycloak-configmap
+      volumes:
+        - name: keycloak-volume
+          configMap:
+            name: keycloak-configmap
