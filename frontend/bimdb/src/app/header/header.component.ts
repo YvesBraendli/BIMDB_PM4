@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 	public language: string;
 	public isLoggedIn = false;
 	public user?: KeycloakProfile;
+	public expanded = false;
 
 	public constructor(
 		private windowService: WindowService,
@@ -58,4 +59,7 @@ export class HeaderComponent implements OnInit {
 		this.headerService.focusSearch();
 	}
 
+	public toggleExpanded(): void {
+		this.expanded = !this.expanded;
+	}
 }

@@ -67,4 +67,9 @@ describe('HeaderComponent', () => {
 		expect(logoutSpy).toHaveBeenCalled();
 	});
 
+	it('should toggle expanded', () => {
+		expect(component.expanded).toBeFalse();
+		component.toggleExpanded();
+		expect(component.expanded).toBeTrue();
+	});
 });

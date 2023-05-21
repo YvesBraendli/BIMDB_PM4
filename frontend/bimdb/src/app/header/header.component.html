@@ -1,4 +1,4 @@
-<header>
+<header [class]="expanded ? 'expanded' : ''">
 	<a [routerLink]="['/']">
 		<h1>BIMDB</h1>
 	</a>
@@ -20,4 +20,6 @@
 	<a [routerLink]="['search']" (click)="focusSearch()">
 		<span id="header-search-icon" class="material-icons">search</span>
 	</a>
+
+	<span (click)="toggleExpanded()" class="material-icons" id="menu-toggle">menu</span>
 </header>
