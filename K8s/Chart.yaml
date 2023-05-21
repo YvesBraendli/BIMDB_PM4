@@ -1,4 +1,4 @@
 apiVersion: v2
 name: bimdb
 description: Helm Chart for BIMDB PM4 Project
-version: 0.3.2
+version: 0.3.3
