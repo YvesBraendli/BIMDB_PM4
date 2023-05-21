@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.iam.appName }}-deployment
-        image: "quay.io/keycloak/keycloak:{{ .Values.backend.imageTag }}"
+        image: "quay.io/keycloak/keycloak:{{ .Values.iam.imageTag }}"
         args: ["start-dev"]
         env:
         - name: KEYCLOAK_ADMIN
