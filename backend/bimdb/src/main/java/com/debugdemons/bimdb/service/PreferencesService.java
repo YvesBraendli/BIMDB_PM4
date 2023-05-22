@@ -32,11 +32,16 @@ public class PreferencesService {
     public Preferences getPreferences(String username) {
         UserPreferences userPreferences = preferencesRepository.findByUsernameAndSource(username, MovieDBApiConfig.NAME);
         if (userPreferences == null) {
-            return new Preferences();
+            UserPreferences newUserPreferences = new UserPreferences();
+            newUserPreferences.setUsername(username);
+            newUserPreferences.setSource(MovieDBApiConfig.NAME);
+            preferencesRepository.saveAndFlush(newUserPreferences);
+            userPreferences = preferencesRepository.findByUsernameAndSource(username, MovieDBApiConfig.NAME);
         }
         Preferences preferences = new Preferences();
-
+        preferences.setId(userPreferences.getId());
         preferences.setUsername(userPreferences.getUsername());
+        preferences.setSource(userPreferences.getSource());
         preferences.setRatingThreshold(userPreferences.getRatingThreshold());
         preferences.setReleaseYearFrom(userPreferences.getReleaseYearFrom());
         preferences.setReleaseYearTo(userPreferences.getReleaseYearTo());
@@ -55,6 +60,18 @@ public class PreferencesService {
         }
 
         return preferences;
+    }
+
+    public Preferences updatePreferences(String username, Preferences preferences) {
+        UserPreferences userPreferences = new UserPreferences();
+        userPreferences.setId(preferences.getId());
+        userPreferences.setSource(preferences.getSource());
+        userPreferences.setUsername(preferences.getUsername());
+        userPreferences.setReleaseYearTo(preferences.getReleaseYearTo());
+        userPreferences.setReleaseYearFrom(preferences.getReleaseYearFrom());
+        userPreferences.setRatingThreshold(preferences.getRatingThreshold());
+        preferencesRepository.saveAndFlush(userPreferences);
+        return getPreferences(username);
     }
 
     private List<Genre> getGenreList(List<Integer> genreIds, List<Genre> allGenres) {

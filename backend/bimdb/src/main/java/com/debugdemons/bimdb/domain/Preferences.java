@@ -6,8 +6,14 @@ import java.util.List;
 
 public class Preferences {
 
+    @JsonProperty("id")
+    private Long id;
+
     @JsonProperty("username")
     private String username;
+
+    @JsonProperty("source")
+    private String source;
 
     @JsonProperty("favoriteTvGenres")
     private List<Genre> favoriteTvGenres;
@@ -30,12 +36,28 @@ public class Preferences {
     @JsonProperty("favoriteActors")
     private List<Person> favoriteActors;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public List<Genre> getFavoriteTvGenres() {
