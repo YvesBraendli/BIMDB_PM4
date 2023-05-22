@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WatchProviderResultDeserializerTest {
+class WatchProviderResultDeserializerTest {
 
     private static final String JSON = """
             {
@@ -94,7 +94,7 @@ public class WatchProviderResultDeserializerTest {
             """;
 
     @Test
-    public void testDeserialize() throws JsonProcessingException {
+    void testDeserialize() throws JsonProcessingException {
         WatchProvidersResult watchProvidersResult = new ObjectMapper().readValue(JSON, WatchProvidersResult.class);
         assertNotNull(watchProvidersResult);
 
@@ -121,7 +121,7 @@ public class WatchProviderResultDeserializerTest {
     }
 
   @Test
-  public void testDeserializeInvalidWatchProviderJson() {
+  void testDeserializeInvalidWatchProviderJson() {
     assertThrows(RuntimeException.class, () -> new ObjectMapper().readValue(INVALID_JSON, WatchProvidersResult.class));
   }
 

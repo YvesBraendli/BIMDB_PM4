@@ -13,18 +13,19 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class MovieService extends BaseService {
 
-	@Autowired
-	private PreferencesRepository preferencesRepository;
+	private final PreferencesRepository preferencesRepository;
 
-	public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
+	@Autowired
+	public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate, PreferencesRepository preferencesRepository) {
 		super(movieDBApiConfig, restTemplate);
+		this.preferencesRepository = preferencesRepository;
 	}
 
 	public DiscoverMovie getMovies(Integer page, String username) {
-		UserPreferences userPreferences = preferencesRepository.findByUsernameAndSource(username, "TMDB");
+		UserPreferences userPreferences = preferencesRepository.findByUsername(username);
 		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl(), "discover/movie")
 				.withPageNumber(page)
-				.withGenres(userPreferences.getFavoriteMovieGenres())
+				.withFavoriteMovieGenres(userPreferences.getFavoriteMovieGenres())
 				.withCast(userPreferences.getFavoriteActors());
 		String url = tmdbUrlBuilder.build();
 		getLogger().info("API request to TMDB: " + url);

@@ -10,20 +10,19 @@ import java.util.Arrays;
 import java.util.List;
 
 @DataJpaTest
-public class PreferencesRepositoryTest {
+class PreferencesRepositoryTest {
 
     @Autowired
     private PreferencesRepository preferencesRepository;
 
     @Test
-    public void testFindByUsernameAndSource() {
+    void testFindByUsernameAndSource() {
         // Create test data
         UserPreferences preferences = new UserPreferences();
         preferences.setUsername("john");
-        preferences.setSource("source1");
-        List<Integer> favoriteTvGenres = Arrays.asList(1, 2, 3);
+        List<Long> favoriteTvGenres = Arrays.asList(1L, 2L, 3L);
         preferences.setFavoriteTvGenres(favoriteTvGenres);
-        List<Integer> favoriteMovieGenres = Arrays.asList(4, 5, 6);
+        List<Long> favoriteMovieGenres = Arrays.asList(4L, 5L, 6L);
         preferences.setFavoriteMovieGenres(favoriteMovieGenres);
         preferences.setReleaseYearFrom(2000);
         preferences.setReleaseYearTo(2022);
@@ -33,12 +32,11 @@ public class PreferencesRepositoryTest {
         preferencesRepository.save(preferences);
 
         // Perform repository query
-        UserPreferences foundPreferences = preferencesRepository.findByUsernameAndSource("john", "source1");
+        UserPreferences foundPreferences = preferencesRepository.findByUsername("john");
 
         // Assert the result
         Assertions.assertNotNull(foundPreferences);
         Assertions.assertEquals("john", foundPreferences.getUsername());
-        Assertions.assertEquals("source1", foundPreferences.getSource());
         Assertions.assertEquals(favoriteTvGenres, foundPreferences.getFavoriteTvGenres());
         Assertions.assertEquals(favoriteMovieGenres, foundPreferences.getFavoriteMovieGenres());
         Assertions.assertEquals(2000, foundPreferences.getReleaseYearFrom());

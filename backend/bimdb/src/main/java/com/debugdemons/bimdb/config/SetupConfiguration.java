@@ -14,8 +14,12 @@ import java.util.List;
 @Profile("dev")
 public class SetupConfiguration {
 
-    @Autowired
     private PreferencesRepository preferencesRepository;
+
+    @Autowired
+    public SetupConfiguration(PreferencesRepository preferencesRepository) {
+        this.preferencesRepository = preferencesRepository;
+    }
 
     @PostConstruct
     public void createDemoData() {
@@ -33,6 +37,19 @@ public class SetupConfiguration {
       "id": 18,
       "name": "Drama"
     }
+        {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
 
           {
         "adult": false,
@@ -304,10 +321,9 @@ public class SetupConfiguration {
          */
         UserPreferences userPreferences = new UserPreferences();
         userPreferences.setUsername("username");
-        userPreferences.setSource("TMDB");
         userPreferences.setReleaseYearTo(2010);
-        List<Integer> favoriteMovieGenres = new ArrayList<>();
-        favoriteMovieGenres.add(10749);
+        List<Long> favoriteMovieGenres = new ArrayList<>();
+        favoriteMovieGenres.add(10749L);
         userPreferences.setFavoriteMovieGenres(favoriteMovieGenres);
         List<Long> favoriteActors = new ArrayList<>();
         favoriteActors.add(10730L);

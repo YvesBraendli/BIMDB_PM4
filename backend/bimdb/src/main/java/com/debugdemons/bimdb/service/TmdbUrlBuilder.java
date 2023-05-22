@@ -1,52 +1,58 @@
 package com.debugdemons.bimdb.service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public class TmdbUrlBuilder {
 
-    private StringBuilder urlBuilder;
+    private static final String OR_DELIMITER = "%7C";
+    private UriComponentsBuilder uriBuilder;
 
     public TmdbUrlBuilder(String baseUrl, String specificUrl) {
-        urlBuilder = new StringBuilder(baseUrl);
-        urlBuilder.append(specificUrl);
+        uriBuilder = UriComponentsBuilder.fromUriString(baseUrl + specificUrl);
     }
 
     public TmdbUrlBuilder withPageNumber(Integer page) {
         if (page != null) {
-            appendQueryParam("page", new Integer[]{page});
+            uriBuilder.queryParam("page", page);
         }
         return this;
     }
 
-    public TmdbUrlBuilder withGenres(List<Integer> favoriteMovieGenres) {
-        appendQueryParam("with_genres", favoriteMovieGenres.toArray());
+    public TmdbUrlBuilder withFavoriteTvGenres(List<Long> favoriteTvGenres) {
+        if (favoriteTvGenres != null && !favoriteTvGenres.isEmpty()) {
+            uriBuilder.queryParam("with_genres", getParamValue(OR_DELIMITER, favoriteTvGenres));
+        }
+        return this;
+    }
+
+    public TmdbUrlBuilder withFavoriteMovieGenres(List<Long> favoriteMovieGenres) {
+        if (favoriteMovieGenres != null && !favoriteMovieGenres.isEmpty()) {
+            uriBuilder.queryParam("with_genres", getParamValue(OR_DELIMITER, favoriteMovieGenres));
+        }
         return this;
     }
 
     public TmdbUrlBuilder withCast(List<Long> favoriteActors) {
-        appendQueryParam("with_cast", favoriteActors.toArray());
+        if (favoriteActors != null && !favoriteActors.isEmpty()) {
+            uriBuilder.queryParam("with_cast", getParamValue(OR_DELIMITER, favoriteActors));
+        }
         return this;
     }
 
     public TmdbUrlBuilder withSortBy() {
-        appendQueryParam("sort_by", new String[]{""});
+        uriBuilder.queryParam("sort_by", "");
         return this;
     }
 
     public String build() {
-        return urlBuilder.toString();
+        UriComponents uriComponents = uriBuilder.build();
+        return uriComponents.toUriString();
     }
 
-    private void appendQueryParam(String paramName, Object[] paramValues) {
-        if (paramValues != null && paramValues.length > 0) {
-            urlBuilder.append(urlBuilder.indexOf("?") >= 0 ? "&" : "?");
-            urlBuilder.append(paramName).append("=").append(
-                    Arrays.stream(paramValues)
-                            .map(String::valueOf)
-                            .collect(Collectors.joining("%7C"))
-            );
-        }
+    private <T> String getParamValue(String delimiter, List<T> values) {
+        return String.join(delimiter, values.stream().map(String::valueOf).toArray(String[]::new));
     }
 }

@@ -1,6 +1,5 @@
 package com.debugdemons.bimdb.service;
 
-import com.debugdemons.bimdb.config.MovieDBApiConfig;
 import com.debugdemons.bimdb.domain.Genre;
 import com.debugdemons.bimdb.domain.Person;
 import com.debugdemons.bimdb.domain.Preferences;
@@ -30,18 +29,16 @@ public class PreferencesService {
     }
 
     public Preferences getPreferences(String username) {
-        UserPreferences userPreferences = preferencesRepository.findByUsernameAndSource(username, MovieDBApiConfig.NAME);
+        UserPreferences userPreferences = preferencesRepository.findByUsername(username);
         if (userPreferences == null) {
             UserPreferences newUserPreferences = new UserPreferences();
             newUserPreferences.setUsername(username);
-            newUserPreferences.setSource(MovieDBApiConfig.NAME);
             preferencesRepository.saveAndFlush(newUserPreferences);
-            userPreferences = preferencesRepository.findByUsernameAndSource(username, MovieDBApiConfig.NAME);
+            userPreferences = preferencesRepository.findByUsername(username);
         }
         Preferences preferences = new Preferences();
         preferences.setId(userPreferences.getId());
         preferences.setUsername(userPreferences.getUsername());
-        preferences.setSource(userPreferences.getSource());
         preferences.setRatingThreshold(userPreferences.getRatingThreshold());
         preferences.setReleaseYearFrom(userPreferences.getReleaseYearFrom());
         preferences.setReleaseYearTo(userPreferences.getReleaseYearTo());
@@ -52,11 +49,20 @@ public class PreferencesService {
             }
             preferences.setFavoriteActors(favoriteActors);
         }
+        List<Genre> allTvGenres = genreService.getAllTvGenres();
+        List<Genre> allMovieGenres = genreService.getAllMovieGenres();
+
         if (!CollectionUtils.isEmpty(userPreferences.getFavoriteTvGenres())) {
-            preferences.setFavoriteTvGenres(getGenreList(userPreferences.getFavoriteTvGenres(), genreService.getAllTvGenres()));
+            preferences.setFavoriteTvGenres(getGenreList(userPreferences.getFavoriteTvGenres(), allTvGenres));
+        }
+        if (!CollectionUtils.isEmpty(userPreferences.getTvGenresToExclude())) {
+            preferences.setTvGenresToExclude(getGenreList(userPreferences.getTvGenresToExclude(), allTvGenres));
         }
         if (!CollectionUtils.isEmpty(userPreferences.getFavoriteMovieGenres())) {
-            preferences.setFavoriteMovieGenres(getGenreList(userPreferences.getFavoriteMovieGenres(), genreService.getAllMovieGenres()));
+            preferences.setFavoriteMovieGenres(getGenreList(userPreferences.getFavoriteMovieGenres(), allMovieGenres));
+        }
+        if (!CollectionUtils.isEmpty(userPreferences.getMovieGenresToExclude())) {
+            preferences.setMovieGenresToExclude(getGenreList(userPreferences.getMovieGenresToExclude(), allMovieGenres));
         }
 
         return preferences;
@@ -65,22 +71,49 @@ public class PreferencesService {
     public Preferences updatePreferences(String username, Preferences preferences) {
         UserPreferences userPreferences = new UserPreferences();
         userPreferences.setId(preferences.getId());
-        userPreferences.setSource(preferences.getSource());
         userPreferences.setUsername(preferences.getUsername());
         userPreferences.setReleaseYearTo(preferences.getReleaseYearTo());
         userPreferences.setReleaseYearFrom(preferences.getReleaseYearFrom());
         userPreferences.setRatingThreshold(preferences.getRatingThreshold());
+        if (!CollectionUtils.isEmpty(preferences.getFavoriteActors())) {
+            List<Long> actorIds = new ArrayList<>();
+            for (Person person : preferences.getFavoriteActors()) {
+                actorIds.add(person.getId());
+            }
+            userPreferences.setFavoriteActors(actorIds);
+        }
+        if (!CollectionUtils.isEmpty(preferences.getFavoriteTvGenres())) {
+            userPreferences.setFavoriteTvGenres(getGenreIds(preferences.getFavoriteTvGenres()));
+        }
+        if (!CollectionUtils.isEmpty(preferences.getFavoriteMovieGenres())) {
+            userPreferences.setFavoriteMovieGenres(getGenreIds(preferences.getFavoriteMovieGenres()));
+        }
+        if (!CollectionUtils.isEmpty(preferences.getTvGenresToExclude())) {
+            userPreferences.setTvGenresToExclude(getGenreIds(preferences.getTvGenresToExclude()));
+        }
+        if (!CollectionUtils.isEmpty(preferences.getMovieGenresToExclude())) {
+            userPreferences.setMovieGenresToExclude(getGenreIds(preferences.getMovieGenresToExclude()));
+        }
+
         preferencesRepository.saveAndFlush(userPreferences);
         return getPreferences(username);
     }
 
-    private List<Genre> getGenreList(List<Integer> genreIds, List<Genre> allGenres) {
+    private List<Genre> getGenreList(List<Long> genreIds, List<Genre> allGenres) {
         List<Genre> favoriteGenres = new ArrayList<>();
         for(Genre genre : allGenres) {
-            if (genreIds.contains(genre.getId())) {
+            if (genreIds.contains((long) genre.getId())) {
                 favoriteGenres.add(genre);
             }
         }
         return favoriteGenres;
+    }
+
+    private List<Long> getGenreIds(List<Genre> genres) {
+        List<Long> genreIds = new ArrayList<>();
+        for(Genre genre : genres) {
+            genreIds.add((long) genre.getId());
+        }
+        return genreIds;
     }
 }

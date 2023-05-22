@@ -26,7 +26,7 @@ class MovieServiceTest extends BaseServiceTest {
 		UserPreferences userPreferences = new UserPreferences();
 		userPreferences.setFavoriteMovieGenres(Collections.EMPTY_LIST);
 		userPreferences.setFavoriteActors(Collections.EMPTY_LIST);
-		when(preferencesRepository.findByUsernameAndSource(null, "TMDB")).thenReturn(userPreferences);
+		when(preferencesRepository.findByUsername(null)).thenReturn(userPreferences);
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/movie?language=en", expectedDiscoverMovie);
@@ -39,7 +39,7 @@ class MovieServiceTest extends BaseServiceTest {
 		UserPreferences userPreferences = new UserPreferences();
 		userPreferences.setFavoriteMovieGenres(Collections.EMPTY_LIST);
 		userPreferences.setFavoriteActors(Collections.EMPTY_LIST);
-		when(preferencesRepository.findByUsernameAndSource(null, "TMDB")).thenReturn(userPreferences);
+		when(preferencesRepository.findByUsername(null)).thenReturn(userPreferences);
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/movie?page=15&language=en", expectedDiscoverMovie);

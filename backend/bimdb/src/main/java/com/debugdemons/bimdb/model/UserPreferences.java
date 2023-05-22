@@ -14,18 +14,25 @@ public class UserPreferences {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "source")
-    private String source;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "favorite_tv_genres", joinColumns = @JoinColumn(name = "user_preferences_id"))
     @Column(name = "genre")
-    private List<Integer> favoriteTvGenres;
+    private List<Long> favoriteTvGenres;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "tv_genres_to_exclude", joinColumns = @JoinColumn(name = "user_preferences_id"))
+    @Column(name = "genre")
+    private List<Long> tvGenresToExclude;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "favorite_movie_genres", joinColumns = @JoinColumn(name = "user_preferences_id"))
     @Column(name = "genre")
-    private List<Integer> favoriteMovieGenres;
+    private List<Long> favoriteMovieGenres;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "movie_genres_to_exclude", joinColumns = @JoinColumn(name = "user_preferences_id"))
+    @Column(name = "genre")
+    private List<Long> movieGenresToExclude;
 
     @Column(name = "release_year_from")
     private Integer releaseYearFrom;
@@ -57,28 +64,36 @@ public class UserPreferences {
         this.username = username;
     }
 
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public List<Integer> getFavoriteTvGenres() {
+    public List<Long> getFavoriteTvGenres() {
         return favoriteTvGenres;
     }
 
-    public void setFavoriteTvGenres(List<Integer> favoriteTvGenres) {
+    public void setFavoriteTvGenres(List<Long> favoriteTvGenres) {
         this.favoriteTvGenres = favoriteTvGenres;
     }
 
-    public List<Integer> getFavoriteMovieGenres() {
+    public List<Long> getTvGenresToExclude() {
+        return tvGenresToExclude;
+    }
+
+    public void setTvGenresToExclude(List<Long> tvGenresToExclude) {
+        this.tvGenresToExclude = tvGenresToExclude;
+    }
+
+    public List<Long> getFavoriteMovieGenres() {
         return favoriteMovieGenres;
     }
 
-    public void setFavoriteMovieGenres(List<Integer> favoriteMovieGenres) {
+    public void setFavoriteMovieGenres(List<Long> favoriteMovieGenres) {
         this.favoriteMovieGenres = favoriteMovieGenres;
+    }
+
+    public List<Long> getMovieGenresToExclude() {
+        return movieGenresToExclude;
+    }
+
+    public void setMovieGenresToExclude(List<Long> movieGenresToExclude) {
+        this.movieGenresToExclude = movieGenresToExclude;
     }
 
     public Integer getReleaseYearFrom() {

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PreferencesRepository extends JpaRepository<UserPreferences, Long> {
 
-    UserPreferences findByUsernameAndSource(String username, String source);
+    UserPreferences findByUsername(String username);
 }

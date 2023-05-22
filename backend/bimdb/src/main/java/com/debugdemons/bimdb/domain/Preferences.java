@@ -12,14 +12,17 @@ public class Preferences {
     @JsonProperty("username")
     private String username;
 
-    @JsonProperty("source")
-    private String source;
-
     @JsonProperty("favoriteTvGenres")
     private List<Genre> favoriteTvGenres;
 
+    @JsonProperty("tvGenresToExclude")
+    private List<Genre> tvGenresToExclude;
+
     @JsonProperty("favoriteMovieGenres")
     private List<Genre> favoriteMovieGenres;
+
+    @JsonProperty("movieGenresToExclude")
+    private List<Genre> movieGenresToExclude;
 
     @JsonProperty("releaseYearFrom")
     private Integer releaseYearFrom;
@@ -29,9 +32,6 @@ public class Preferences {
 
     @JsonProperty("ratingThreshold")
     private Double ratingThreshold;
-
-    @JsonProperty("language")
-    private Language language;
 
     @JsonProperty("favoriteActors")
     private List<Person> favoriteActors;
@@ -52,14 +52,6 @@ public class Preferences {
         this.username = username;
     }
 
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
     public List<Genre> getFavoriteTvGenres() {
         return favoriteTvGenres;
     }
@@ -68,12 +60,28 @@ public class Preferences {
         this.favoriteTvGenres = favoriteTvGenres;
     }
 
+    public List<Genre> getTvGenresToExclude() {
+        return tvGenresToExclude;
+    }
+
+    public void setTvGenresToExclude(List<Genre> tvGenresToExclude) {
+        this.tvGenresToExclude = tvGenresToExclude;
+    }
+
     public List<Genre> getFavoriteMovieGenres() {
         return favoriteMovieGenres;
     }
 
     public void setFavoriteMovieGenres(List<Genre> favoriteMovieGenres) {
         this.favoriteMovieGenres = favoriteMovieGenres;
+    }
+
+    public List<Genre> getMovieGenresToExclude() {
+        return movieGenresToExclude;
+    }
+
+    public void setMovieGenresToExclude(List<Genre> movieGenresToExclude) {
+        this.movieGenresToExclude = movieGenresToExclude;
     }
 
     public Integer getReleaseYearFrom() {
@@ -98,14 +106,6 @@ public class Preferences {
 
     public void setRatingThreshold(Double ratingThreshold) {
         this.ratingThreshold = ratingThreshold;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
     }
 
     public List<Person> getFavoriteActors() {

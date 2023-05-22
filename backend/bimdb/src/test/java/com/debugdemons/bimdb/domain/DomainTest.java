@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DomainTest {
+class DomainTest {
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	@Test

@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(PreferencesController.class)
-public class PreferencesControllerTest {
+class PreferencesControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,7 +29,7 @@ public class PreferencesControllerTest {
     }
 
     @Test
-    public void testGetUserPreferences() throws Exception {
+    void testGetUserPreferences() throws Exception {
         String username = "john";
 
         Preferences preferences = new Preferences();

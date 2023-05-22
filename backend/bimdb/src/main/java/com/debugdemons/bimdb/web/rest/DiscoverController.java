@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/discover")
 public class DiscoverController {
 
-    @Autowired
     private final MovieService movieService;
 
-    @Autowired
     private final TvService tvService;
 
+    @Autowired
     public DiscoverController(MovieService movieService, TvService tvService) {
         this.movieService = movieService;
         this.tvService = tvService;
