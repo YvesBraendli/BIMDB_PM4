@@ -5,7 +5,7 @@ import com.debugdemons.bimdb.service.PreferencesService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "api/user/favorites")
+@RequestMapping(value = "api/favorites")
 public class FavoritesController {
 
     private final PreferencesService preferencesService;
@@ -14,13 +14,13 @@ public class FavoritesController {
         this.preferencesService = preferencesService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public void addFavorite(@RequestBody Favorite favorite) {
         ///TODO: get username from header
         preferencesService.saveNewFavorite("username", favorite);
     }
 
-    @DeleteMapping("/remove")
+    @DeleteMapping
     public void removeFavorite(@RequestBody Favorite favorite) {
         ///TODO: get username from header
         preferencesService.removeFavorite("username", favorite);
