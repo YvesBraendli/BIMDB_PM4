@@ -9,7 +9,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class TmdbUrlBuilder {
 
-    private static final String OR_DELIMITER = "%7C";
+    private static final String OR_DELIMITER = "|";
+    private static final String AND_DELIMITER = ",";
     private UriComponentsBuilder uriBuilder;
 
     public TmdbUrlBuilder(String baseUrl, String specificUrl) {
@@ -30,7 +31,7 @@ public class TmdbUrlBuilder {
         return this;
     }
 
-    public TmdbUrlBuilder withFavoriteMovieGenres(List<Long> favoriteMovieGenres) {
+    public TmdbUrlBuilder withFavoriteMovieGenres(List<Integer> favoriteMovieGenres) {
         if (favoriteMovieGenres != null && !favoriteMovieGenres.isEmpty()) {
             uriBuilder.queryParam("with_genres", getParamValue(OR_DELIMITER, favoriteMovieGenres));
         }
