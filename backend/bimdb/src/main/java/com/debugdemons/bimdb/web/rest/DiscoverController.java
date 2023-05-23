@@ -27,7 +27,7 @@ public class DiscoverController {
     @GetMapping("/movies")
     public DiscoverMovie discoverMovies(@RequestParam(name = "page", required = false) Integer page) {
         //TODO: pass username
-        return movieService.getMovies(page, "username");
+        return movieService.getMovies(page, null);
     }
 
     @GetMapping("/tv")
