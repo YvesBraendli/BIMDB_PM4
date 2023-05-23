@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @DataJpaTest
 class PreferencesRepositoryTest {
@@ -16,7 +18,7 @@ class PreferencesRepositoryTest {
     private PreferencesRepository preferencesRepository;
 
     @Test
-    void testFindByUsernameAndSource() {
+    void testFindByUsername() {
         // Create test data
         UserPreferences preferences = new UserPreferences();
         preferences.setUsername("john");
@@ -27,7 +29,7 @@ class PreferencesRepositoryTest {
         preferences.setReleaseYearFrom(2000);
         preferences.setReleaseYearTo(2022);
         preferences.setRatingThreshold(7.5);
-        List<Long> favoriteActors = Arrays.asList(101L, 102L, 103L);
+        Set<Long> favoriteActors = new HashSet<>(Set.of(101L, 102L, 103L));
         preferences.setFavoriteActors(favoriteActors);
         preferencesRepository.save(preferences);
 

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-20 18:04:08.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-23 08:32:06.
 
 export interface ApiConfig {
     images: ApiImagesConfig;
@@ -67,6 +67,11 @@ export interface Episode {
     stillPath: string;
     voteAverage: number;
     voteCount: number;
+}
+
+export interface Favorite {
+    mediaType: MediaType;
+    id: number;
 }
 
 export interface Genre {
@@ -150,16 +155,19 @@ export interface Person {
     placeOfBirth: string;
     profilePath: string;
     combinedCredits: CombinedCredits;
+    mediaType: MediaType;
 }
 
 export interface Preferences {
+    id: number;
     username: string;
     favoriteTvGenres: Genre[];
+    tvGenresToExclude: Genre[];
     favoriteMovieGenres: Genre[];
+    movieGenresToExclude: Genre[];
     releaseYearFrom: number;
     releaseYearTo: number;
     ratingThreshold: number;
-    language: Language;
     favoriteActors: Person[];
 }
 

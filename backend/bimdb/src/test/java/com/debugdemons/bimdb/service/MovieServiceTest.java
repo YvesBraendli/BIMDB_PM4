@@ -25,7 +25,7 @@ class MovieServiceTest extends BaseServiceTest {
 	void discoverMovie() throws JsonProcessingException {
 		UserPreferences userPreferences = new UserPreferences();
 		userPreferences.setFavoriteMovieGenres(Collections.EMPTY_LIST);
-		userPreferences.setFavoriteActors(Collections.EMPTY_LIST);
+		userPreferences.setFavoriteActors(Collections.EMPTY_SET);
 		when(preferencesRepository.findByUsername(null)).thenReturn(userPreferences);
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);
@@ -38,7 +38,7 @@ class MovieServiceTest extends BaseServiceTest {
 	void discoverMoviePage() throws JsonProcessingException {
 		UserPreferences userPreferences = new UserPreferences();
 		userPreferences.setFavoriteMovieGenres(Collections.EMPTY_LIST);
-		userPreferences.setFavoriteActors(Collections.EMPTY_LIST);
+		userPreferences.setFavoriteActors(Collections.EMPTY_SET);
 		when(preferencesRepository.findByUsername(null)).thenReturn(userPreferences);
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);

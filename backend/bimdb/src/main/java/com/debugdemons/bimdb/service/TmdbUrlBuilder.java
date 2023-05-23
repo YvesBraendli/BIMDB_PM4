@@ -1,6 +1,8 @@
 package com.debugdemons.bimdb.service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -35,7 +37,7 @@ public class TmdbUrlBuilder {
         return this;
     }
 
-    public TmdbUrlBuilder withCast(List<Long> favoriteActors) {
+    public TmdbUrlBuilder withCast(Set<Long> favoriteActors) {
         if (favoriteActors != null && !favoriteActors.isEmpty()) {
             uriBuilder.queryParam("with_cast", getParamValue(OR_DELIMITER, favoriteActors));
         }
@@ -52,7 +54,7 @@ public class TmdbUrlBuilder {
         return uriComponents.toUriString();
     }
 
-    private <T> String getParamValue(String delimiter, List<T> values) {
+    private <T> String getParamValue(String delimiter, Collection<T> values) {
         return String.join(delimiter, values.stream().map(String::valueOf).toArray(String[]::new));
     }
 }

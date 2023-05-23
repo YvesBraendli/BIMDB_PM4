@@ -2,7 +2,9 @@ package com.debugdemons.bimdb.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_preferences")
@@ -44,9 +46,19 @@ public class UserPreferences {
     private Double ratingThreshold;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "favorite_actors", joinColumns = @JoinColumn(name = "user_preferences_id"))
-    @Column(name = "actor")
-    private List<Long> favoriteActors;
+    @CollectionTable(name = "user_favorite_movies", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "movie_id")
+    private Set<Long> favoriteMovies = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_favorite_tv_shows", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "tv_show_id")
+    private Set<Long> favoriteTVShows = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_favorite_actors", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "actor_id")
+    private Set<Long> favoriteActors = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -120,11 +132,27 @@ public class UserPreferences {
         this.ratingThreshold = ratingThreshold;
     }
 
-    public List<Long> getFavoriteActors() {
+    public Set<Long> getFavoriteMovies() {
+        return favoriteMovies;
+    }
+
+    public void setFavoriteMovies(Set<Long> favoriteMovies) {
+        this.favoriteMovies = favoriteMovies;
+    }
+
+    public Set<Long> getFavoriteTVShows() {
+        return favoriteTVShows;
+    }
+
+    public void setFavoriteTVShows(Set<Long> favoriteTVShows) {
+        this.favoriteTVShows = favoriteTVShows;
+    }
+
+    public Set<Long> getFavoriteActors() {
         return favoriteActors;
     }
 
-    public void setFavoriteActors(List<Long> favoriteActors) {
+    public void setFavoriteActors(Set<Long> favoriteActors) {
         this.favoriteActors = favoriteActors;
     }
 }

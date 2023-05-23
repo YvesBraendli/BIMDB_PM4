@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 @Profile("dev")
@@ -325,7 +327,7 @@ public class SetupConfiguration {
         List<Long> favoriteMovieGenres = new ArrayList<>();
         favoriteMovieGenres.add(10749L);
         userPreferences.setFavoriteMovieGenres(favoriteMovieGenres);
-        List<Long> favoriteActors = new ArrayList<>();
+        Set<Long> favoriteActors = new HashSet<>();
         favoriteActors.add(10730L);
         favoriteActors.add(116L);
         userPreferences.setFavoriteActors(favoriteActors);

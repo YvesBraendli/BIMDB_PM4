@@ -16,13 +16,15 @@ public class PreferencesController {
         this.preferencesService = preferencesService;
     }
 
-    @GetMapping("/{username}")
-    public Preferences getUserPreferences(@PathVariable String username) {
-        return preferencesService.getPreferences(username);
+    @GetMapping
+    public Preferences getUserPreferences() {
+        //TODO: get username from header
+        return preferencesService.getPreferences("username");
     }
 
-    @PutMapping("/{username}")
-    public Preferences saveUserPreferences(@PathVariable String username, @RequestBody Preferences preferences) {
-        return preferencesService.updatePreferences(username, preferences);
+    @PutMapping
+    public Preferences saveUserPreferences(@RequestBody Preferences preferences) {
+        ///TODO: get username from header
+        return preferencesService.updatePreferences("username", preferences);
     }
 }

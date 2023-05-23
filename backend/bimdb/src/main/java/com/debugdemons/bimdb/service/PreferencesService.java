@@ -1,16 +1,20 @@
 package com.debugdemons.bimdb.service;
 
+import com.debugdemons.bimdb.domain.Favorite;
 import com.debugdemons.bimdb.domain.Genre;
 import com.debugdemons.bimdb.domain.Person;
 import com.debugdemons.bimdb.domain.Preferences;
 import com.debugdemons.bimdb.model.UserPreferences;
 import com.debugdemons.bimdb.repository.PreferencesRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PreferencesService {
@@ -28,6 +32,62 @@ public class PreferencesService {
         this.genreService = genreService;
     }
 
+    @Transactional
+    public void saveNewFavorite(String username, Favorite favorite) {
+        UserPreferences userPreferences = preferencesRepository.findByUsername(username);
+        if (userPreferences == null) {
+            userPreferences = new UserPreferences();
+            userPreferences.setUsername(username);
+            preferencesRepository.saveAndFlush(userPreferences);
+            userPreferences = preferencesRepository.findByUsername(username);
+        }
+        switch (favorite.getMediaType()) {
+            case MOVIE:
+                Set<Long> updatedFavoriteMovies = new HashSet<>(userPreferences.getFavoriteMovies());
+                updatedFavoriteMovies.add(favorite.getId());
+                userPreferences.setFavoriteMovies(updatedFavoriteMovies);
+                break;
+            case TV_SHOW:
+                Set<Long> updatedFavoriteTvShows = new HashSet<>(userPreferences.getFavoriteTVShows());
+                updatedFavoriteTvShows.add(favorite.getId());
+                userPreferences.setFavoriteTVShows(updatedFavoriteTvShows);
+                break;
+            case PERSON:
+                Set<Long> updatedFavoriteActors = new HashSet<>(userPreferences.getFavoriteActors());
+                updatedFavoriteActors.add(favorite.getId());
+                userPreferences.setFavoriteActors(updatedFavoriteActors);
+                break;
+        }
+        preferencesRepository.saveAndFlush(userPreferences);
+    }
+
+    @Transactional
+    public void removeFavorite(String username, Favorite favorite) {
+        UserPreferences userPreferences = preferencesRepository.findByUsername(username);
+        if (userPreferences == null) {
+            return;
+        }
+        switch (favorite.getMediaType()) {
+            case MOVIE:
+                Set<Long> updatedFavoriteMovies = new HashSet<>(userPreferences.getFavoriteMovies());
+                updatedFavoriteMovies.remove(favorite.getId());
+                userPreferences.setFavoriteMovies(updatedFavoriteMovies);
+                break;
+            case TV_SHOW:
+                Set<Long> updatedFavoriteTvShows = new HashSet<>(userPreferences.getFavoriteTVShows());
+                updatedFavoriteTvShows.remove(favorite.getId());
+                userPreferences.setFavoriteTVShows(updatedFavoriteTvShows);
+                break;
+            case PERSON:
+                Set<Long> updatedFavoriteActors = new HashSet<>(userPreferences.getFavoriteActors());
+                updatedFavoriteActors.remove(favorite.getId());
+                userPreferences.setFavoriteActors(updatedFavoriteActors);
+                break;
+        }
+        preferencesRepository.saveAndFlush(userPreferences);
+    }
+
+    @Transactional
     public Preferences getPreferences(String username) {
         UserPreferences userPreferences = preferencesRepository.findByUsername(username);
         if (userPreferences == null) {
@@ -68,6 +128,7 @@ public class PreferencesService {
         return preferences;
     }
 
+    @Transactional
     public Preferences updatePreferences(String username, Preferences preferences) {
         UserPreferences userPreferences = new UserPreferences();
         userPreferences.setId(preferences.getId());
@@ -76,7 +137,7 @@ public class PreferencesService {
         userPreferences.setReleaseYearFrom(preferences.getReleaseYearFrom());
         userPreferences.setRatingThreshold(preferences.getRatingThreshold());
         if (!CollectionUtils.isEmpty(preferences.getFavoriteActors())) {
-            List<Long> actorIds = new ArrayList<>();
+            Set<Long> actorIds = new HashSet<>();
             for (Person person : preferences.getFavoriteActors()) {
                 actorIds.add(person.getId());
             }
