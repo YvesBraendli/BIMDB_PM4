@@ -2,7 +2,7 @@ frontend-lint:
   image: timbru31/node-chrome:hydrogen-alpine
   before_script:
     - cd frontend/bimdb/
-    - npm ci --cache .npm --prefer-offline
+    - npm ci --cache $CI_PROJECT_DIR/.npm --prefer-offline
   stage: lint
   script:
     - npm run lint
@@ -10,6 +10,10 @@ frontend-lint:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - frontend/**/*
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - $CI_PROJECT_DIR/.npm
 
 frontend-test:
   image: timbru31/node-chrome:hydrogen-alpine
@@ -18,21 +22,26 @@ frontend-test:
   before_script:
     - export CHROME_BIN=/usr/bin/chromium-browser
     - cd frontend/bimdb/
-    - npm ci --cache .npm --prefer-offline
+    - npm ci --cache $CI_PROJECT_DIR/.npm --prefer-offline
   script:
     # Run Headless Chrome needs a node-chrome image and passing of parameters
     - npm run test:ci
   artifacts:
     reports:
-      junit: "frontend/bimdb/reports/ng-test.xunit.xml"
+      junit: "frontend/bimdb/reports/junit/ng-test.xunit.xml"
       coverage_report:
         coverage_format: cobertura
         path: "frontend/bimdb/reports/ng-coverage.cobertura.xml"
+    paths:
+      # Used for SonarQube
+      - "frontend/bimdb/reports/ng-coverage.lcov.info"
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development'
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-      changes:
-        - frontend/**/*
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - $CI_PROJECT_DIR/.npm
+
 
 frontend-package:
   stage: package

@@ -27,7 +27,7 @@ module.exports = function (config) {
 		},
 		reporters: ['progress', 'kjhtml', 'junit'],
 		junitReporter: {
-			outputDir: 'reports',
+			outputDir: 'reports/junit',
 			outputFile: 'ng-test.xunit.xml',
 			useBrowserName: false
 		},
@@ -41,7 +41,7 @@ module.exports = function (config) {
 				// 'cobertura' to enable GitLab test coverage visualization
 				{ type: 'cobertura', file: 'ng-coverage.cobertura.xml' },
 				// 'lcovonly' to enable SonarQube test coverage reporting
-				//{type: 'lcovonly', file: 'ng-coverage.lcov.info'}
+				{type: 'lcovonly', file: 'ng-coverage.lcov.info'}
 			],
 			check: {
 				global: {
