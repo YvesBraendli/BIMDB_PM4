@@ -1,34 +1,49 @@
 package com.debugdemons.bimdb.service;
 
 import com.debugdemons.bimdb.domain.*;
+import com.debugdemons.bimdb.repository.UsersRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Collections;
 import java.util.List;
 
-@SpringBootTest
+import static org.mockito.Mockito.when;
+
 class MovieServiceTest extends BaseServiceTest {
+
+	@MockBean
+	private UsersRepository usersRepository;
 
 	@Autowired
 	private MovieService movieService;
 
 	@Test
 	void discoverMovie() throws JsonProcessingException {
+		when(usersRepository.findByUsername(null)).thenReturn(null);
+
+		mockServerExpectGet("https://api.themoviedb.org/3/genre/movie/list?language=en", new GenreListWrapper());
+
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/movie?language=en", expectedDiscoverMovie);
-		DiscoverMovie discoverMovie = movieService.getMovies(null);
+		DiscoverMovie discoverMovie = movieService.getMovies(null, null);
 		assertJsonEquals(expectedDiscoverMovie, discoverMovie);
 	}
 
 	@Test
 	void discoverMoviePage() throws JsonProcessingException {
+
+		when(usersRepository.findByUsername(null)).thenReturn(null);
+
+		mockServerExpectGet("https://api.themoviedb.org/3/genre/movie/list?language=en", new GenreListWrapper());
+
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/movie?page=15&language=en", expectedDiscoverMovie);
-		assertJsonEquals(expectedDiscoverMovie, movieService.getMovies(15));
+		assertJsonEquals(expectedDiscoverMovie, movieService.getMovies(15, null));
 	}
 
 	@Test

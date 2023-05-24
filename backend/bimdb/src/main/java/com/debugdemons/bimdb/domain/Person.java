@@ -38,6 +38,14 @@ public class Person implements Serializable {
     @JsonAlias("combined_credits")
     private CombinedCredits combinedCredits;
 
+    @JsonProperty("mediaType")
+    @JsonAlias("media_type")
+    protected MediaType mediaType;
+
+    public Person() {
+        this.mediaType = MediaType.PERSON;
+    }
+
     public Long getId() {
         return id;
     }
@@ -108,5 +116,13 @@ public class Person implements Serializable {
 
     public void setCombinedCredits(CombinedCredits combinedCredits) {
         this.combinedCredits = combinedCredits;
+    }
+
+    public MediaType getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
     }
 }

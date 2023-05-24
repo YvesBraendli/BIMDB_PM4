@@ -1,26 +1,30 @@
 package com.debugdemons.bimdb.service;
 
 import com.debugdemons.bimdb.config.MovieDBApiConfig;
-import com.debugdemons.bimdb.domain.DiscoverTv;
-import com.debugdemons.bimdb.domain.TvShowDetails;
-import com.debugdemons.bimdb.domain.TvShowSeasonDetails;
-import com.debugdemons.bimdb.domain.WatchProvidersResult;
+import com.debugdemons.bimdb.domain.*;
+import com.debugdemons.bimdb.model.User;
+import com.debugdemons.bimdb.repository.FavoritesRepository;
+import com.debugdemons.bimdb.repository.UsersRepository;
+import com.debugdemons.bimdb.utils.Filter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class TvService extends BaseService {
+
 
 	public TvService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
 		super(movieDBApiConfig, restTemplate);
 	}
 
-	public DiscoverTv getTv(Integer page) {
-		String url = movieDBApiConfig.getBaseUrl() + "discover/tv";
-		if (page != null) {
-			url += "?page=" + page;
-		}
-		return restTemplate.getForObject(url, DiscoverTv.class);
+	public DiscoverTv getTv(Integer page, String username) {
+		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl(), "discover/tv")
+				.withPageNumber(page);
+		return restTemplate.getForObject(tmdbUrlBuilder.build(), DiscoverTv.class);
 	}
 
 	public TvShowDetails getTvShowById(Long id) {

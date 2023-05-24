@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/tv")
 public class TvController {
 
-    @Autowired
     private final TvService tvService;
 
+    @Autowired
     public TvController(TvService tvService) {
         this.tvService = tvService;
     }

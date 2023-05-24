@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DomainTest {
+class DomainTest {
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	@Test
@@ -45,20 +45,20 @@ public class DomainTest {
 		assertEquals("http://image.tmdb.org/t/p/", imagesConfig.getBaseUrl());
 		assertEquals("https://image.tmdb.org/t/p/", imagesConfig.getSecureBaseUrl());
 		assertNotNull(imagesConfig.getBackdropSizes());
-		assertEquals(imagesConfig.getBackdropSizes().size(), 1);
-		assertEquals(imagesConfig.getBackdropSizes().get(0), "w300");
+		assertEquals(1, imagesConfig.getBackdropSizes().size());
+		assertEquals("w300", imagesConfig.getBackdropSizes().get(0));
 		assertNotNull(imagesConfig.getLogoSizes());
-		assertEquals(imagesConfig.getLogoSizes().size(), 1);
-		assertEquals(imagesConfig.getLogoSizes().get(0), "w45");
+		assertEquals(1, imagesConfig.getLogoSizes().size());
+		assertEquals("w45", imagesConfig.getLogoSizes().get(0));
 		assertNotNull(imagesConfig.getPosterSizes());
-		assertEquals(imagesConfig.getPosterSizes().size(), 1);
-		assertEquals(imagesConfig.getPosterSizes().get(0), "w92");
+		assertEquals(1, imagesConfig.getPosterSizes().size());
+		assertEquals("w92", imagesConfig.getPosterSizes().get(0));
 		assertNotNull(imagesConfig.getProfileSizes());
-		assertEquals(imagesConfig.getProfileSizes().size(), 1);
-		assertEquals(imagesConfig.getProfileSizes().get(0), "h632");
+		assertEquals(1, imagesConfig.getProfileSizes().size());
+		assertEquals("h632", imagesConfig.getProfileSizes().get(0));
 		assertNotNull(imagesConfig.getStillSizes());
-		assertEquals(imagesConfig.getStillSizes().size(), 1);
-		assertEquals(imagesConfig.getStillSizes().get(0), "original");
+		assertEquals(1, imagesConfig.getStillSizes().size());
+		assertEquals("original", imagesConfig.getStillSizes().get(0));
 	}
 
 	@Test
@@ -430,5 +430,17 @@ public class DomainTest {
 		assertNotNull(watchProvider);
 		assertEquals("Netflix", watchProvider.getProviderName());
 		assertEquals("/9A1JSVmSxsyaBK4SUFsYVqbAYfW.jpg", watchProvider.getLogoPath());
+	}
+
+	@Test
+	void testMediaTypeFromString() {
+		MediaType mediaType = MediaType.fromString("movie");
+		assertNotNull(mediaType);
+		assertEquals(MediaType.MOVIE, mediaType);
+	}
+
+	@Test
+	void testMediaTypeFromStringUnknowValue() {
+		assertThrows(IllegalArgumentException.class, () -> MediaType.fromString("theater"));
 	}
 }

@@ -17,4 +17,13 @@ public enum MediaType {
 	public String getType() {
 		return type;
 	}
+
+	public static MediaType fromString(String type) {
+		for (MediaType mediaType : MediaType.values()) {
+			if (mediaType.getType().equalsIgnoreCase(type)) {
+				return mediaType;
+			}
+		}
+		throw new IllegalArgumentException("Invalid MediaType: " + type);
+	}
 }

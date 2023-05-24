@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PersonControllerTest {
+class PersonControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -48,6 +48,6 @@ public class PersonControllerTest {
         this.mockMvc.perform(get("/api/person/123"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("{\"id\":132,\"birthday\":\"1970-01-01T00:00:00.000+00:00\",\"deathday\":null,\"name\":\"John\",\"popularity\":1,\"biography\":\"Lorem Ipsum\",\"placeOfBirth\":\"ZÃ¼rich\",\"profilePath\":\"John.png\",\"combinedCredits\":{\"cast\":null,\"crew\":null}}")));
+                .andExpect(content().string(containsString("{\"id\":132,\"birthday\":\"1970-01-01T00:00:00.000+00:00\",\"deathday\":null,\"name\":\"John\",\"popularity\":1,\"biography\":\"Lorem Ipsum\",\"placeOfBirth\":\"ZÃ¼rich\",\"profilePath\":\"John.png\",\"combinedCredits\":{\"cast\":null,\"crew\":null},\"mediaType\":\"person\"}")));
     }
 }
