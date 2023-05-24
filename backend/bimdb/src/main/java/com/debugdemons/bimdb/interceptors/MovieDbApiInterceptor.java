@@ -15,6 +15,8 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+import static org.apache.logging.log4j.LogManager.getLogger;
+
 /**
  * MovieDbApiInterceptor intercepts TMDB API calls, adds API bearer token to request header and language query param to request URI
  */
@@ -29,6 +31,7 @@ public class MovieDbApiInterceptor implements ClientHttpRequestInterceptor {
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 		if (request.getURI().toString().startsWith(movieDBApiConfig.getBaseUrl())) {
+			getLogger().info(String.format("API request to TMDB: %s", request.getURI()));
 			request = new MovieDbHttpRequest(request, movieDBApiConfig.getApiKey());
 		}
 		return execution.execute(request, body);

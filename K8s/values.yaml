@@ -10,6 +10,10 @@ backend:
   exposedPort: 80
   env:
     TMDB_API_KEY: ""
+    ACTIVE_PROFILES: ""
+    API_CROSS_ORIGIN: ""
+    OAUTH2_JWK_URI: ""
+
 
 frontend:
   appName: bimdb-frontend

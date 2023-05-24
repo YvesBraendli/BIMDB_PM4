@@ -4,12 +4,10 @@ import com.debugdemons.bimdb.domain.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
 class TvServiceTest extends BaseServiceTest {
 
 	@Autowired
@@ -20,7 +18,7 @@ class TvServiceTest extends BaseServiceTest {
 		DiscoverTv discoverTv = new DiscoverTv();
 		discoverTv.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/tv?language=en", discoverTv);
-		assertJsonEquals(discoverTv, tvService.getTv(null));
+		assertJsonEquals(discoverTv, tvService.getTv(null, null));
 	}
 
 	@Test
@@ -28,7 +26,7 @@ class TvServiceTest extends BaseServiceTest {
 		DiscoverTv discoverTv = new DiscoverTv();
 		discoverTv.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/tv?page=20&language=en", discoverTv);
-		assertJsonEquals(discoverTv, tvService.getTv(20));
+		assertJsonEquals(discoverTv, tvService.getTv(20, null));
 	}
 
 	@Test

@@ -1,5 +1,9 @@
 namespace: betterimdb-prod
 environment: prod
 
+backend:
+  env:
+    ACTIVE_PROFILES: "postgres"
+    
 frontend:
   url: "https://bimdb-prod.pm4.init-lab.ch"
