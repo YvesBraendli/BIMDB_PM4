@@ -42,13 +42,6 @@ default:
   tags:
     - pm4-runner-1
 
-# Cache modules in between jobs
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - frontend/bimdb/node_modules/
-    - .m2/repository
-
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
