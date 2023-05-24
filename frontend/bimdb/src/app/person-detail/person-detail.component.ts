@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MediaListComponent } from '../media-list/media-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { WatchProviderListComponent } from '../watch-provider-list/watch-provider-list.component';
+import { ActionBarComponent } from '../action-bar/action-bar.component';
 
 export const PARAM_PERSON_ID = 'person-id';
 
@@ -17,7 +18,7 @@ export const PARAM_PERSON_ID = 'person-id';
 	selector: 'app-person-detail',
 	standalone: true,
 	providers: [DatePipe],
-	imports: [CommonModule, TmdbImgComponent, LocaleDatePipe, CreditListComponent, MatTabsModule, MediaListComponent, TranslateModule, WatchProviderListComponent],
+	imports: [CommonModule, TmdbImgComponent, LocaleDatePipe, CreditListComponent, MatTabsModule, MediaListComponent, TranslateModule, WatchProviderListComponent, ActionBarComponent],
 	templateUrl: './person-detail.component.html',
 	styleUrls: ['./person-detail.component.scss']
 })

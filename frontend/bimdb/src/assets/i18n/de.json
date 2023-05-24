@@ -72,5 +72,10 @@
 		"popularity": "Popularität",
 		"cast": "Cast",
 		"crew": "Crew"
+	},
+	"share": "Teilen",
+	"favorites": {
+		"add": "Zu Favoriten hinzufügen",
+		"remove": "Aus Favoriten entfernen"
 	}
 }

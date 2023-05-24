@@ -12,4 +12,8 @@ export class WindowService {
 		return window.location;
 	}
 
+	public get navigator(): Navigator {
+		return navigator;
+	}
+
 }

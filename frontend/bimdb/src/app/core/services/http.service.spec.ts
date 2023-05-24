@@ -101,4 +101,30 @@ describe('HttpService', () => {
 		httpTestingController.verify();
 	});
 
+	it('should delete with custom error handler', () => {
+		const mockResponse = { success: true };
+		service.delete(requestUrl, true).subscribe(res => {
+			expect(res).toEqual({ success: true });
+		});
+		const deleteRequest = httpTestingController.expectOne(calledUrl);
+		expect(deleteRequest.request.method).toEqual('DELETE');
+		expect(deleteRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('true');
+		deleteRequest.flush(mockResponse);
+
+		httpTestingController.verify();
+	});
+
+	it('should delete with global error handler', () => {
+		const mockResponse = { success: true };
+		service.delete(requestUrl).subscribe(res => {
+			expect(res).toEqual({ success: true });
+		});
+		const deleteRequest = httpTestingController.expectOne(calledUrl);
+		expect(deleteRequest.request.method).toEqual('DELETE');
+		expect(deleteRequest.request.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER)).toBe('false');
+		deleteRequest.flush(mockResponse);
+
+		httpTestingController.verify();
+	});
+
 });

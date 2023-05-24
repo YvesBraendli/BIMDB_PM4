@@ -25,6 +25,8 @@
 		</div>
 	</div>
 
+	<app-action-bar [id]="person.id" [mediaType]="person.mediaType"></app-action-bar>
+
 	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
 		<mat-tab label="{{ 'personDetail.cast' | translate }}">
 			<app-media-list [media]="person.combinedCredits.cast" [showPaginator]="false"></app-media-list>

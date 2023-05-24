@@ -25,4 +25,9 @@ export class HttpService {
 		const headers = new HttpHeaders().set(HttpHeaderConstants.CUSTOM_ERROR_HANDLER, String(hasCustomErrorHandler));
 		return this.httpClient.post<R>(`${environment.apiBaseUrl}${url}`, body ?? {}, { headers });
 	}
+
+	public delete<R>(url: string, hasCustomErrorHandler = false): Observable<R> {
+		const headers = new HttpHeaders().set(HttpHeaderConstants.CUSTOM_ERROR_HANDLER, String(hasCustomErrorHandler));
+		return this.httpClient.delete<R>(`${environment.apiBaseUrl}${url}`, { headers });
+	}
 }
