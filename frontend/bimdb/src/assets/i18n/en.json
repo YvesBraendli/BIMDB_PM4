@@ -72,5 +72,10 @@
 		"popularity": "Popularity",
 		"cast": "Cast",
 		"crew": "Crew"
+	},
+	"share": "Share",
+	"favorites": {
+		"add": "Add to favorites",
+		"remove": "Remove from favorites"
 	}
 }

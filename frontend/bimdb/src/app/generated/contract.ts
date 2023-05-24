@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-05-23 21:30:22.
+// Generated using typescript-generator version 3.2.1263 on 2023-05-23 22:26:22.
 
 export interface ApiConfig {
     images: ApiImagesConfig;

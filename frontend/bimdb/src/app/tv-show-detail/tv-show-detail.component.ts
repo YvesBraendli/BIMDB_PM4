@@ -13,6 +13,7 @@ import { MediaListComponent } from '../media-list/media-list.component';
 import { TmdbImgComponent } from '../tmdb-img/tmdb-img.component';
 import { WatchProviderListComponent } from '../watch-provider-list/watch-provider-list.component';
 import { TvShowDetailService } from './tv-show-detail.service';
+import { ActionBarComponent } from '../action-bar/action-bar.component';
 
 export const PARAM_TV_SHOW_ID = 'tv-show-id';
 
@@ -22,7 +23,7 @@ export const PARAM_TV_SHOW_ID = 'tv-show-id';
 	templateUrl: './tv-show-detail.component.html',
 	styleUrls: ['./tv-show-detail.component.scss'],
 	providers: [DatePipe],
-	imports: [CommonModule, CreditListComponent, TranslateModule, MatTabsModule, LocaleDatePipe, TmdbImgComponent, WatchProviderListComponent, MediaListComponent, LanguageIsoPipe, MatExpansionModule]
+	imports: [CommonModule, CreditListComponent, TranslateModule, MatTabsModule, LocaleDatePipe, TmdbImgComponent, WatchProviderListComponent, MediaListComponent, LanguageIsoPipe, MatExpansionModule, ActionBarComponent]
 })
 export class TvShowDetailComponent implements OnInit {
 	public id?: number;

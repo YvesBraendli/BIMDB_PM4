@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { WindowService } from './window.service';
 
-describe('SearchService', () => {
+describe('WindowService', () => {
 	let service: WindowService;
 
 	beforeEach(() => {
@@ -16,6 +16,10 @@ describe('SearchService', () => {
 
 	it('should return window location', () => {
 		expect(service.location).toEqual(window.location);
+	});
+
+	it('should return navigator', () => {
+		expect(service.navigator).toEqual(window.navigator);
 	});
 
 	it('should reload window', () => {

@@ -11,6 +11,7 @@ import { MediaListComponent } from '../media-list/media-list.component';
 import { TmdbImgComponent } from '../tmdb-img/tmdb-img.component';
 import { WatchProviderListComponent } from '../watch-provider-list/watch-provider-list.component';
 import { MovieDetailService } from './movie-detail.service';
+import { ActionBarComponent } from '../action-bar/action-bar.component';
 
 export const PARAM_MOVIE_ID = 'movie-id';
 
@@ -20,9 +21,10 @@ export const PARAM_MOVIE_ID = 'movie-id';
 	templateUrl: './movie-detail.component.html',
 	styleUrls: ['./movie-detail.component.scss'],
 	providers: [DatePipe],
-	imports: [CommonModule, CreditListComponent, TranslateModule, LocaleDatePipe, TmdbImgComponent, MatTabsModule, MediaListComponent, WatchProviderListComponent, LanguageIsoPipe]
+	imports: [CommonModule, CreditListComponent, TranslateModule, LocaleDatePipe, TmdbImgComponent, MatTabsModule, MediaListComponent, WatchProviderListComponent, LanguageIsoPipe, ActionBarComponent]
 })
 export class MovieDetailComponent implements OnInit {
+
 	public id?: number;
 	public movie?: MovieDetails;
 	public genreNames?: string;
@@ -59,4 +61,5 @@ export class MovieDetailComponent implements OnInit {
 	public readonly descFnCast = (credit: Credit): string => (credit as Cast).character;
 
 	public readonly descFnCrew = (credit: Credit): string => (credit as Crew).job;
+
 }

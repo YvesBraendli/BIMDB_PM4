@@ -1,0 +1,21 @@
+<div id="main">
+	<div id="favorite-action" *ngIf="isLoggedIn">
+
+		<button *ngIf="!isFavorite" (click)="addToFavorites()" mat-fab extended color="primary">
+			<mat-icon>favorite</mat-icon>
+			{{ 'favorites.add' | translate }}
+		</button>
+
+		<button *ngIf="isFavorite" (click)="removeFromFavorites()" mat-fab extended color="accent">
+			<mat-icon>delete</mat-icon>
+			{{ 'favorites.remove' | translate }}
+		</button>
+	</div>
+
+	<div id="share-action">
+		<button mat-fab extended color="accent" (click)="copyToClipboard()">
+			<mat-icon>share</mat-icon>
+			{{ 'share' | translate }}
+		</button>
+	</div>
+</div>
