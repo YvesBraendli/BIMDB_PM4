@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Environment } from '../core/models/environment';
+import { EnvironmentService } from '../core/services/environment.service';
 import { DiscoverMovie } from '../generated/contract';
 import { DiscoverService } from './discover.service';
 
@@ -14,6 +16,7 @@ describe('DiscoverService', () => {
 				HttpClientTestingModule
 			]
 		});
+		spyOn(TestBed.inject(EnvironmentService), 'getConfig').and.returnValue({ apiBaseUrl: '/api' } as Environment);
 		service = TestBed.inject(DiscoverService);
 		httpTestingController = TestBed.inject(HttpTestingController);
 	});

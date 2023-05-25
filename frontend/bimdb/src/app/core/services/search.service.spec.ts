@@ -2,8 +2,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DiscoverMovie, DiscoverTv, MediaType, People, SearchResultWrapper } from 'src/app/generated/contract';
-import { environment } from 'src/environments/environment';
 import { MOVIES_ROUTE, PEOPLE_ROUTE } from '../constants/routes';
+import { Environment } from '../models/environment';
+import { EnvironmentService } from './environment.service';
 import { SEARCH_BASE_URL, SEARCH_TV_ROUTE, SearchService } from './search.service';
 
 describe('SearchService', () => {
@@ -15,6 +16,7 @@ describe('SearchService', () => {
 			imports: [HttpClientTestingModule]
 		});
 		service = TestBed.inject(SearchService);
+		spyOn(TestBed.inject(EnvironmentService), 'getConfig').and.returnValue({ apiBaseUrl: '/api' } as Environment);
 		httpTestingController = TestBed.inject(HttpTestingController);
 	});
 
@@ -33,7 +35,7 @@ describe('SearchService', () => {
 		service.search('o').subscribe(res => {
 			expect(res).toEqual(mockResponse);
 		});
-		const getRequest = httpTestingController.expectOne(`${environment.apiBaseUrl}${SEARCH_BASE_URL}?query=o&page=1`);
+		const getRequest = httpTestingController.expectOne(`/api${SEARCH_BASE_URL}?query=o&page=1`);
 		expect(getRequest.request.method).toEqual('GET');
 		getRequest.flush(mockResponse);
 
@@ -47,7 +49,7 @@ describe('SearchService', () => {
 		service.searchMovies('movie').subscribe(res => {
 			expect(res).toEqual(mockResponse);
 		});
-		const getRequest = httpTestingController.expectOne(`${environment.apiBaseUrl}${SEARCH_BASE_URL}/${MOVIES_ROUTE}?query=movie&page=1`);
+		const getRequest = httpTestingController.expectOne(`/api${SEARCH_BASE_URL}/${MOVIES_ROUTE}?query=movie&page=1`);
 		expect(getRequest.request.method).toEqual('GET');
 		getRequest.flush(mockResponse);
 
@@ -61,7 +63,7 @@ describe('SearchService', () => {
 		service.searchTv('tv').subscribe(res => {
 			expect(res).toEqual(mockResponse);
 		});
-		const getRequest = httpTestingController.expectOne(`${environment.apiBaseUrl}${SEARCH_BASE_URL}/${SEARCH_TV_ROUTE}?query=tv&page=1`);
+		const getRequest = httpTestingController.expectOne(`/api${SEARCH_BASE_URL}/${SEARCH_TV_ROUTE}?query=tv&page=1`);
 		expect(getRequest.request.method).toEqual('GET');
 		getRequest.flush(mockResponse);
 
@@ -75,7 +77,7 @@ describe('SearchService', () => {
 		service.searchPeople('person').subscribe(res => {
 			expect(res).toEqual(mockResponse);
 		});
-		const getRequest = httpTestingController.expectOne(`${environment.apiBaseUrl}${SEARCH_BASE_URL}/${PEOPLE_ROUTE}?query=person&page=1`);
+		const getRequest = httpTestingController.expectOne(`/api${SEARCH_BASE_URL}/${PEOPLE_ROUTE}?query=person&page=1`);
 		expect(getRequest.request.method).toEqual('GET');
 		getRequest.flush(mockResponse);
 

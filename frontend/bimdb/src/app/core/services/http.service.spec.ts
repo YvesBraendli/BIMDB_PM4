@@ -1,20 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { environment } from 'src/environments/environment';
 import { HttpHeaderConstants } from '../constants/http-headers';
+import { Environment } from '../models/environment';
+import { EnvironmentService } from './environment.service';
 import { HttpService } from './http.service';
 
 describe('HttpService', () => {
 	let service: HttpService;
 	let httpTestingController: HttpTestingController;
 	const requestUrl = '/test';
-	const calledUrl = `${environment.apiBaseUrl}${requestUrl}`;
+	const calledUrl = `/api${requestUrl}`;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule]
 		});
+		spyOn(TestBed.inject(EnvironmentService), 'getConfig').and.returnValue({ apiBaseUrl: '/api' } as Environment);
 		service = TestBed.inject(HttpService);
 		httpTestingController = TestBed.inject(HttpTestingController);
 	});

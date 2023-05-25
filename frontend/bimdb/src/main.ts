@@ -1,7 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, enableProdMode, ErrorHandler, importProvidersFrom } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, Routes, withHashLocation } from '@angular/router';
+import { Routes, provideRouter, withHashLocation } from '@angular/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app/app.component';
@@ -14,26 +14,27 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
 import {
 	DISCOVER_ROUTE,
-	MOVIE_ROUTE,
 	MOVIES_ROUTE,
+	MOVIE_ROUTE,
 	PEOPLE_ROUTE,
 	PERSON_ROUTE,
 	SEARCH_ROUTE,
-	TV_SHOW_ROUTE,
-	TV_SHOWS_ROUTE
+	TV_SHOWS_ROUTE,
+	TV_SHOW_ROUTE
 } from './app/core/constants/routes';
 import { StorageKeys } from './app/core/constants/storage-keys';
 import { GlobalErrorHandler } from './app/core/handlers/error-handler';
 import { BimdbMissingTranslationHandler } from './app/core/handlers/missing-translation.handler';
 import { ErrorInterceptor } from './app/core/interceptors/error.interceptor';
 import { ConfigService } from './app/core/services/config.service';
+import { EnvironmentService } from './app/core/services/environment.service';
 import { NotificationService } from './app/core/services/notification.service';
 import { MovieDetailComponent, PARAM_MOVIE_ID } from './app/movie-detail/movie-detail.component';
+import { PARAM_PERSON_ID, PersonDetailComponent } from './app/person-detail/person-detail.component';
 import { DATA_TAB_INDEX, SearchComponent, SearchTabs } from './app/search/search.component';
 import { PARAM_TV_SHOW_ID, TvShowDetailComponent } from './app/tv-show-detail/tv-show-detail.component';
 import { TvShowListComponent } from './app/tv-show-list/tv-show-list.component';
 import { environment } from './environments/environment';
-import { PARAM_PERSON_ID, PersonDetailComponent } from './app/person-detail/person-detail.component';
 
 if (environment.production) {
 	enableProdMode();
@@ -70,23 +71,28 @@ function HttpLoaderFactory(httpHandler: HttpBackend): TranslateHttpLoader {
 	return new TranslateHttpLoader(new HttpClient(httpHandler));
 }
 
-function initializeApp(translateService: TranslateService, configService: ConfigService) {
+function initializeApp(translateService: TranslateService, configService: ConfigService, envService: EnvironmentService, keycloak: KeycloakService) {
 	return (): Observable<void> => {
-		const language = localStorage.getItem(StorageKeys.Language) ?? 'en';
-		translateService.setDefaultLang('en');
-		translateService.use(language);
-		return configService.loadAppConfig(true);
+		return new Observable(observer => {
+			const language = localStorage.getItem(StorageKeys.Language) ?? 'en';
+			translateService.setDefaultLang('en');
+			translateService.use(language);
+			envService.loadEnvironmentConfig().subscribe(() => {
+				initializeKeycloak(keycloak, envService)().then(() => {
+					configService.loadAppConfig(true).subscribe(() => {
+						observer.next();
+						observer.complete();
+					});
+				}).catch(err => observer.error(err));
+			});
+		});
 	};
 }
 
-function initializeKeycloak(keycloak: KeycloakService) {
+function initializeKeycloak(keycloak: KeycloakService, envService: EnvironmentService) {
 	return (): Promise<boolean> => {
 		return keycloak.init({
-			config: {
-				url: environment.keycloackConfig.url,
-				realm: environment.keycloackConfig.realm,
-				clientId: environment.keycloackConfig.clientID
-			},
+			config: envService.getConfig().keycloackConfig,
 			initOptions: {
 				onLoad: 'check-sso',
 				silentCheckSsoRedirectUri:
@@ -111,13 +117,7 @@ bootstrapApplication(AppComponent, {
 				useClass: BimdbMissingTranslationHandler
 			}
 		})),
-		{ provide: APP_INITIALIZER, useFactory: initializeApp, deps: [TranslateService, ConfigService], multi: true },
-		{
-			provide: APP_INITIALIZER,
-			useFactory: initializeKeycloak,
-			multi: true,
-			deps: [KeycloakService]
-		},
+		{ provide: APP_INITIALIZER, useFactory: initializeApp, deps: [TranslateService, ConfigService, EnvironmentService, KeycloakService], multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, deps: [TranslateService], multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, deps: [NotificationService], multi: true },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }

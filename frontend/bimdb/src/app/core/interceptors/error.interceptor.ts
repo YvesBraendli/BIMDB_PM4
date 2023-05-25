@@ -11,7 +11,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 	public constructor(private notificationService: NotificationService) { }
 
 	public intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
-		const hasCustomErrorHandler = JSON.parse(req.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER) ?? '');
+		const header = req.headers.get(HttpHeaderConstants.CUSTOM_ERROR_HANDLER);
+		const hasCustomErrorHandler = header ? JSON.parse(header) : false;
 		return new Observable(observer => {
 			next.handle(req).subscribe({
 				next: res => observer.next(res),
