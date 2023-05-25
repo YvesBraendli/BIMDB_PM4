@@ -9,13 +9,9 @@ workspace {
                 detailsComponent = component "Details" "Displaying detailed information about a movie / tv show" "Angular Component"
                 tvShowListComponent = component "TV Show List" "List of tv shows with filter options" "Angular Component"
             }
-            movie = container "Movie Application" "Responsible for the data handling associating movies via JSON/HTTPS API" "Java and Spring MVC" {
-                 movieController = component "Movie Controller" "Responsible for controlling the details page of a movie." "Spring MVC Rest Controller"
-            }
-            tvShow = container "TV show Application" "Responsible for the data handling associating tv shows via JSON/HTTPS API" "Java and Spring MVC" {
+            backendApp = container "Backend Application" "Responsible for the data handling associating setup informations via JSON/HTTPS API" "Java and Spring MVC" {
                 tvController = component "Tv Controller" "Responsible for controlling the details page of a tv show." "Spring MVC Rest Controller"
-            }
-            setup = container "Setup Application" "Responsible for the data handling associating setup informations via JSON/HTTPS API" "Java and Spring MVC" {
+                movieController = component "Movie Controller" "Responsible for controlling the details page of a movie." "Spring MVC Rest Controller"
                 configController = component "Config Controller" "Responsible for controlling geo information." "Spring MVC Rest Controller"
                 discoverController = component "Discover Controller" "Responsible for controlling the overview sites for movies and tv shows." "Spring MVC Rest Controller"
                 favoritesController = component "Favorites Controller" "Responsible for controlling the user specific favorites site." "Spring MVC Rest Controller"
@@ -31,23 +27,15 @@ workspace {
         // relationships
         user -> webApp "Views movie informations using"
 
-        webApp -> movie "Makes API calls to" "JSON/HTTPS"
-        webApp -> tvShow "Makes API calls to" "JSON/HTTPS"
-        webApp -> setup "Makes API calls to" "JSON/HTTPS"
+        webApp -> backendApp "Makes API calls to" "JSON/HTTPS""
 
-        movie -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
-        tvShow -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
-        setup -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
+        backendApp -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
 
-        tmdb -> movie "Sends the called data to the internal system" "JSON/HTTPS"
-        tmdb -> tvShow "Sends the called data to the internal system" "JSON/HTTPS"
-        tmdb -> setup "Sends the called data to the internal system" "JSON/HTTPS"
+        tmdb -> backendApp "Sends the called data to the internal system" "JSON/HTTPS"
 
-        movie -> webApp "Sends data to" "JSON/HTTPS"
-        tvShow -> webApp "Sends data to" "JSON/HTTPS"
-        setup -> webApp "Sends data to" "JSON/HTTPS"
+        backendApp -> webApp "Sends data to" "JSON/HTTPS"
 
-        // frontend to backend (component SetupApp)
+        // frontend to backend (component BackendApp)
         webApp -> discoverController "sends APPI calls to"
         webApp -> movieController "sends APPI calls to"
         webApp -> tvController "sends APPI calls to"
@@ -55,13 +43,6 @@ workspace {
         webApp -> personController "sends APPI calls to"
         webApp -> configController "sends APPI calls to"
         webApp -> favoritesController "sends APPI calls to"
-
-        //frontend to backend (component WebApp)
-        movieListComponent -> movie "sends APPI calls to"
-        tvShowListComponent -> tvShow "sends APPI calls to""
-        detailsComponent -> movie "sends APPI calls to"
-        detailsComponent -> tvShow "sends APPI calls to"
-        discoverComponent -> setup "sends APPI calls to""
 
         //backend to TMDB
         configController -> tmdb "Sends API calls to collect required data"
@@ -100,17 +81,7 @@ workspace {
             autolayout
         }
 
-        component movie "MovieApp" {
-            include *
-            autolayout
-        }
-
-        component tvShow "TVShowApp" {
-            include *
-            autolayout
-        }
-
-        component setup "SetupApp" {
+        component backendApp "BackendApp" {
             include *
             autolayout
         }
