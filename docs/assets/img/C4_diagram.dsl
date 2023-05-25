@@ -9,18 +9,18 @@ workspace {
                 detailsComponent = component "Details" "Displaying detailed information about a movie / tv show" "Angular Component"
                 tvShowListComponent = component "TV Show List" "List of tv shows with filter options" "Angular Component"
             }
-            api = container "Data Enhancement/API Application" "Enhances the raw data and provides the data collection via JSON/HTTPS API" "Java and Spring MVC" {
-                mainPageController = component "Main Page Controller" "Responsible for controlling the first overview site, where all movies are listed." "Spring MVC Rest Controller"
-                tmdbController = component "TMDB API Controller" "Responsible to set up the required API calls." "Spring MVC Rest Controller"
-                detailsPageController = component "Details Page Controller" "Responsible for controlling the details page of each movie." "Spring MVC Rest Controller"
-                securityController = component "Security Controller" "Provides functionality to load the API key." "Spring Bean"
-                dataEnhanceController = component "Data Enhancement Controller" "Responsible for enhancing the collected data such that it can be provided to the end user." "Java"
-                apiRouteController = component "API Route Controller" "Provides logic to get the required API routes, to send the data to the frontend" "Java"
-                bimdbController = component "BIMDB API Controller" "Responsible to send the data to the web application." "Spring MVC Rest Controller"
+            movie = container "Movie Application" "Responsible for the data handling associating movies via JSON/HTTPS API" "Java and Spring MVC" {
+                 movieController = component "Movie Controller" "Responsible for controlling the details page of a movie." "Spring MVC Rest Controller"
             }
-
-            db = container "Database" "Stores user's registration information, hashed authentication credentials, user preferences" "PostgreSQL" {
-                tags = "Database"
+            tvShow = container "TV show Application" "Responsible for the data handling associating tv shows via JSON/HTTPS API" "Java and Spring MVC" {
+                tvController = component "Tv Controller" "Responsible for controlling the details page of a tv show." "Spring MVC Rest Controller"
+            }
+            setup = container "Setup Application" "Responsible for the data handling associating setup informations via JSON/HTTPS API" "Java and Spring MVC" {
+                configController = component "Config Controller" "Responsible for controlling geo information." "Spring MVC Rest Controller"
+                discoverController = component "Discover Controller" "Responsible for controlling the overview sites for movies and tv shows." "Spring MVC Rest Controller"
+                favoritesController = component "Favorites Controller" "Responsible for controlling the user specific favorites site." "Spring MVC Rest Controller"
+                personController = component "Person Controller" "Responsible for controlling the user." "Spring MVC Rest Controller"
+                searchController = component "Search Controller" "Responsible for controlling all searches performed on the website, including movie, tv shows and user searches." "Spring MVC Rest Controller"
             }
         }
 
@@ -31,29 +31,55 @@ workspace {
         // relationships
         user -> webApp "Views movie informations using"
 
-        webApp -> api "Makes API calls to" "JSON/HTTPS"
-        api -> db "Reads from and writes to" "SQL"
-        api -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
-        tmdb -> api "Sends the called data to the internal system" "JSON/HTTPS"
+        webApp -> movie "Makes API calls to" "JSON/HTTPS"
+        webApp -> tvShow "Makes API calls to" "JSON/HTTPS"
+        webApp -> setup "Makes API calls to" "JSON/HTTPS"
 
-        api -> webApp "Sends enhanced data to" "JSON/HTTPS"
+        movie -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
+        tvShow -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
+        setup -> tmdb "Calls API with saved user preferences" "JSON/HTTPS"
 
-        // api
-        discoverComponent -> mainPageController "uses"
-        detailsComponent -> detailsPageController "uses"
-        movieListComponent -> api "uses"
-        tvShowListComponent -> api "uses"
-        mainPageController -> tmdbController "uses"
-        detailsPageController -> tmdbController "uses"
-        tmdbController -> securityController "uses"
-        tmdbController -> tmdb "Sends API calls to collect required data"
+        tmdb -> movie "Sends the called data to the internal system" "JSON/HTTPS"
+        tmdb -> tvShow "Sends the called data to the internal system" "JSON/HTTPS"
+        tmdb -> setup "Sends the called data to the internal system" "JSON/HTTPS"
 
+        movie -> webApp "Sends data to" "JSON/HTTPS"
+        tvShow -> webApp "Sends data to" "JSON/HTTPS"
+        setup -> webApp "Sends data to" "JSON/HTTPS"
 
-        //dea
-        bimdbController -> apiRouteController "uses"
-        bimdbController -> webApp "Sends data to"
-        bimdbController -> dataEnhanceController "uses"
+        // frontend to backend (component SetupApp)
+        webApp -> discoverController "sends APPI calls to"
+        webApp -> movieController "sends APPI calls to"
+        webApp -> tvController "sends APPI calls to"
+        webApp -> searchController "sends APPI calls to"
+        webApp -> personController "sends APPI calls to"
+        webApp -> configController "sends APPI calls to"
+        webApp -> favoritesController "sends APPI calls to"
 
+        //frontend to backend (component WebApp)
+        movieListComponent -> movie "sends APPI calls to"
+        tvShowListComponent -> tvShow "sends APPI calls to""
+        detailsComponent -> movie "sends APPI calls to"
+        detailsComponent -> tvShow "sends APPI calls to"
+        discoverComponent -> setup "sends APPI calls to""
+
+        //backend to TMDB
+        configController -> tmdb "Sends API calls to collect required data"
+        discoverController -> tmdb "Sends API calls to collect required data"
+        favoritesController -> tmdb "Sends API calls to collect required data"
+        movieController -> tmdb "Sends API calls to collect required data"
+        personController -> tmdb "Sends API calls to collect required data"
+        searchController -> tmdb "Sends API calls to collect required data"
+        tvController -> tmdb "Sends API calls to collect required data"
+
+        //backend to frontend
+        configController -> webApp "Sends data to" "JSON/HTTPS"
+        discoverController -> webApp "Sends data to" "JSON/HTTPS"
+        favoritesController -> webApp "Sends data to" "JSON/HTTPS"
+        movieController -> webApp "Sends data to" "JSON/HTTPS"
+        personController -> webApp "Sends data to" "JSON/HTTPS"
+        searchController -> webApp "Sends data to" "JSON/HTTPS"
+        tvController -> webApp "Sends data to" "JSON/HTTPS"
 
 
     }
@@ -74,7 +100,17 @@ workspace {
             autolayout
         }
 
-        component api "API"{
+        component movie "MovieApp" {
+            include *
+            autolayout
+        }
+
+        component tvShow "TVShowApp" {
+            include *
+            autolayout
+        }
+
+        component setup "SetupApp" {
             include *
             autolayout
         }
