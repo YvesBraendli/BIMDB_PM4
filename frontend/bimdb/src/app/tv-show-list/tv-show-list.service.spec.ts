@@ -1,5 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { Environment } from '../core/models/environment';
+import { EnvironmentService } from '../core/services/environment.service';
 import { DiscoverTv } from '../generated/contract';
 import { TvShowListService } from './tv-show-list.service';
 
@@ -13,6 +15,7 @@ describe('TvShowListService', () => {
 				HttpClientTestingModule
 			]
 		});
+		spyOn(TestBed.inject(EnvironmentService), 'getConfig').and.returnValue({ apiBaseUrl: '/api' } as Environment);
 		service = TestBed.inject(TvShowListService);
 		httpTestingController = TestBed.inject(HttpTestingController);
 	});

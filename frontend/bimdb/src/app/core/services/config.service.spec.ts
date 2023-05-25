@@ -3,8 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { throwError } from 'rxjs';
 import { ApiConfig, ApiImagesConfig } from 'src/app/generated/contract';
+import { Environment } from '../models/environment';
 import { ImgSizeConfig, TmdbImgConfig } from '../models/tmdb-img-config';
 import { ConfigService } from './config.service';
+import { EnvironmentService } from './environment.service';
 import { HttpService } from './http.service';
 
 describe('ConfigService', () => {
@@ -16,6 +18,7 @@ describe('ConfigService', () => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule]
 		});
+		spyOn(TestBed.inject(EnvironmentService), 'getConfig').and.returnValue({ apiBaseUrl: '/api' } as Environment);
 		service = TestBed.inject(ConfigService);
 		mockHttpService = TestBed.inject(HttpService);
 		httpTestingController = TestBed.inject(HttpTestingController);

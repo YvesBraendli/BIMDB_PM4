@@ -3,13 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-	production: false,
-	apiBaseUrl: '/api',
-	keycloackConfig: {
-		url: 'https://bimdb-auth-stage.pm4.init-lab.ch/',
-		realm: 'BIMDB',
-		clientID: 'BIMDB'
-	}
+	production: false
 };
 
 /*
