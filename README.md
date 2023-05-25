@@ -1,92 +1,74 @@
-# 🎬 BIMDB
+# 🎬 BIMDB - Better Internet Movie Database
+
+The _Better Internet Movie Database_ (BIMDB) is a feature-rich film database that leverages external providers, such as IMDB, to offer users personalized recommendations, advanced search and filter functions, watchlist management, and social media integration. BIMDB redefines the way users discover and engage with movies.  
 
 
+![BIMDB UI](./docs/assets/img/UI/bimdb_movie_detail.png)
 
-## Getting started
+## 🎥 Table of Contents
+  - [📝 Summary](#-summary)
+  - [🚀 Deployment](#-deployment)
+  - [👥 Authors](#-authors)
+  - [👩‍🏫 Instructors](#-instructors)
+  - [🦺 Contribution](#-contribution)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+For additional information, please visit our [🎉awesome Wiki🎉](https://gabrielbenabou.gitlab.io/bimdb/).
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## 📝 Summary
 
-## Add your files
+BIMDB, the Better Internet Movie Database, is a feature-rich film database designed to enhance your movie discovery experience. It leverages the IMDB API to provide users with access to a vast collection of movies. With BIMDB, you can easily search for films, apply advanced filters, and discover both popular and lesser-known titles. The application offers personalized recommendations based on your viewing history and preferences, allowing you to uncover new and exciting movies. Additionally, BIMDB provides a watchlist feature to keep track of movies you want to watch and a rating system to share your thoughts on films. Seamlessly integrated with social media, you can easily share your favorite movies with friends and followers. BIMDB redefines the way you engage with movies, making your film-watching journey more enjoyable and interactive.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+![BIMDB Logo](./docs/assets/img/BIMDB_Nutzen.png)
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/gabrielbenabou/pm4-debugdemons.git
-git branch -M main
-git push -uf origin main
-```
+## 🚀 Deployment
 
-## Integrate with your tools
+To deploy BIMDB, you will need to meet the following prerequisites:
 
-- [ ] [Set up project integrations](https://gitlab.com/gabrielbenabou/pm4-debugdemons/-/settings/integrations)
+- **Kubernetes Cluster:** Ensure that you have a Kubernetes cluster set up and running. BIMDB relies on Kubernetes for deployment and orchestration of its services.
 
-## Collaborate with your team
+- **Helm:** Helm is a package manager for Kubernetes that simplifies the deployment and management of applications. Make sure you have Helm installed on your system.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Once you have the prerequisites in place, follow the steps below to deploy BIMDB:
 
-## Test and Deploy
+1. Download the latest release of BIMDB from [here](https://gitlab.com/gabrielbenabou/bimdb/-/releases).
 
-Use the built-in continuous integration in GitLab.
+2. Modify the [values](./K8s/values.yaml) in the `values.yaml` file located in the `K8s` directory to configure the deployment according to your requirements. Adjust any necessary settings, such as database credentials, service ports, or resource allocations.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+3. Install BIMDB using Helm Charts:
+   ```shell
+   helm upgrade --install --namespace=betterimdb -f ./K8s/values.yaml bimdb ./K8s
+   ```
 
-***
+4. Wait for the deployment to complete. You can check the status of the pods by running the following command:
 
-# Editing this README
+    ```shell
+    kubectl get pods -n betterimdb
+    ```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+5. Once the deployment is successful, you can access BIMDB by opening your web browser and navigating to the appropriate URL.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+6. Explore the BIMDB features and functionalities:
 
-## Name
-Choose a self-explaining name for your project.
+    - **🔍 Search and Filter:** Use the intuitive search to find movies based on various criteria such as title, actors, and more.
+    - **🎯 Personalized Recommendations:** Discover new movies tailored to your preferences and viewing history through personalized recommendations. (Registration is needed)
+    - **📤 Sharing:** Seamlessly share your favorite movies with friends and followers on popular social media platforms by link.
+    - **➕ Additional Features:** Explore additional features like movie details, cast and crew information, straming providers, and more.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## 👥 Authors
+- Aschmann Dominik
+- Ben Abou Levy Gabriel
+- Brändli Yves
+- Dias Pinto Cristina
+- Diethelm Pascal
+- Kindle Tristan
+- Oriet Nils
+- Schaefle David
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+For Software Project 4, Spring Semester 2023
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 👩‍🏫 Instructors
+- Baumgartner Patrick
+- Schnatz Nina Isabelle
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 🦺 Contribution
+For more information on how to contribute, check out our [Contribution](https://gabrielbenabou.gitlab.io/bimdb/projektorganisation/contribution/) guidelines in the Wiki.
