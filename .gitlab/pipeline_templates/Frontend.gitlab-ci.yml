@@ -37,10 +37,7 @@ frontend-test:
       - "frontend/bimdb/reports/ng-coverage.lcov.info"
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main' || $CI_COMMIT_REF_NAME == 'development' || $CI_PIPELINE_SOURCE == 'merge_request_event'
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - $CI_PROJECT_DIR/.npm
+  # Caching not needed as last stage job using npm
 
 
 frontend-package:
@@ -49,6 +46,7 @@ frontend-package:
     - docker:20.10.24-dind
   before_script:
     - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  needs: [frontend-test]
   script:
     # https://blog.callr.tech/building-docker-images-with-gitlab-ci-best-practices/
     # fetches the latest image (not failing if image is not found)
