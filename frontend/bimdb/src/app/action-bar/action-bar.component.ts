@@ -20,7 +20,6 @@ import { ActionBarService } from './action-bar.service';
 export class ActionBarComponent implements OnInit {
 	public isLoggedIn = false;
 	public isFavorite = false;
-	public showTooltip = false;
 
 	@Input()
 	public id?: number;
@@ -33,7 +32,8 @@ export class ActionBarComponent implements OnInit {
 		private actionBarService: ActionBarService,
 		private snackBar: MatSnackBar,
 		private windowService: WindowService
-	) { }
+	) {
+	}
 
 	public ngOnInit(): void {
 		this.keycloak.isLoggedIn().then((isLoggedIn) => {

@@ -1,6 +1,9 @@
 <div *ngIf="tvShow" id="main">
 	<div id="details">
-		<app-tmdb-img [alt]="tvShow.name" [src]="tvShow.posterPath" [title]="tvShow.name"/>
+		<div id="details-left">
+			<app-tmdb-img [alt]="tvShow.name" [src]="tvShow.posterPath" [title]="tvShow.name"/>
+			<app-action-bar [id]="id ?? 0" [mediaType]="tvShow.mediaType"></app-action-bar>
+		</div>
 		<div id="details-right">
 			<h2>{{tvShow.name}}</h2>
 			<p>{{tvShow.tagline}}</p>
@@ -29,8 +32,6 @@
 			</ul>
 		</div>
 	</div>
-
-	<app-action-bar [id]="id" [mediaType]="tvShow.mediaType"></app-action-bar>
 
 	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
 		<mat-tab label="{{ 'tvShowDetail.cast' | translate }}">

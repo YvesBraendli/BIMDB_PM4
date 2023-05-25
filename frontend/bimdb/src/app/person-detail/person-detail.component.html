@@ -1,6 +1,9 @@
 <div *ngIf="person" id="main">
 	<div id="details">
-		<app-tmdb-img [alt]="person.name" [src]="person.profilePath" [title]="person.name"/>
+		<div id="details-left">
+			<app-tmdb-img [alt]="person.name" [src]="person.profilePath" [title]="person.name"/>
+			<app-action-bar [id]="person.id" [mediaType]="person.mediaType"></app-action-bar>
+		</div>
 		<div id="details-right">
 			<h2>{{person.name}}</h2>
 			<p>{{person.biography}}</p>
@@ -24,8 +27,6 @@
 			</ul>
 		</div>
 	</div>
-
-	<app-action-bar [id]="person.id" [mediaType]="person.mediaType"></app-action-bar>
 
 	<mat-tab-group [mat-stretch-tabs]="false" animationDuration="0ms">
 		<mat-tab label="{{ 'personDetail.cast' | translate }}">
