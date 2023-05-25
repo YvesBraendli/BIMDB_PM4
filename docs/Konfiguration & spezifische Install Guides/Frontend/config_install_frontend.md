@@ -1,4 +1,4 @@
-# Konfiguartion und Installion Guide Frontend
+# Konfiguartion und Installation Guide Frontend
 
 ## Schnittstelle zu Backend
 
