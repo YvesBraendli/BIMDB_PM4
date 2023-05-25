@@ -11,7 +11,6 @@ backend:
   env:
     TMDB_API_KEY: ""
     ACTIVE_PROFILES: ""
-    API_CROSS_ORIGIN: ""
     OAUTH2_JWK_URI: ""
 
 
