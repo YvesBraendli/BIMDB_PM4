@@ -1,12 +1,11 @@
 <div id="main">
 	<div id="favorite-action" *ngIf="isLoggedIn">
-
 		<button *ngIf="!isFavorite" (click)="addToFavorites()" mat-fab extended color="primary">
 			<mat-icon>favorite</mat-icon>
 			{{ 'favorites.add' | translate }}
 		</button>
 
-		<button *ngIf="isFavorite" (click)="removeFromFavorites()" mat-fab extended color="accent">
+		<button (click)="removeFromFavorites()" *ngIf="isFavorite" color="warn" extended mat-fab>
 			<mat-icon>delete</mat-icon>
 			{{ 'favorites.remove' | translate }}
 		</button>
