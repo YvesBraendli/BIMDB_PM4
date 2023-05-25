@@ -7,3 +7,4 @@ frontend:
 backend:
   env:
     ACTIVE_PROFILES: "stage,postgres"
+    OAUTH2_JWK_URI: "https://bimdb-auth-stage.pm4.init-lab.ch/realms/BIMDB/protocol/openid-connect/certs"

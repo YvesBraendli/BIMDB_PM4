@@ -24,7 +24,7 @@ spec:
             - name: ACTIVE_PROFILES
               value: {{.Values.backend.env.ACTIVE_PROFILES}}
             - name: API_CROSS_ORIGIN
-              value: {{.Values.backend.env.API_CROSS_ORIGIN}}
+              value: {{.Values.frontend.url}}
             - name: OAUTH2_JWK_URI
               value: {{.Values.backend.env.OAUTH2_JWK_URI}}
             - name: TMDB_API_KEY
