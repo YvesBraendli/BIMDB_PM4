@@ -74,6 +74,8 @@
 		"crew": "Crew"
 	},
 	"share": "Teilen",
+	"close": "Schliessen",
+	"linkCopied": "Link in die Zwischenablage kopiert!",
 	"favorites": {
 		"add": "Zu Favoriten hinzufügen",
 		"remove": "Aus Favoriten entfernen"

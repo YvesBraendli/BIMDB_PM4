@@ -12,6 +12,7 @@ import { WindowService } from '../core/services/window.service';
 import { MediaType } from '../generated/contract';
 import { ActionBarComponent } from './action-bar.component';
 import { ActionBarService } from './action-bar.service';
+import { SimpleChanges } from '@angular/core';
 
 describe('ActionBarComponent', () => {
 	let component: ActionBarComponent;
@@ -48,7 +49,7 @@ describe('ActionBarComponent', () => {
 		component.isLoggedIn = true;
 		component.id = 1;
 		component.mediaType = MediaType.Movie;
-		component.getFavoriteStatus();
+		component.ngOnChanges({} as SimpleChanges);
 		expect(favoriteStatusSpy).toHaveBeenCalledOnceWith(1, MediaType.Movie);
 		expect(component.isFavorite).toBeTrue();
 	});
@@ -79,7 +80,7 @@ describe('ActionBarComponent', () => {
 		component.copyToClipboard();
 		expect(locationSpy).toHaveBeenCalled();
 		const snackBar = await loader.getHarness(MatSnackBarHarness);
-		expect(await snackBar.getMessage()).toBe('Link copied to clipboard!');
+		expect(await snackBar.getMessage()).toBe('linkCopied');
 	});
 
 	it('should fail to clipboard', async () => {
