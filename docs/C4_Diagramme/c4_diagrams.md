@@ -4,14 +4,14 @@ Die nachfolgenden Darstellungen zeigen die Architektur des Projektes, wobei die 
 
 ## System Context Diagramm 
 
-![Gitflow](../assets/img/C4_SystemContext_BIMDb.png)
+![Gitflow](../assets/img/structurizr-SystemContext.png)
 
 ## Container Diagramm
 
-![Gitflow](../assets/img/C4_Container_BIMDb.png)
+![Gitflow](../assets/img/structurizr-Container.png)
 
 ## Komponenten Diagramme
 
-![Gitflow](../assets/img/C4_Component_WebApplication.png)
-![Gitflow](../assets/img/C4_Component_DataEnhancement_APIApplication.png)
+![Gitflow](../assets/img/structurizr-BackendApp.png)
+![Gitflow](../assets/img/structurizr-WebApp.png)
 
