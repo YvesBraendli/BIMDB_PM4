@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { KeycloakService } from 'keycloak-angular';
 import { WindowService } from '../core/services/window.service';
 import { MediaType } from '../generated/contract';
@@ -15,9 +15,10 @@ import { ActionBarService } from './action-bar.service';
 	standalone: true,
 	templateUrl: './action-bar.component.html',
 	styleUrls: ['./action-bar.component.scss'],
-	imports: [CommonModule, TranslateModule, MatButtonModule, MatIconModule, MatSnackBarModule, TranslateModule]
+	imports: [CommonModule, TranslateModule, MatButtonModule, MatIconModule, MatSnackBarModule, TranslateModule],
+	providers: [TranslatePipe]
 })
-export class ActionBarComponent implements OnInit {
+export class ActionBarComponent implements OnInit, OnChanges {
 	public isLoggedIn = false;
 	public isFavorite = false;
 
@@ -31,7 +32,8 @@ export class ActionBarComponent implements OnInit {
 		private keycloak: KeycloakService,
 		private actionBarService: ActionBarService,
 		private snackBar: MatSnackBar,
-		private windowService: WindowService
+		private windowService: WindowService,
+		private translatePipe: TranslatePipe
 	) {
 	}
 
@@ -76,13 +78,18 @@ export class ActionBarComponent implements OnInit {
 		const currentLocation = this.windowService.location.href;
 		navigator.clipboard.writeText(currentLocation)
 			.then(() => {
-				this.snackBar.open('Link copied to clipboard!', 'Close', {
-					duration: 2000
-				});
+				this.snackBar.open(
+					this.translatePipe.transform('linkCopied'),
+					this.translatePipe.transform('close'), {
+						duration: 2000
+					});
 			})
 			.catch((error) => {
 				console.error('Failed to copy link to clipboard:', error);
 			});
 	}
 
+	public ngOnChanges(_changes: SimpleChanges): void {
+		this.getFavoriteStatus();
+	}
 }
