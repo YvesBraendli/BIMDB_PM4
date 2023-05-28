@@ -1,6 +1,6 @@
 # 🎬 BIMDB - Better Internet Movie Database
 
-The _Better Internet Movie Database_ (BIMDB) is a feature-rich film database that leverages external providers, such as IMDB, to offer users personalized recommendations, advanced search and filter functions, watchlist management, and social media integration. BIMDB redefines the way users discover and engage with movies.  
+The _Better Internet Movie Database_ (BIMDB) is a feature-rich film database that leverages external providers, such as TMDB, to offer users personalized recommendations, advanced search and filter functions, watchlist management, and social media integration. BIMDB redefines the way users discover and engage with movies.  
 
 
 ![BIMDB UI](./docs/assets/img/UI/bimdb_movie_detail.png)
@@ -16,7 +16,7 @@ For additional information, please visit our [🎉awesome Wiki🎉](https://gabr
 
 ## 📝 Summary
 
-BIMDB, the Better Internet Movie Database, is a feature-rich film database designed to enhance your movie discovery experience. It leverages the IMDB API to provide users with access to a vast collection of movies. With BIMDB, you can easily search for films, apply advanced filters, and discover both popular and lesser-known titles. The application offers personalized recommendations based on your viewing history and preferences, allowing you to uncover new and exciting movies. Additionally, BIMDB provides a watchlist feature to keep track of movies you want to watch and a rating system to share your thoughts on films. Seamlessly integrated with social media, you can easily share your favorite movies with friends and followers. BIMDB redefines the way you engage with movies, making your film-watching journey more enjoyable and interactive.
+BIMDB, the Better Internet Movie Database, is a feature-rich film database designed to enhance your movie discovery experience. It leverages the TMDB API to provide users with access to a vast collection of movies. With BIMDB, you can easily search for films, apply advanced filters, and discover both popular and lesser-known titles. The application offers personalized recommendations based on your viewing history and preferences, allowing you to uncover new and exciting movies. Additionally, BIMDB provides a watchlist feature to keep track of movies you want to watch and a rating system to share your thoughts on films. Seamlessly integrated with social media, you can easily share your favorite movies with friends and followers. BIMDB redefines the way you engage with movies, making your film-watching journey more enjoyable and interactive.
 
 ![BIMDB Logo](./docs/assets/img/BIMDB_Nutzen.png)
 
