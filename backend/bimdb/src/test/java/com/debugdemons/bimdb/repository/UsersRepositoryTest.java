@@ -18,8 +18,7 @@ class UsersRepositoryTest {
         // Create test data
         User expectedUser = new User();
         expectedUser.setUsername("john");
-        expectedUser.setEmail("test@email.com");
-        usersRepository.save(expectedUser);
+       usersRepository.save(expectedUser);
 
         // Perform repository query
         User user = usersRepository.findByUsername("john");
@@ -27,7 +26,27 @@ class UsersRepositoryTest {
         // Assert the result
         Assertions.assertNotNull(user);
         Assertions.assertEquals(expectedUser.getUsername(), user.getUsername());
-        Assertions.assertEquals(expectedUser.getEmail(), user.getEmail());
-
+        Assertions.assertNull(user.getAdult());
+        Assertions.assertNull(user.getPreferredOriginalLanguage());
     }
+
+    @Test
+    void testFindByUsernameWithAttributes() {
+        // Create test data
+        User expectedUser = new User();
+        expectedUser.setUsername("hans");
+        expectedUser.setAdult(Boolean.FALSE);
+        expectedUser.setPreferredOriginalLanguage("en");
+        usersRepository.save(expectedUser);
+
+        // Perform repository query
+        User user = usersRepository.findByUsername("hans");
+
+        // Assert the result
+        Assertions.assertNotNull(user);
+        Assertions.assertEquals(expectedUser.getUsername(), user.getUsername());
+        Assertions.assertEquals(expectedUser.getAdult(), user.getAdult());
+        Assertions.assertEquals(expectedUser.getPreferredOriginalLanguage(), user.getPreferredOriginalLanguage());
+    }
+
 }

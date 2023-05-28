@@ -12,9 +12,11 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "adult")
+    private Boolean adult;
 
+    @Column(name = "preferred_original_language")
+    private String preferredOriginalLanguage;
     public String getUsername() {
         return username;
     }
@@ -23,11 +25,19 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public Boolean getAdult() {
+        return adult;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAdult(Boolean adult) {
+        this.adult = adult;
+    }
+
+    public String getPreferredOriginalLanguage() {
+        return preferredOriginalLanguage;
+    }
+
+    public void setPreferredOriginalLanguage(String preferredOriginalLanguage) {
+        this.preferredOriginalLanguage = preferredOriginalLanguage;
     }
 }

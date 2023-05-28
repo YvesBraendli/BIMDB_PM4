@@ -1,12 +1,12 @@
 package com.debugdemons.bimdb.domain;
 
+import com.debugdemons.bimdb.utils.Filterable;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class MovieDetails extends Movie implements Serializable {
+public class MovieDetails extends Movie implements Filterable {
 	@JsonProperty("budget")
 	private Long budget;
 	@JsonProperty("genres")

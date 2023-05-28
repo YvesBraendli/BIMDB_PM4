@@ -28,6 +28,8 @@ class FavoritesServiceTest extends BaseServiceTest {
 
     private FavoritesService favoritesService;
 
+    private static final String USERNAME = "username";
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -36,85 +38,84 @@ class FavoritesServiceTest extends BaseServiceTest {
 
     @Test
     void testSaveNewFavoriteExistingUser() {
-        String username = "testUser";
         Favorite favorite = new Favorite(MediaType.MOVIE, 100L);
 
-        User user = new User();
-        user.setUsername(username);
+        User user = getUser();
 
         // Mocking the behavior for the first invocation of existsByUserAndTypeAndApiId
-        Mockito.when(usersRepository.findByUsername(username)).thenReturn(user);
+        Mockito.when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
         Mockito.when(favoritesRepository.existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong())).thenReturn(false);
 
-        favoritesService.saveNewFavorite(username, favorite);
+        favoritesService.addNewFavorite(USERNAME, favorite);
 
-        Mockito.verify(usersRepository).findByUsername(username);
+        Mockito.verify(usersRepository).findByUsername(USERNAME);
         Mockito.verify(favoritesRepository).existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong());
         Mockito.verify(favoritesRepository).save(any(FavoriteMedia.class));
     }
 
     @Test
     void testSaveNewFavorite() {
-        String username = "testUser";
         Favorite favorite = new Favorite(MediaType.MOVIE, 100L);
 
-        User user = new User();
-        user.setUsername(username);
+        User user = getUser();
 
         // Mocking the behavior for the first invocation of existsByUserAndTypeAndApiId
-        Mockito.when(usersRepository.findByUsername(username)).thenReturn(null);
+        Mockito.when(usersRepository.findByUsername(USERNAME)).thenReturn(null);
         Mockito.when(usersRepository.saveAndFlush(user)).thenReturn(user);
         Mockito.when(favoritesRepository.existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong())).thenReturn(false);
 
-        favoritesService.saveNewFavorite(username, favorite);
+        favoritesService.addNewFavorite(USERNAME, favorite);
 
-        Mockito.verify(usersRepository, Mockito.times(2)).findByUsername(username);
+        Mockito.verify(usersRepository, Mockito.times(2)).findByUsername(USERNAME);
         Mockito.verify(usersRepository).saveAndFlush(any(User.class));
         Mockito.verify(favoritesRepository).save(any(FavoriteMedia.class));
     }
 
     @Test
     void testRemoveFavorite() {
-        String username = "testUser";
         Favorite favorite = new Favorite(MediaType.MOVIE, 100L);
 
+        User user = getUser();
+        Mockito.when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
 
-        User user = new User();
-        user.setUsername(username);
-        Mockito.when(usersRepository.findByUsername(username)).thenReturn(user);
+        favoritesService.removeFavorite(USERNAME, favorite);
 
-        favoritesService.removeFavorite(username, favorite);
-
-        Mockito.verify(usersRepository).findByUsername(username);
+        Mockito.verify(usersRepository).findByUsername(USERNAME);
         Mockito.verify(favoritesRepository).deleteByUserAndTypeAndApiId(any(User.class), anyString(), anyLong());
     }
 
     @Test
     void testIsFavorite() {
-        String username = "testUser";
         Favorite favorite = new Favorite(MediaType.MOVIE, 100L);
 
-
-        User user = new User();
-        user.setUsername(username);
-        Mockito.when(usersRepository.findByUsername(username)).thenReturn(user);
+        User user = getUser();
+        Mockito.when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
         Mockito.when(favoritesRepository.existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong())).thenReturn(true);
 
-        boolean isFavorite = favoritesService.isFavorite(username, favorite);
+        boolean isFavorite = favoritesService.isFavorite(USERNAME, favorite);
 
         Assertions.assertTrue(isFavorite);
 
-        Mockito.verify(usersRepository).findByUsername(username);
+        Mockito.verify(usersRepository).findByUsername(USERNAME);
         Mockito.verify(favoritesRepository).existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong());
     }
 
     @Test
-    void testGetAllFavoritesByType() {
-        String username = "testUser";
+    void testIsFavoriteNoUser() {
+        Favorite favorite = new Favorite(MediaType.MOVIE, 100L);
+        Mockito.when(usersRepository.findByUsername(USERNAME)).thenReturn(null);
 
-        User user = new User();
-        user.setUsername(username);
-        Mockito.when(usersRepository.findByUsername(username)).thenReturn(user);
+        boolean isFavorite = favoritesService.isFavorite(USERNAME, favorite);
+
+        Assertions.assertFalse(isFavorite);
+
+        Mockito.verify(usersRepository).findByUsername(USERNAME);
+    }
+
+    @Test
+    void testGetAllFavoritesByType() {
+        User user = getUser();
+        Mockito.when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
 
         List<FavoriteMedia> favoriteList = new ArrayList<>();
         FavoriteMedia favoriteMedia = new FavoriteMedia(user, "movie", 100L);
@@ -127,12 +128,18 @@ class FavoritesServiceTest extends BaseServiceTest {
         expectedFavorites.add(favorite);
 
 
-        List<Favorite> result = favoritesService.getAllFavoritesByType(username, MediaType.MOVIE);
+        List<Favorite> result = favoritesService.getAllFavoritesByType(USERNAME, MediaType.MOVIE);
 
         Assertions.assertEquals(expectedFavorites.get(0).getId(), result.get(0).getId());
         Assertions.assertEquals(expectedFavorites.get(0).getMediaType(), result.get(0).getMediaType());
 
-        Mockito.verify(usersRepository).findByUsername(username);
+        Mockito.verify(usersRepository).findByUsername(USERNAME);
         Mockito.verify(favoritesRepository).findAllByUserAndType(any(User.class), anyString());
+    }
+
+    private User getUser() {
+        User user = new User();
+        user.setUsername(USERNAME);
+        return user;
     }
 }

@@ -6,39 +6,74 @@ import com.debugdemons.bimdb.model.User;
 import com.debugdemons.bimdb.repository.FavoritesRepository;
 import com.debugdemons.bimdb.repository.UsersRepository;
 import com.debugdemons.bimdb.utils.Filter;
+import com.debugdemons.bimdb.utils.FilterCalculator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class TvService extends BaseService {
 
+	private final UsersRepository usersRepository;
 
-	public TvService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate) {
+	private final FavoritesRepository favoritesRepository;
+
+	public TvService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate, UsersRepository usersRepository, FavoritesRepository favoritesRepository) {
 		super(movieDBApiConfig, restTemplate);
+		this.usersRepository = usersRepository;
+		this.favoritesRepository = favoritesRepository;
 	}
 
 	public DiscoverTv getTv(Integer page, String username) {
-		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl(), "discover/tv")
-				.withPageNumber(page);
+		User user = usersRepository.findByUsername(username);
+		Filter filter = null;
+		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl())
+				.withEndpoint("discover/tv")
+				.withPage(page);
+		if (user != null) {
+			if (user.getAdult() != null) {
+				tmdbUrlBuilder.withIncludeAdult(user.getAdult());
+			}
+			if (StringUtils.hasText(user.getPreferredOriginalLanguage())) {
+				tmdbUrlBuilder.withOriginalLanguage(user.getPreferredOriginalLanguage());
+			}
+			Set<Long> favoriteTvShowIds = favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.TV_SHOW.getType());
+			filter = new FilterCalculator<TvShowDetails>().getFilter(getTvShowDetails(favoriteTvShowIds));
+		}
+		if (filter != null) {
+			tmdbUrlBuilder.withGenres(filter.getGenresToInclude())
+					.withCast(filter.getActors());
+		}
 		return restTemplate.getForObject(tmdbUrlBuilder.build(), DiscoverTv.class);
 	}
 
 	public TvShowDetails getTvShowById(Long id) {
-		String url = movieDBApiConfig.getBaseUrl() + "tv/" + id + "?append_to_response=credits,recommendations,similar";
-		return restTemplate.getForObject(url, TvShowDetails.class);
+		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl())
+				.withEndpoint("tv/" + id)
+				.withAppendToResponse(List.of("credits", "recommendations", "similar"));
+		return restTemplate.getForObject(tmdbUrlBuilder.build(), TvShowDetails.class);
 	}
 
 	public WatchProvidersResult getWatchProviders(Long id) {
-		String url = movieDBApiConfig.getBaseUrl() + "tv/" + id + "/watch/providers";
-		return restTemplate.getForObject(url, WatchProvidersResult.class);
+		return restTemplate.getForObject(new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl()).withEndpoint("tv/" + id + "/watch/providers").build(), WatchProvidersResult.class);
 	}
 
 	public TvShowSeasonDetails getTvShowSeasonDetails(Long id, Long seasonNumber) {
-		String url = movieDBApiConfig.getBaseUrl() + "tv/" + id + "/season/" + seasonNumber;
-		return restTemplate.getForObject(url, TvShowSeasonDetails.class);
+		return restTemplate.getForObject(new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl()).withEndpoint("tv/" + id + "/season/" + seasonNumber).build(), TvShowSeasonDetails.class);
+	}
+
+	private Set<TvShowDetails> getTvShowDetails(Set<Long> favoriteTvShowIds) {
+		Set<TvShowDetails> tvShowDetails = new HashSet<>();
+		if (!CollectionUtils.isEmpty(favoriteTvShowIds)) {
+			for (Long tvShowId : favoriteTvShowIds) {
+				tvShowDetails.add(getTvShowById(tvShowId));
+			}
+		}
+		return tvShowDetails;
 	}
 }

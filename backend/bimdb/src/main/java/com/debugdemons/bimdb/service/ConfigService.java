@@ -15,17 +15,14 @@ public class ConfigService extends BaseService {
 	}
 
 	public ApiConfig getApiConfig() {
-		String url = movieDBApiConfig.getBaseUrl() + "configuration";
-		return restTemplate.getForObject(url, ApiConfig.class);
+		return restTemplate.getForObject(new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl()).withEndpoint("configuration").build(), ApiConfig.class);
 	}
 
 	public Country[] getCountries() {
-		String url = movieDBApiConfig.getBaseUrl() + "configuration/countries";
-		return restTemplate.getForObject(url, Country[].class);
+		return restTemplate.getForObject(new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl()).withEndpoint("configuration/countries").build(), Country[].class);
 	}
 
 	public Language[] getLanguages() {
-		String url = movieDBApiConfig.getBaseUrl() + "configuration/languages";
-		return restTemplate.getForObject(url, Language[].class);
+		return restTemplate.getForObject(new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl()).withEndpoint("configuration/languages").build(), Language[].class);
 	}
 }

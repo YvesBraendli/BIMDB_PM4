@@ -30,7 +30,7 @@ public class FavoritesService {
     }
 
     @Transactional
-    public void saveNewFavorite(String username, Favorite favorite) {
+    public void addNewFavorite(String username, Favorite favorite) {
         User user = usersRepository.findByUsername(username);
         if (user == null) {
             user = new User();
@@ -38,11 +38,10 @@ public class FavoritesService {
             usersRepository.saveAndFlush(user);
             user = usersRepository.findByUsername(username);
         }
-        boolean isFavorite = favoritesRepository.existsByUserAndTypeAndApiId(user, favorite.getMediaType().getType(), favorite.getId());
-        if (!isFavorite) {
+        if (!favoritesRepository.existsByUserAndTypeAndApiId(user, favorite.getMediaType().getType(), favorite.getId())) {
             FavoriteMedia favoriteMovie = new FavoriteMedia(user, favorite.getMediaType().getType(), favorite.getId());
             favoritesRepository.save(favoriteMovie);
-            getLogger().info("Adding favorite");
+            getLogger().info("Adding favorite of type " + favorite.getMediaType().getType() + " with api id " + favorite.getId());
         }
     }
 
@@ -53,7 +52,7 @@ public class FavoritesService {
             return;
         }
         Integer id = favoritesRepository.deleteByUserAndTypeAndApiId(user, favorite.getMediaType().getType(), favorite.getId());
-        getLogger().info("deleted: " + id);
+        getLogger().info("Deleted favorite of type " + favorite.getMediaType().getType() + " with api id " + favorite.getId() + " and id " + id);
     }
 
     @Transactional
@@ -62,9 +61,7 @@ public class FavoritesService {
         if (user == null) {
             return false;
         }
-        boolean isFavorite = favoritesRepository.existsByUserAndTypeAndApiId(user, favorite.getMediaType().getType(), favorite.getId());
-        getLogger().info("Is favorite: " + isFavorite);
-        return isFavorite;
+        return favoritesRepository.existsByUserAndTypeAndApiId(user, favorite.getMediaType().getType(), favorite.getId());
     }
 
     @Transactional

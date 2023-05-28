@@ -35,6 +35,10 @@ public class SearchService extends BaseService {
 	}
 
 	private String getSearchUrl(String route, String query, int page) {
-		return movieDBApiConfig.getBaseUrl() + "search/" + route + "?query=" + query + "&page=" + page;
+		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl())
+				.withEndpoint("search/" + route)
+				.withQuery(query)
+				.withPage(page);
+		return tmdbUrlBuilder.build();
 	}
 }

@@ -31,7 +31,7 @@ public class MovieDbApiInterceptor implements ClientHttpRequestInterceptor {
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 		if (request.getURI().toString().startsWith(movieDBApiConfig.getBaseUrl())) {
-			getLogger().info(String.format("API request to TMDB: %s", request.getURI()));
+			getLogger().info("API request to TMDB: " + request.getURI());
 			request = new MovieDbHttpRequest(request, movieDBApiConfig.getApiKey());
 		}
 		return execution.execute(request, body);
