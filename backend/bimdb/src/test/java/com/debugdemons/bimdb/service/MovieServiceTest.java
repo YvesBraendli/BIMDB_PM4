@@ -1,6 +1,8 @@
 package com.debugdemons.bimdb.service;
 
 import com.debugdemons.bimdb.domain.*;
+import com.debugdemons.bimdb.model.User;
+import com.debugdemons.bimdb.repository.FavoritesRepository;
 import com.debugdemons.bimdb.repository.UsersRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
@@ -17,14 +19,17 @@ class MovieServiceTest extends BaseServiceTest {
 	@MockBean
 	private UsersRepository usersRepository;
 
+	@MockBean
+	private FavoritesRepository favoritesRepository;
+
 	@Autowired
 	private MovieService movieService;
+
+	private static final String USERNAME = "testUser";
 
 	@Test
 	void discoverMovie() throws JsonProcessingException {
 		when(usersRepository.findByUsername(null)).thenReturn(null);
-
-		mockServerExpectGet("https://api.themoviedb.org/3/genre/movie/list?language=en", new GenreListWrapper());
 
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);
@@ -34,11 +39,25 @@ class MovieServiceTest extends BaseServiceTest {
 	}
 
 	@Test
+	void discoverMovieWithUser() throws JsonProcessingException {
+		User user = new User();
+		user.setUsername(USERNAME);
+		user.setPreferredOriginalLanguage("en");
+		user.setAdult(Boolean.FALSE);
+		when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
+
+		when(favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.MOVIE.getType())).thenReturn(Collections.emptySet());
+		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
+		expectedDiscoverMovie.setTotalPages(20);
+		mockServerExpectGet("https://api.themoviedb.org/3/discover/movie?include_adult=false&with_original_language=en&language=en", expectedDiscoverMovie);
+		DiscoverMovie discoverMovie = movieService.getMovies(null, USERNAME);
+		assertJsonEquals(expectedDiscoverMovie, discoverMovie);
+	}
+
+	@Test
 	void discoverMoviePage() throws JsonProcessingException {
 
 		when(usersRepository.findByUsername(null)).thenReturn(null);
-
-		mockServerExpectGet("https://api.themoviedb.org/3/genre/movie/list?language=en", new GenreListWrapper());
 
 		DiscoverMovie expectedDiscoverMovie = new DiscoverMovie();
 		expectedDiscoverMovie.setTotalPages(20);

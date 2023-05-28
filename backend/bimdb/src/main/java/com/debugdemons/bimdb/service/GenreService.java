@@ -13,12 +13,10 @@ public class GenreService extends BaseService {
     }
 
     public GenreListWrapper getAllMovieGenres() {
-        String movieGenresUrl = movieDBApiConfig.getBaseUrl() + "genre/movie/list";
-        return restTemplate.getForObject(movieGenresUrl, GenreListWrapper.class);
+        return restTemplate.getForObject(new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl()).withEndpoint("genre/movie/list").build(), GenreListWrapper.class);
     }
 
     public GenreListWrapper getAllTvGenres() {
-        String tvGenresUrl = movieDBApiConfig.getBaseUrl() + "genre/tv/list";
-        return restTemplate.getForObject(tvGenresUrl, GenreListWrapper.class);
+        return restTemplate.getForObject(new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl()).withEndpoint("genre/tv/list").build(), GenreListWrapper.class);
     }
 }

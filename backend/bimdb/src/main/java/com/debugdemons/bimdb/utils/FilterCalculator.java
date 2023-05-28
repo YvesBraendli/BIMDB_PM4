@@ -1,65 +1,66 @@
 package com.debugdemons.bimdb.utils;
 
 import com.debugdemons.bimdb.domain.Genre;
-import com.debugdemons.bimdb.domain.MovieDetails;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-public class FilterCalculator {
+public class FilterCalculator<T extends Filterable> {
 
-    public Filter getFilter(Set<MovieDetails> favorites, Set<Long> favoriteActors) {
+    public Filter getFilter(Set<T> favorites) {
+        return getFilter(favorites, Collections.emptySet());
+    }
+
+    public Filter getFilter(Set<T> favorites, Set<Long> favoriteActors) {
         Filter filter = new Filter();
-        Map<Integer, Integer> genreOccurrence = new HashMap<>();
-        Integer releaseYearFrom = null;
-        Integer releaseYearTo = null;
-        Double ratingThreshold = null;
+        Map<Integer, Integer> genreOccurrence = calculateGenreOccurrences(favorites);
+        Integer releaseYearFrom = calculateReleaseYear(favorites,
+                filterableObject -> getYearFromDate(filterableObject.getReleaseDate()),
+                Integer::min);
+        Integer releaseYearTo = calculateReleaseYear(favorites,
+                filterableObject -> getYearFromDate(filterableObject.getReleaseDate()),
+                Integer::max);
 
-        for (MovieDetails movieDetails : favorites) {
-            // Genres
-            List<Genre> genres = movieDetails.getGenres();
-            if (genres != null && !genres.isEmpty()) {
-                for (Genre genre : genres) {
-                    Integer count = genreOccurrence.getOrDefault(genre.getId(), 0);
-                    genreOccurrence.put(genre.getId(), count + 1);
-                }
-            }
-
-            // Release Year
-            Date movieReleaseDate = movieDetails.getReleaseDate();
-            if (movieReleaseDate != null) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(movieReleaseDate);
-                int movieReleaseYear = calendar.get(Calendar.YEAR);
-                if (releaseYearFrom == null || movieReleaseYear < releaseYearFrom) {
-                    releaseYearFrom = movieReleaseYear;
-                }
-                if (releaseYearTo == null || movieReleaseYear > releaseYearTo) {
-                    releaseYearTo = movieReleaseYear;
-                }
-            }
-
-            // Rating Threshold
-            Float movieRating = movieDetails.getVoteAverage();
-            if (movieRating != null) {
-                if (ratingThreshold == null || movieRating < ratingThreshold) {
-                    ratingThreshold = movieRating.doubleValue();
-                }
-            }
+        List<Integer> topGenres = getTopGenres(genreOccurrence);
+        if (!CollectionUtils.isEmpty(topGenres)) {
+            filter.setGenresToInclude(topGenres.stream().limit(3).toList());
         }
-
-        List<Integer> topGenres = new ArrayList<>(genreOccurrence.keySet());
-        topGenres.sort((g1, g2) -> genreOccurrence.get(g2) - genreOccurrence.get(g1));
-
-
-        filter.setGenresToInclude(topGenres.subList(0, Math.min(topGenres.size(), 3)));
         if (!CollectionUtils.isEmpty(favoriteActors)) {
-            filter.setActors(favoriteActors.stream().toList().subList(0, Math.min(topGenres.size(), 3)));
+            filter.setActors(favoriteActors.stream().limit(5).toList());
         }
         filter.setReleaseYearFrom(releaseYearFrom);
         filter.setReleaseYearTo(releaseYearTo);
-        filter.setRatingThreshold(ratingThreshold);
 
         return filter;
+    }
+
+    private Map<Integer, Integer> calculateGenreOccurrences(Set<T> favorites) {
+        return favorites.stream()
+                .flatMap(movieDetails -> movieDetails.getGenres().stream())
+                .collect(Collectors.toMap(Genre::getId, genre -> 1, Integer::sum));
+    }
+
+    private Integer calculateReleaseYear(Set<T> favorites, Function<T, Integer> yearExtractor, BinaryOperator<Integer> yearReducer) {
+        return favorites.stream()
+                .map(yearExtractor)
+                .filter(Objects::nonNull)
+                .reduce(yearReducer)
+                .orElse(null);
+    }
+
+    private List<Integer> getTopGenres(Map<Integer, Integer> genreOccurrence) {
+        return genreOccurrence.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .toList();
+    }
+
+    private Integer getYearFromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.YEAR);
     }
 }

@@ -6,8 +6,6 @@ public class Filter {
 
     private List<Integer> genresToInclude;
 
-    private List<Integer> genresToExclude;
-
     private Integer releaseYearFrom;
 
     private Integer releaseYearTo;
@@ -22,14 +20,6 @@ public class Filter {
 
     public void setGenresToInclude(List<Integer> genresToInclude) {
         this.genresToInclude = genresToInclude;
-    }
-
-    public List<Integer> getGenresToExclude() {
-        return genresToExclude;
-    }
-
-    public void setGenresToExclude(List<Integer> genresToExclude) {
-        this.genresToExclude = genresToExclude;
     }
 
     public Integer getReleaseYearFrom() {

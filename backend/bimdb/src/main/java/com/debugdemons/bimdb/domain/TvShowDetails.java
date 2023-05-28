@@ -1,11 +1,12 @@
 package com.debugdemons.bimdb.domain;
 
+import com.debugdemons.bimdb.utils.Filterable;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class TvShowDetails extends TvShow {
+public class TvShowDetails extends TvShow implements Filterable {
 	@JsonProperty("episodeRunTime")
 	@JsonAlias("episode_run_time")
 	private List<Integer> episodeRunTime;

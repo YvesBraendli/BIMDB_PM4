@@ -1,17 +1,32 @@
 package com.debugdemons.bimdb.service;
 
 import com.debugdemons.bimdb.domain.*;
+import com.debugdemons.bimdb.model.User;
+import com.debugdemons.bimdb.repository.FavoritesRepository;
+import com.debugdemons.bimdb.repository.UsersRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 class TvServiceTest extends BaseServiceTest {
 
+	@MockBean
+	private UsersRepository usersRepository;
+
+	@MockBean
+	private FavoritesRepository favoritesRepository;
+
 	@Autowired
 	private TvService tvService;
+
+	private static final String USERNAME = "testUser";
 
 	@Test
 	void discoverTv() throws JsonProcessingException {
@@ -19,6 +34,22 @@ class TvServiceTest extends BaseServiceTest {
 		discoverTv.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/tv?language=en", discoverTv);
 		assertJsonEquals(discoverTv, tvService.getTv(null, null));
+	}
+
+	@Test
+	void discoverTvWithUser() throws JsonProcessingException {
+		User user = new User();
+		user.setUsername(USERNAME);
+		user.setPreferredOriginalLanguage("en");
+		user.setAdult(Boolean.FALSE);
+		when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
+
+		when(favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.TV_SHOW.getType())).thenReturn(Collections.emptySet());
+
+		DiscoverTv discoverTv = new DiscoverTv();
+		discoverTv.setTotalPages(20);
+		mockServerExpectGet("https://api.themoviedb.org/3/discover/tv?include_adult=false&with_original_language=en&language=en", discoverTv);
+		assertJsonEquals(discoverTv, tvService.getTv(null, USERNAME));
 	}
 
 	@Test

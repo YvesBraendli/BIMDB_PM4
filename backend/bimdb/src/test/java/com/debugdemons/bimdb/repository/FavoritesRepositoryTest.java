@@ -1,5 +1,6 @@
 package com.debugdemons.bimdb.repository;
 
+import com.debugdemons.bimdb.domain.MediaType;
 import com.debugdemons.bimdb.model.FavoriteMedia;
 import com.debugdemons.bimdb.model.User;
 import org.junit.jupiter.api.Assertions;
@@ -23,20 +24,21 @@ class FavoritesRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    private static final String USERNAME = "username";
+
     @Test
     void testExistsByUserAndTypeAndApiId() {
         // Create test data
-        User user = new User(); // Create a User object
-        user.setUsername("username");
+        User user = getUser();
 
-        FavoriteMedia favorite = new FavoriteMedia(user, "movie", 100L);
+        FavoriteMedia favorite = new FavoriteMedia(user, MediaType.MOVIE.getType(), 100L);
 
         entityManager.persist(user);
         entityManager.persist(favorite);
         entityManager.flush();
 
         // Call the method to be tested
-        boolean exists = favoritesRepository.existsByUserAndTypeAndApiId(user, "movie", 100L);
+        boolean exists = favoritesRepository.existsByUserAndTypeAndApiId(user, MediaType.MOVIE.getType(), 100L);
 
         // Assert the result
         Assertions.assertTrue(exists);
@@ -45,17 +47,16 @@ class FavoritesRepositoryTest {
     @Test
     void testDeleteByUserAndTypeAndApiId() {
         // Create test data
-        User user = new User(); // Create a User object
-        user.setUsername("username");
+        User user = getUser();
 
-        FavoriteMedia favorite = new FavoriteMedia(user, "movie", 100L);
+        FavoriteMedia favorite = new FavoriteMedia(user, MediaType.MOVIE.getType(), 100L);
 
         entityManager.persist(user);
         entityManager.persist(favorite);
         entityManager.flush();
 
         // Call the method to be tested
-        Integer deleteCount = favoritesRepository.deleteByUserAndTypeAndApiId(user, "movie", 100L);
+        Integer deleteCount = favoritesRepository.deleteByUserAndTypeAndApiId(user, MediaType.MOVIE.getType(), 100L);
 
         // Assert the result
         Assertions.assertEquals(1, deleteCount);
@@ -64,10 +65,9 @@ class FavoritesRepositoryTest {
     @Test
     void testFindAllApiIdsByUserAndType() {
         // Create test data
-        User user = new User(); // Create a User object
-        user.setUsername("username");
+        User user = getUser();
 
-        FavoriteMedia favorite1 = new FavoriteMedia(user, "movie", 100L);
+        FavoriteMedia favorite1 = new FavoriteMedia(user, MediaType.MOVIE.getType(), 100L);
 
         FavoriteMedia favorite2 = new FavoriteMedia(user, "tv", 200L);
 
@@ -77,7 +77,7 @@ class FavoritesRepositoryTest {
         entityManager.flush();
 
         // Call the method to be tested
-        Set<Long> apiIds = favoritesRepository.findAllApiIdsByUserAndType(user, "movie");
+        Set<Long> apiIds = favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.MOVIE.getType());
 
         // Assert the result
         Set<Long> expectedApiIds = new HashSet<>();
@@ -89,10 +89,9 @@ class FavoritesRepositoryTest {
     @Test
     void testFindAllByUserAndType() {
         // Create test data
-        User user = new User(); // Create a User object
-        user.setUsername("username");
+        User user = getUser();
 
-        FavoriteMedia favorite1 = new FavoriteMedia(user, "movie", 100L);
+        FavoriteMedia favorite1 = new FavoriteMedia(user, MediaType.MOVIE.getType(), 100L);
 
         FavoriteMedia favorite2 = new FavoriteMedia(user, "tv", 200L);
 
@@ -102,7 +101,7 @@ class FavoritesRepositoryTest {
         entityManager.flush();
 
         // Call the method to be tested
-        List<FavoriteMedia> favoriteMediaList = favoritesRepository.findAllByUserAndType(user, "movie");
+        List<FavoriteMedia> favoriteMediaList = favoritesRepository.findAllByUserAndType(user, MediaType.MOVIE.getType());
 
         // Assert the result
         FavoriteMedia actualFavoriteMedia = favoriteMediaList.get(0);
@@ -110,5 +109,11 @@ class FavoritesRepositoryTest {
         Assertions.assertEquals(favorite1.getType(), actualFavoriteMedia.getType());
         Assertions.assertEquals(favorite1.getApiId(), actualFavoriteMedia.getApiId());
 
+    }
+
+    private User getUser() {
+        User user = new User();
+        user.setUsername(USERNAME);
+        return user;
     }
 }

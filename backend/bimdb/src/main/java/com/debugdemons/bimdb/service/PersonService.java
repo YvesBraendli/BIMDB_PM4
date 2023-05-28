@@ -5,6 +5,8 @@ import com.debugdemons.bimdb.domain.Person;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class PersonService extends BaseService {
 
@@ -13,7 +15,9 @@ public class PersonService extends BaseService {
     }
 
     public Person getPerson(Long id) {
-        String url = movieDBApiConfig.getBaseUrl() + "person/" + id + "?append_to_response=combined_credits";
-        return restTemplate.getForObject(url, Person.class);
+        TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl())
+                .withEndpoint("person/" + id)
+                .withAppendToResponse(List.of("combined_credits"));
+        return restTemplate.getForObject(tmdbUrlBuilder.build(), Person.class);
     }
 }
