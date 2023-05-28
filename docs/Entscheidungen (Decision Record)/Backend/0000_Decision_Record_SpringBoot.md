@@ -4,7 +4,7 @@
 |           |          |
 |-----------|----------|
 | status    | accepted |
-| date      | 13.3.2023 |
+| date      | 13.03.2023 |
 | deciders  | Cristina Dias Pinto, Yves Brändli |
 | consulted | Cristina Dias Pinto, Gabriel Ben Abou |
 | informed  | Gabriel Ben Abou, Nils Oriet |

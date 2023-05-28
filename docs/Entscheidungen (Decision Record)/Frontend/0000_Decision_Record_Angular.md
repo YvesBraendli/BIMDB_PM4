@@ -4,7 +4,7 @@
 |           |          |
 |-----------|----------|
 | status    | accepted |
-| date      | 13.3.2023 |
+| date      | 13.03.2023 |
 | deciders  | Pascal Diethelm, Nils Oriet |
 | consulted | - |
 | informed  | Yves Brändli, Dominik Aschmann, Cristina Dias Pinto,  Gabriel Ben Abou, Tristan Kindle, David Schaefle |
