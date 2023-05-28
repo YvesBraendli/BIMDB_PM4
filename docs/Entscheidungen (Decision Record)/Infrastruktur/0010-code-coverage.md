@@ -3,7 +3,7 @@
 |           |          |
 |-----------|----------|
 | status    | accepted |
-| date      | 24.04.2023 |
+| date      | 24.05.2023 |
 | deciders  | Gabriel Ben Abou |
 | consulted | - |
 | informed  | Yves Brändli, Dominik Aschmann, Cristina Dias Pinto, Pascal Diethelm, Nils Oriet |
