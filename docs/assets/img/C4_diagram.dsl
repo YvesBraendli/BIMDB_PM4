@@ -2,8 +2,8 @@ workspace {
 
     model {
         user = person "User"
-        bimdb = softwareSystem "BIMDb" "Allows Users to view detailed informations about movies, tv shows and actors and get personalized recommendations based on the user's favorite media" "BIMDb" {
-            webApp = container "Web Application" "Provides the functionality and the frontend for the user to view the required movie informations." "Angular" {
+        bimdb = softwareSystem "BIMDB" "Allows Users to view detailed informations about movies, tv shows and actors and get personalized recommendations based on the user's favorite media" "BIMDB" {
+            webApp = container "Web Application" "Provides the functionality and the frontend for the user to view the required objects informations." "Angular" {
                 discoverComponent = component "Discover" "Movie/TV Shows overview" "Angular Component"
                 movieListComponent = component "Movie List" "List of movies with filter options" "Angular Component"
                 detailsComponent = component "Details" "Displaying detailed information about a movie / tv show" "Angular Component"
@@ -25,12 +25,14 @@ workspace {
                 searchController = component "Search Controller" "Responsible for controlling all searches performed on the website, including movie, tv shows and user searches." "Spring MVC Rest Controller"
                 searchService = component "Search Service" "" "Spring Service"
             }
-            db = container "Database" "Stores user's information and favorites" "PostgreSQL" {
+            bimdb_db = container "Application Database" "Stores user's information and favorites" "PostgreSQL" {
                 tags = "Database"
             }
-        }
-
-        keycloak = softwareSystem "KeyCloak" "Identity Access Management System" "KeyCloak" {
+            Keycloak_db = container "Keycloak Database" "Data Volume for Keycloak" "PostgreSQL" {
+                tags = "Database"
+            }
+            Keycloak = container "Authorization Service" "Identity Access Management System" "Keycloak" {
+            }
         }
 
         tmdb = softwareSystem "TMDB" "API application that provides information on movies, tv shows and cast/crew members" "TMDB" {
@@ -49,23 +51,22 @@ workspace {
         searchController -> searchService "Uses"
         movieService -> favoritesRepository "Uses"
         tvService -> favoritesRepository "Uses"
-        favoritesRepository -> db "Reads from and writes to"
-
+        favoritesRepository -> bimdb_db "Stores and retrieves favorite and user information"
+        
 
         // relationships
-        user -> webApp "Views movie informations using"
-
-        webApp -> backendApp "Makes API calls to" "JSON/HTTPS""
-
+        user -> webApp "Accesses the frontend" "HTTPS"
+        webApp -> backendApp "Makes API calls to" "JSON/HTTPS"
         backendApp -> tmdb "Makes API calls to" "JSON/HTTPS"
 
-        webApp -> keycloak "Requests Access Token"
-
-        keycloak -> webApp "Returns Access Token"
-
-        backendApp -> keycloak "Validate Token"
-
-        keycloak -> backendApp "Validate Token"
+        // Open-ID Connnect OAuth 2.0 (Keycloak)
+        
+        webApp -> user "Redirects to BIMDB-Authorization Service" "HTTPS" "Redirects" 
+        user -> Keycloak "Performs login, registration and logout" "HTTPS"
+        Keycloak -> keycloak_db "Uses"
+        webApp -> Keycloak "Refreshes Token for User" "JSON/HTTPS"
+        backendApp -> Keycloak "Validates Token" "JSON/HTTPS"
+        
 
         // frontend to backend (component BackendApp)
         webApp -> discoverController "makes API calls to"
@@ -121,7 +122,7 @@ workspace {
                 shape Person
             }
 
-            element "BIMDb" {
+            element "BIMDB" {
                 background #1168bd
                 color #ffffff
             }
@@ -141,7 +142,7 @@ workspace {
                 color #ffffff
             }
 
-            element "KeyCloak" {
+            element "Keycloak" {
                 background #999999
                 color #ffffff
             }
