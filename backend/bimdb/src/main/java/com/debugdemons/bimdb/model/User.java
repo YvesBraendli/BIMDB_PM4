@@ -17,6 +17,13 @@ public class User {
 
     @Column(name = "preferred_original_language")
     private String preferredOriginalLanguage;
+
+    @Column(name = "use_date_filters")
+    private Boolean useDateFilter;
+
+    @Column(name = "use_rating_filter")
+    private Boolean useRatingFilter;
+
     public String getUsername() {
         return username;
     }
@@ -39,5 +46,21 @@ public class User {
 
     public void setPreferredOriginalLanguage(String preferredOriginalLanguage) {
         this.preferredOriginalLanguage = preferredOriginalLanguage;
+    }
+
+    public Boolean getUseDateFilter() {
+        return useDateFilter;
+    }
+
+    public void setUseDateFilter(Boolean useDateFilters) {
+        this.useDateFilter = useDateFilters;
+    }
+
+    public Boolean getUseRatingFilter() {
+        return useRatingFilter;
+    }
+
+    public void setUseRatingFilter(Boolean useRatingfilter) {
+        this.useRatingFilter = useRatingfilter;
     }
 }

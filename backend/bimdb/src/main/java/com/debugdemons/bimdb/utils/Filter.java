@@ -6,11 +6,9 @@ public class Filter {
 
     private List<Integer> genresToInclude;
 
-    private Integer releaseYearFrom;
+    private String latestReleaseDate;
 
-    private Integer releaseYearTo;
-
-    private Double ratingThreshold;
+    private Float minVoteAverage;
 
     private List<Long> actors;
 
@@ -22,28 +20,20 @@ public class Filter {
         this.genresToInclude = genresToInclude;
     }
 
-    public Integer getReleaseYearFrom() {
-        return releaseYearFrom;
+    public String getLatestReleaseDate() {
+        return latestReleaseDate;
     }
 
-    public void setReleaseYearFrom(Integer releaseYearFrom) {
-        this.releaseYearFrom = releaseYearFrom;
+    public void setLatestReleaseDate(String latestReleaseDate) {
+        this.latestReleaseDate = latestReleaseDate;
     }
 
-    public Integer getReleaseYearTo() {
-        return releaseYearTo;
+    public Float getMinVoteAverage() {
+        return minVoteAverage;
     }
 
-    public void setReleaseYearTo(Integer releaseYearTo) {
-        this.releaseYearTo = releaseYearTo;
-    }
-
-    public Double getRatingThreshold() {
-        return ratingThreshold;
-    }
-
-    public void setRatingThreshold(Double ratingThreshold) {
-        this.ratingThreshold = ratingThreshold;
+    public void setMinVoteAverage(Float minVoteAverage) {
+        this.minVoteAverage = minVoteAverage;
     }
 
     public List<Long> getActors() {

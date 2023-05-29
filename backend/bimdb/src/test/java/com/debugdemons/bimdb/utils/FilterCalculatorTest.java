@@ -16,7 +16,26 @@ class FilterCalculatorTest {
 
     @Test
     void testGetMovieFilter() {
-        // Create some sample MovieDetails objects
+
+        Set<MovieDetails> favorites = createMovieDetailsSet();
+        Set<Long> favoriteActors = new HashSet<>(Arrays.asList(1001L, 1002L, 1003L, 1004L));
+
+        FilterCalculator<MovieDetails> filterCalculator = new FilterCalculator<MovieDetails>();
+        Filter filter = filterCalculator.getFilter(favorites, favoriteActors);
+
+        // Verify the expected filter attributes based on the provided sample movies and actors
+        List<Integer> expectedGenres = Arrays.asList(2, 1, 4); // Drama, Action, Thriller
+        List<Long> expectedActors = Arrays.asList(1001L, 1002L, 1003L, 1004L); // No actors with occurrence count >= 2
+        String expectedLatestReleaseDate = "2015-02-08";
+        Float expectedMinVoteAverage = 6.8f;
+
+        Assertions.assertEquals(expectedGenres, filter.getGenresToInclude());
+        Assertions.assertEquals(expectedActors, filter.getActors());
+        Assertions.assertEquals(expectedLatestReleaseDate, filter.getLatestReleaseDate());
+        Assertions.assertEquals(expectedMinVoteAverage, filter.getMinVoteAverage());
+    }
+
+    private Set<MovieDetails> createMovieDetailsSet() {
         MovieDetails movie1 = createMovieDetailsWithGenres(Arrays.asList(new Genre(1, ACTION), new Genre(2, DRAMA)));
         movie1.setReleaseDate(getDate(2010, 5, 15));
         movie1.setVoteAverage(7.5f);
@@ -33,23 +52,7 @@ class FilterCalculatorTest {
         movie4.setReleaseDate(getDate(2012, 12, 1));
         movie4.setVoteAverage(7.9f);
 
-        Set<MovieDetails> favorites = new HashSet<>(Arrays.asList(movie1, movie2, movie3, movie4));
-
-        Set<Long> favoriteActors = new HashSet<>(Arrays.asList(1001L, 1002L, 1003L, 1004L));
-
-        FilterCalculator<MovieDetails> filterCalculator = new FilterCalculator<MovieDetails>();
-        Filter filter = filterCalculator.getFilter(favorites, favoriteActors);
-
-        // Verify the expected filter attributes based on the provided sample movies and actors
-        List<Integer> expectedGenres = Arrays.asList(2, 1, 4); // Drama, Action, Thriller
-        List<Long> expectedActors = Arrays.asList(1001L, 1002L, 1003L, 1004L); // No actors with occurrence count >= 2
-        Integer expectedReleaseYearFrom = 2005;
-        Integer expectedReleaseYearTo = 2015;
-
-        Assertions.assertEquals(expectedGenres, filter.getGenresToInclude());
-        Assertions.assertEquals(expectedActors, filter.getActors());
-        Assertions.assertEquals(expectedReleaseYearFrom, filter.getReleaseYearFrom());
-        Assertions.assertEquals(expectedReleaseYearTo, filter.getReleaseYearTo());
+        return new HashSet<>(Arrays.asList(movie1, movie2, movie3, movie4));
     }
 
     @Test
@@ -66,8 +69,6 @@ class FilterCalculatorTest {
         // Assertions
         Assertions.assertEquals(Arrays.asList(2, 1, 3), filter.getGenresToInclude());
         Assertions.assertNull(filter.getActors());
-        Assertions.assertEquals(2005, filter.getReleaseYearFrom());
-        Assertions.assertEquals(2022, filter.getReleaseYearTo());
     }
 
     private Set<TvShowDetails> createTvShowDetailsSet() {

@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService extends BaseService {
@@ -24,11 +25,14 @@ public class MovieService extends BaseService {
 
 	private final FavoritesRepository favoritesRepository;
 
+	private final FilterCalculator<MovieDetails> filterCalculator;
+
 	@Autowired
-	public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate, UsersRepository usersRepository, FavoritesRepository favoritesRepository) {
+	public MovieService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate, UsersRepository usersRepository, FavoritesRepository favoritesRepository, FilterCalculator<MovieDetails> filterCalculator) {
 		super(movieDBApiConfig, restTemplate);
 		this.usersRepository = usersRepository;
 		this.favoritesRepository = favoritesRepository;
+		this.filterCalculator = filterCalculator;
 	}
 
 	public DiscoverMovie getMovies(Integer page, String username) {
@@ -36,7 +40,6 @@ public class MovieService extends BaseService {
 		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl())
 				.withEndpoint("discover/movie")
 				.withPage(page);
-		Filter filter = null;
 		if (user != null) {
 			if (user.getAdult() != null) {
 				tmdbUrlBuilder.withIncludeAdult(user.getAdult());
@@ -45,12 +48,10 @@ public class MovieService extends BaseService {
 				tmdbUrlBuilder.withOriginalLanguage(user.getPreferredOriginalLanguage());
 			}
 			Set<Long> favoriteMovieIds = favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.MOVIE.getType());
-			filter = new FilterCalculator<MovieDetails>().getFilter(getMovieDetails(favoriteMovieIds), favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.PERSON.getType()));
-		}
-
-		if (filter != null) {
-			tmdbUrlBuilder.withGenres(filter.getGenresToInclude())
-					.withCast(filter.getActors());
+			if (!CollectionUtils.isEmpty(favoriteMovieIds)) {
+				Filter filter = filterCalculator.getFilter(getMovieDetails(favoriteMovieIds), favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.PERSON.getType()));
+				applyFilter(user, tmdbUrlBuilder, filter);
+			}
 		}
 		return restTemplate.getForObject(tmdbUrlBuilder.build(), DiscoverMovie.class);
 	}
@@ -71,7 +72,10 @@ public class MovieService extends BaseService {
 	private Set<MovieDetails> getMovieDetails(Set<Long> favoriteMovieIds) {
 		Set<MovieDetails> movieDetails = new HashSet<>();
 		if (!CollectionUtils.isEmpty(favoriteMovieIds)) {
-			for (Long movieId : favoriteMovieIds) {
+			List<Long> sortedMovieIds = favoriteMovieIds.stream()
+					.sorted()
+					.collect(Collectors.toList());
+			for (Long movieId : sortedMovieIds) {
 				movieDetails.add(getMovieById(movieId));
 			}
 		}

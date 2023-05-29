@@ -46,7 +46,7 @@ class FavoritesServiceTest extends BaseServiceTest {
         Mockito.when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
         Mockito.when(favoritesRepository.existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong())).thenReturn(false);
 
-        favoritesService.addNewFavorite(USERNAME, favorite);
+        favoritesService.addFavorite(USERNAME, favorite);
 
         Mockito.verify(usersRepository).findByUsername(USERNAME);
         Mockito.verify(favoritesRepository).existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong());
@@ -64,7 +64,7 @@ class FavoritesServiceTest extends BaseServiceTest {
         Mockito.when(usersRepository.saveAndFlush(user)).thenReturn(user);
         Mockito.when(favoritesRepository.existsByUserAndTypeAndApiId(any(User.class), anyString(), anyLong())).thenReturn(false);
 
-        favoritesService.addNewFavorite(USERNAME, favorite);
+        favoritesService.addFavorite(USERNAME, favorite);
 
         Mockito.verify(usersRepository, Mockito.times(2)).findByUsername(USERNAME);
         Mockito.verify(usersRepository).saveAndFlush(any(User.class));

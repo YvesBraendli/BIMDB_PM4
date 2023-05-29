@@ -74,6 +74,20 @@ public class TmdbUrlBuilder {
         return this;
     }
 
+    public TmdbUrlBuilder withPrimaryReleaseDateLte(String primaryReleaseDateLte) {
+        if (StringUtils.hasText(primaryReleaseDateLte)) {
+            uriBuilder.queryParam("primary_release_date.lte", primaryReleaseDateLte);
+        }
+        return this;
+    }
+
+    public TmdbUrlBuilder withVoteAverageGte(Float minVoteAverage) {
+        if (minVoteAverage != null) {
+            uriBuilder.queryParam("vote_average.gte", minVoteAverage);
+        }
+        return this;
+    }
+
     public String build() {
         UriComponents uriComponents = uriBuilder.build();
         return uriComponents.toUriString();
