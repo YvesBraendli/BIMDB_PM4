@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TvService extends BaseService {
@@ -23,15 +24,17 @@ public class TvService extends BaseService {
 
 	private final FavoritesRepository favoritesRepository;
 
-	public TvService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate, UsersRepository usersRepository, FavoritesRepository favoritesRepository) {
+	private final FilterCalculator<TvShowDetails> filterCalculator;
+
+	public TvService(MovieDBApiConfig movieDBApiConfig, RestTemplate restTemplate, UsersRepository usersRepository, FavoritesRepository favoritesRepository, FilterCalculator<TvShowDetails> filterCalculator) {
 		super(movieDBApiConfig, restTemplate);
 		this.usersRepository = usersRepository;
 		this.favoritesRepository = favoritesRepository;
+		this.filterCalculator = filterCalculator;
 	}
 
 	public DiscoverTv getTv(Integer page, String username) {
 		User user = usersRepository.findByUsername(username);
-		Filter filter = null;
 		TmdbUrlBuilder tmdbUrlBuilder = new TmdbUrlBuilder(movieDBApiConfig.getBaseUrl())
 				.withEndpoint("discover/tv")
 				.withPage(page);
@@ -43,11 +46,10 @@ public class TvService extends BaseService {
 				tmdbUrlBuilder.withOriginalLanguage(user.getPreferredOriginalLanguage());
 			}
 			Set<Long> favoriteTvShowIds = favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.TV_SHOW.getType());
-			filter = new FilterCalculator<TvShowDetails>().getFilter(getTvShowDetails(favoriteTvShowIds));
-		}
-		if (filter != null) {
-			tmdbUrlBuilder.withGenres(filter.getGenresToInclude())
-					.withCast(filter.getActors());
+			if (!CollectionUtils.isEmpty(favoriteTvShowIds)) {
+				Filter filter = filterCalculator.getFilter(getTvShowDetails(favoriteTvShowIds));
+				applyFilter(user, tmdbUrlBuilder, filter);
+			}
 		}
 		return restTemplate.getForObject(tmdbUrlBuilder.build(), DiscoverTv.class);
 	}
@@ -70,7 +72,10 @@ public class TvService extends BaseService {
 	private Set<TvShowDetails> getTvShowDetails(Set<Long> favoriteTvShowIds) {
 		Set<TvShowDetails> tvShowDetails = new HashSet<>();
 		if (!CollectionUtils.isEmpty(favoriteTvShowIds)) {
-			for (Long tvShowId : favoriteTvShowIds) {
+			List<Long> sortedTvShowIds = favoriteTvShowIds.stream()
+					.sorted()
+					.collect(Collectors.toList());
+			for (Long tvShowId : sortedTvShowIds) {
 				tvShowDetails.add(getTvShowById(tvShowId));
 			}
 		}

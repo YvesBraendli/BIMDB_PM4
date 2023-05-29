@@ -10,4 +10,6 @@ public interface Filterable {
     List<Genre> getGenres();
 
     Date getReleaseDate();
+
+    float getVoteAverage();
 }

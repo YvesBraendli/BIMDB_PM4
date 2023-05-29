@@ -30,7 +30,7 @@ public class FavoritesService {
     }
 
     @Transactional
-    public void addNewFavorite(String username, Favorite favorite) {
+    public void addFavorite(String username, Favorite favorite) {
         User user = usersRepository.findByUsername(username);
         if (user == null) {
             user = new User();

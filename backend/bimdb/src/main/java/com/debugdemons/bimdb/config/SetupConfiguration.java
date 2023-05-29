@@ -18,13 +18,22 @@ public class SetupConfiguration {
 
     @PostConstruct
     void createTestUsers() {
-        User user = usersRepository.findByUsername("englishExcludeAdultContent");
+        createTestUser("englishExcludeAdultContentUser", Boolean.FALSE, "en", null, null);
+        createTestUser("allFilterUser", Boolean.FALSE, "en", Boolean.TRUE, Boolean.TRUE);
+        createTestUser("onlyBasicFilterUser", null, null, null, null);
+        createTestUser("ratingFilterUser", null, null, null, Boolean.TRUE);
+    }
+
+    void createTestUser(String username, Boolean adult, String preferredOriginalLanguage, Boolean useDateFilters, Boolean useRatingFilter) {
+        User user = usersRepository.findByUsername(username);
         if (user == null) {
             user = new User();
-            user.setUsername("englishExcludeAdultContent");
+            user.setUsername(username);
         }
-        user.setAdult(false);
-        user.setPreferredOriginalLanguage("en");
+        user.setAdult(adult);
+        user.setPreferredOriginalLanguage(preferredOriginalLanguage);
+        user.setUseDateFilter(useDateFilters);
+        user.setUseRatingFilter(useRatingFilter);
         usersRepository.saveAndFlush(user);
     }
 }

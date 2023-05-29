@@ -27,7 +27,7 @@ public class FavoritesController {
 
     @PostMapping
     public FavoriteResponse addFavorite(Principal principal, @RequestBody Favorite favorite) {
-        favoritesService.addNewFavorite(jwtUtil.getUsernameFromJWT(principal), favorite);
+        favoritesService.addFavorite(jwtUtil.getUsernameFromJWT(principal), favorite);
         return new FavoriteResponse(true);
     }
 

@@ -4,6 +4,8 @@ import com.debugdemons.bimdb.domain.*;
 import com.debugdemons.bimdb.model.User;
 import com.debugdemons.bimdb.repository.FavoritesRepository;
 import com.debugdemons.bimdb.repository.UsersRepository;
+import com.debugdemons.bimdb.utils.Filter;
+import com.debugdemons.bimdb.utils.FilterCalculator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class TvServiceTest extends BaseServiceTest {
@@ -22,6 +26,9 @@ class TvServiceTest extends BaseServiceTest {
 
 	@MockBean
 	private FavoritesRepository favoritesRepository;
+
+	@MockBean
+	private FilterCalculator<TvShowDetails> filterCalculator;
 
 	@Autowired
 	private TvService tvService;
@@ -49,6 +56,32 @@ class TvServiceTest extends BaseServiceTest {
 		DiscoverTv discoverTv = new DiscoverTv();
 		discoverTv.setTotalPages(20);
 		mockServerExpectGet("https://api.themoviedb.org/3/discover/tv?include_adult=false&with_original_language=en&language=en", discoverTv);
+		assertJsonEquals(discoverTv, tvService.getTv(null, USERNAME));
+	}
+
+	@Test
+	void discoverTvWithUserFavorites() throws JsonProcessingException {
+		User user = new User();
+		user.setUsername(USERNAME);
+		user.setPreferredOriginalLanguage("en");
+		user.setAdult(Boolean.FALSE);
+		when(usersRepository.findByUsername(USERNAME)).thenReturn(user);
+
+		when(favoritesRepository.findAllApiIdsByUserAndType(user, MediaType.TV_SHOW.getType())).thenReturn(Set.of(1L, 2L, 3L));
+		mockServerExpectGet("https://api.themoviedb.org/3/tv/1?append_to_response=credits,recommendations,similar&language=en", new TvShowDetails());
+		mockServerExpectGet("https://api.themoviedb.org/3/tv/2?append_to_response=credits,recommendations,similar&language=en", new TvShowDetails());
+		mockServerExpectGet("https://api.themoviedb.org/3/tv/3?append_to_response=credits,recommendations,similar&language=en", new TvShowDetails());
+
+		Filter filter = new Filter();
+		filter.setGenresToInclude(List.of(10, 20, 30));
+		filter.setMinVoteAverage(6.8f);
+		filter.setLatestReleaseDate("2022-11-20");
+		when(filterCalculator.getFilter(any())).thenReturn(filter);
+
+
+		DiscoverTv discoverTv = new DiscoverTv();
+		discoverTv.setTotalPages(20);
+		mockServerExpectGet("https://api.themoviedb.org/3/discover/tv?include_adult=false&with_original_language=en&with_genres=10%7C20%7C30&language=en", discoverTv);
 		assertJsonEquals(discoverTv, tvService.getTv(null, USERNAME));
 	}
 
