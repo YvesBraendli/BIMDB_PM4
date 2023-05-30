@@ -18,10 +18,11 @@ public class SetupConfiguration {
 
     @PostConstruct
     void createTestUsers() {
-        createTestUser("englishExcludeAdultContentUser", Boolean.FALSE, "en", null, null);
-        createTestUser("allFilterUser", Boolean.FALSE, "en", Boolean.TRUE, Boolean.TRUE);
-        createTestUser("onlyBasicFilterUser", null, null, null, null);
-        createTestUser("ratingFilterUser", null, null, null, Boolean.TRUE);
+        createTestUser("englishexcludeadultcontentuser", Boolean.FALSE, "en", null, null);
+        createTestUser("allfilteruser", Boolean.FALSE, "en", Boolean.TRUE, Boolean.TRUE);
+        createTestUser("onlybasicfilteruser", null, null, null, null);
+        createTestUser("ratingfilteruser", null, null, null, Boolean.TRUE);
+        createTestUser("dateandratingfilteruser", null, null, Boolean.TRUE, Boolean.TRUE);
     }
 
     void createTestUser(String username, Boolean adult, String preferredOriginalLanguage, Boolean useDateFilters, Boolean useRatingFilter) {
@@ -35,5 +36,6 @@ public class SetupConfiguration {
         user.setUseDateFilter(useDateFilters);
         user.setUseRatingFilter(useRatingFilter);
         usersRepository.saveAndFlush(user);
+        usersRepository.findByUsername(username);
     }
 }
