@@ -1,10 +1,10 @@
 # Wirtschaftlichkeit
 
-Die BIMDb Applikation wird als Open-Source-Soft­ware entwickelt. Entsprechend liegt der Fokus nicht auf Gewinnmaximierung. Vielmehr wird ein kostendeckendes Geschäftsmodell angestrebt, das einer aktiven Community-Pflege und der Erschliessung von Spendengeldern basiert. 
+Die BIMDB Applikation wird als Open-Source-Soft­ware entwickelt. Entsprechend liegt der Fokus nicht auf Gewinnmaximierung. Vielmehr wird ein kostendeckendes Geschäftsmodell angestrebt, das einer aktiven Community-Pflege und der Erschliessung von Spendengeldern basiert. 
 
 **Community-Engagement**
 
-Als Open-Source-Soft­ware legt BIMDb grossen Wert auf die Pflege der Community. Durch die Organisation von Veranstaltungen (z.B. Hackathons, Filmeabende, exklusive Filmpremieren, etc.) wird die Beteiligung der Benutzer und Entwickler gefördert und gleichzeitig ein positives Klima für neue Ideen geschaffen.
+Als Open-Source-Soft­ware legt BIMDB grossen Wert auf die Pflege der Community. Durch die Organisation von Veranstaltungen (z.B. Hackathons, Filmeabende, exklusive Filmpremieren, etc.) wird die Beteiligung der Benutzer und Entwickler gefördert und gleichzeitig ein positives Klima für neue Ideen geschaffen.
 
 **Freiwillige Beiträge und Spenden**
 
@@ -12,7 +12,7 @@ Die Applikation soll von der Community und den Anwendern unterstützt werden, d.
 
 **Transparenz bei Hardware-Anforderungen**
 
-Das BIMDb soll den Hardwarebedarf transparent kommunizieren. Dadurch soll Vertrauen geschaffen und die Benutzer motiviert werden, das Projekt finanziell zu unterstützen.
+Das BIMDB soll den Hardwarebedarf transparent kommunizieren. Dadurch soll Vertrauen geschaffen und die Benutzer motiviert werden, das Projekt finanziell zu unterstützen.
 
 **In-App-Werbung**
 

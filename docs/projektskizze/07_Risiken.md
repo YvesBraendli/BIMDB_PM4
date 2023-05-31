@@ -1,6 +1,6 @@
 # Risikomanagement
 
-Bei jedem Projekt gibt es verschiedene Risikoquellen, welche so weit wie möglich einkalkuliert werden sollten. Insbesondere ist es entscheidend, dass man auf eine mögliche Realisierung eines Risikos vorbereitet reagieren kann [^1]. Entsprechend ist ein solides Risikomanagement für den Erfolg eines Projektes unabdingbar. Nachfolgend wird auf verschiedene Risiken im Zusammenhang mit BIMDb eingegangen und erläutert, wie man diese vorbeugen will.
+Bei jedem Projekt gibt es verschiedene Risikoquellen, welche so weit wie möglich einkalkuliert werden sollten. Insbesondere ist es entscheidend, dass man auf eine mögliche Realisierung eines Risikos vorbereitet reagieren kann [^1]. Entsprechend ist ein solides Risikomanagement für den Erfolg eines Projektes unabdingbar. Nachfolgend wird auf verschiedene Risiken im Zusammenhang mit BIMDB eingegangen und erläutert, wie man diese vorbeugen will.
 
 **Krankheit oder Ausfall von Teammitgliedern**
 
