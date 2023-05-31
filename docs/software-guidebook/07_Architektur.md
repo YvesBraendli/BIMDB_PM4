@@ -1,8 +1,8 @@
 # Architektur
 
-Die Softwarearchitektur von BIMDB kann den nachfolgenden Diagrammen entnommen werden:
+Die Softwarearchitektur von BIMDB kann den nachfolgenden Diagrammen entnommen werden.
 
-## BIMDB - System Kontext
+## System Kontext
 
 ![System Context Diagram](https://gabrielbenabou.gitlab.io/bimdb/assets/img/structurizr-SystemContext.png)
 
@@ -18,7 +18,7 @@ Die Hauptkomponenten des BIMDB Systemkontextdiagramms sind:
 
 Das Systemkontextdiagramm ist nützlich, um die externe Perspektive eines Systems zu visualisieren und bietet eine hohe Abstraktionsebene. Es ist oft der erste Schritt bei der Systemmodellierung und hilft, das Verständnis über das System und seine Umgebung zu erhöhen.
 
-## BIMDB - Container-Diagramm
+## Container-Diagramm
 
 ![Container Diagram](https://gabrielbenabou.gitlab.io/bimdb/assets/img/structurizr-Container.png)
 
@@ -47,7 +47,7 @@ Die TMDB API (The Movie Database API) ist eine Programmierschnittstelle, die von
 
 Mit der TMDB API kann BIMDB Film- und Serien-Daten programmgesteuert abrufen und in ihre eigenen Anwendungen oder Websites integrieren [^4]. 
 
-## BIMDB - Komponenten-Diagramm
+## Komponenten-Diagramm
 
 Das Komponenten-Diagram ist in das Komponenten-Diagram für Frontend und Backend unterteilt. Es zeigt die Organisation und Abhängigkeiten zwischen verschiedenen Komponenten in einem System [^2]. Das BIMDB Komponenten-Diagram für das Frontend beinhaltet folgende Komponenten:
 Web Applikation Komponente mit Dashboard (Discover), Movie und Serien Listen sowie Detailinformationen zu Filmen und Serien.

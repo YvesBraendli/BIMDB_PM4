@@ -1,4 +1,8 @@
-# Filter Calculation Logik
+# Code
+
+Das Kapitel Code beschreibt wichtige oder komplexe Implementationsdetails.
+
+## Filter Calculation Logik
 
 ![Filter Calculation classes](../assets/img/FilterCalculationClasses.png)
 

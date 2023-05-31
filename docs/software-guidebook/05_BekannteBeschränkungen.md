@@ -1,6 +1,6 @@
 # Bekannte Beschränkungen
 
-Dieses Kapitel enthält Informationen über die Beschränkungen mit welche BIMDB konfrontiert wird:
+Dieses Kapitel enthält Informationen über die Beschränkungen mit welche BIMDB konfrontiert wird.
 
 ## Anbindung einer Online Film Datenbank
 
@@ -12,7 +12,7 @@ Dadurch konnten einige Funktionen des Hauptablaufes, insbesondere die Nutzenopti
 
 ## Ressourcen
 
-Da es sich bei der BIMDB Plattform um eine Open-Source-Software handelt, sind die finanziellen Möglichkeiten limitiert. Bei der Wahl der Filmdatenbank sowie der Nutzung von Technologien werden ausschliesslich kostenlose Open-Source-Technologien verwendet <!-- @Benabgab, korrekt? -->
+Da es sich bei der BIMDB Plattform um eine Open-Source-Software handelt, sind die finanziellen Möglichkeiten limitiert. Bei der Wahl der Filmdatenbank sowie der Nutzung von Technologien werden ausschliesslich kostenlose Open-Source-Technologien verwendet. 
 
 Die zeitliche Beschränkung zur Entwicklung der Applikation im Rahmen von PM4 ermöglichen den Alpha Release mit den darin enthaltenen Merkmalen der Web-Applikation.
 

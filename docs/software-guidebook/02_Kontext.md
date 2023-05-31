@@ -1,5 +1,7 @@
 # Kontext
 
+Das Kapitel Kontext beschreibt um was es bei BIMDB geht.
+
 ## Um was geht es bei der Software, dem Produkt, dem System?
 Die Better Internet Movie Database (BIMDB) ist eine webbasierte Filmdatenbank, die auf den Daten der bekannten The Movie Database (TMDB) basiert [^1]. BIMDB ermöglicht es den Benutzern, Filme via benutzerfreundliche Such- und Filterfunktionen schnell und einfach zu entdecken. Zusätzlich werden personalisierte Empfehlungen, eine Watchlist, Bewertungsfunktionen und Social-Media-Anbindung angeboten, um das Filmvergnügen zu heben.
 

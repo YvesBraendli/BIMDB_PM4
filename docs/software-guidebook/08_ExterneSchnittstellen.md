@@ -1,5 +1,7 @@
 # Externe Schnittstellen
 
+Im Kapitel Externe Schnittstellen werden die verwendeten externe Schnittstellen beschrieben sowie deren technische Implikation.
+
 ## The Movie Database API (TMDB API)
 Sämtliche Daten werden über die von TMDB zur Verfügung gestellten Schnittstellen bezogen. [^1] In diesem Kapitel werden die technischen Details dieser Schnittstellen erläutert sowie ausgewählte Beispiele präsentiert.
 
@@ -37,7 +39,6 @@ Bei der Implementierung der API Logik wurde auf die klare Trennung der Verantwor
 - **MovieService**: Verantwortlich für das Abrufen von Filmdaten.
 - **TvService**: Verantwortlich für das Abrufen Informationen über Serien.
 
----
 
 [^1]: TMDB, Documentation [Online]. URL: https://developer.themoviedb.org/docs/getting-started (Stand 07.02.2023)
 
